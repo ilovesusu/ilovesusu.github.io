@@ -4,7 +4,14 @@
   <url>
     <loc>http://sumi.ml/2019/01/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8/</loc>
     
-    <lastmod>2019-01-31T09:51:08.780Z</lastmod>
+    <lastmod>2019-01-31T09:52:38.752Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://sumi.ml/2016/06/30/%E6%96%B0%E7%89%88apt%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    
+    <lastmod>2019-01-31T09:52:22.996Z</lastmod>
     
   </url>
   
@@ -93,14 +100,7 @@
   </url>
   
   <url>
-    <loc>http://sumi.ml/2016/05/24/Debian-8-%E5%AE%89%E8%A3%85-SunJdk/</loc>
-    
-    <lastmod>2018-12-15T07:09:23.885Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sumi.ml/2016/06/01/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BService%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>http://sumi.ml/2016/05/25/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BContentProvider-1/</loc>
     
     <lastmod>2018-12-15T07:09:23.885Z</lastmod>
     
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://sumi.ml/2016/05/25/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BContentProvider-1/</loc>
+    <loc>http://sumi.ml/2016/06/01/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BBroadcastReceiver/</loc>
     
     <lastmod>2018-12-15T07:09:23.885Z</lastmod>
     
@@ -163,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://sumi.ml/2016/06/30/%E6%96%B0%E7%89%88apt%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <loc>http://sumi.ml/2016/05/24/Debian-8-%E5%AE%89%E8%A3%85-SunJdk/</loc>
     
     <lastmod>2018-12-15T07:09:23.885Z</lastmod>
     
@@ -177,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http://sumi.ml/2016/06/01/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BBroadcastReceiver/</loc>
+    <loc>http://sumi.ml/2016/06/01/Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BService%E6%9C%8D%E5%8A%A1/</loc>
     
     <lastmod>2018-12-15T07:09:23.885Z</lastmod>
     
