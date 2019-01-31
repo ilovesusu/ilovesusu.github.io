@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="jDVulPdWvWRlKXRfd_OFH_yzQr-iSzBD-mU1qBLE3JY">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。">
+<meta name="keywords" content="Debian,Testing&#x2F;Stable,Ubuntu,Linux,开发工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发者Debian里的十八般兵器">
+<meta property="og:url" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/index.html">
+<meta property="og:site_name" content="Susu的博客">
+<meta property="og:description" content="俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/IDEA.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Eclipse.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Androidstudio.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Zeal.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Atom.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/vscode.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/sublime.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/haroopad.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Wireshark.jpg">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/tcpdump.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Charles.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/GIMP.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Git.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/FileZilla.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/VirtualBox.jpg">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Genymotion.jpg">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/kvm.jpg">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Dia.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Freeplane.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/AnyDesk.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/BT-Sync.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Syncthing.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Dropbox.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Telegram.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/wechat.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/GitBook.png">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/Hexo.jpg">
+<meta property="og:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/OBS-Studio.png">
+<meta property="og:updated_time" content="2018-12-15T07:09:12.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发者Debian里的十八般兵器">
+<meta name="twitter:description" content="俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。">
+<meta name="twitter:image" content="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/IDEA.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Susu的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>开发者Debian里的十八般兵器 | Susu的博客</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-130654260-1');
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Susu的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Susu">
+      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
+      <meta itemprop="image" content="/./avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susu的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">开发者Debian里的十八般兵器
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-11-26 21:23:11" itemprop="dateCreated datePublished" datetime="2016-11-26T21:23:11+08:00">2016-11-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 15:09:12" itemprop="dateModified" datetime="2018-12-15T15:09:12+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian-GNU-Linux/" itemprop="url" rel="index"><span itemprop="name">Debian GNU/Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/11/26/开发者Debian里的十八般兵器/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/11/26/开发者Debian里的十八般兵器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。<br><a id="more"></a></p>
+<h2 id="集成开发环境IDE"><a href="#集成开发环境IDE" class="headerlink" title="集成开发环境IDE"></a>集成开发环境IDE</h2><p>集成开发环境一般是集编辑，编译，链接，调试，版本管理和打包发布于一体的大型开发软件。它的特点是功能丰富，上手快，易操作。缺点也显而易见，笨重，运行速度慢，需要更多的CPU，内存资源。</p>
+<ul>
+<li>IntelliJ IDEA</li>
+<li><p><img src="./IDEA.png" alt="IDEA"><br>IntelliJ IDEA被认为是当前Java开发效率最快的IDE工具。它集成了开发过程中实用的众多功能，几乎可以不用鼠标可以方便的完成你要做的任何事情，最大程度的加快开发的速度。简单而又功能强大。与其他的一些繁冗而复杂的IDE工具有鲜明的对比。<br><a href="https://www.jetbrains.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Eclipse</p>
+</li>
+<li><p><img src="./Eclipse.png" alt="Zeal"><br>是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development Kit，JDK）。但是近几年使用人数在下滑，逐渐转向Android Studio和IntelliJ IDEA了。<br><a href="http://www.eclipse.org" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Android Studio</p>
+</li>
+<li><img src="./Androidstudio.png" alt="Zeal"><br>是一个Android集成开发工具，基于IntelliJ IDEA. 类似 Eclipse ADT，Android Studio 提供了集成的 Android 开发工具用于开发和调试。<br><a href="https://developer.android.com/studio/index.html" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="文档查看"><a href="#文档查看" class="headerlink" title="文档查看"></a>文档查看</h2><ul>
+<li>Zeal<br><img src="./Zeal.png" alt="Zeal"><br>热情是一个软件开发离线文档浏览器。Zeal目前有195个很棒的文档！<br><a href="https://zealdocs.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h2><ul>
+<li><p>Atom<br><img src="./Atom.png" alt="Atom"><br>Atom是由GitHub开发的自由及开放源代码的文字与代码编辑器，支持OS X、Windows和Linux操作系统，支持Node.js所写的插件，并内置由Github提供的Git版本控制系统。多数的延伸包皆为开放源代码授权，并由社区建置与维护。Atom基于Electron（最初以Atom Shell知名）和许可使用Chromium和Node.js的跨平台应用框架，并使用CoffeeScript和Less撰写。Atom也可当作IDE使用。被它的开发者称为“给21世纪的黑客风格编辑器（hackable text editor for the 21st Century）”。自2014年5月6日起，Atom的核心程序、包管理器以及Atom基于Chromium的桌面程序框架皆使用MIT授权条款发布。<br><a href="https://atom.io/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Visual Studio Code<br><img src="./vscode.png" alt="vscode"><br>VS Code是一种新型工具，它结合了代码编辑器的简单性和开发人员在核心编辑构建 - 调试周期中需要的工具。代码提供全面的编辑和调试支持，可扩展性模型，以及与现有工具的轻量级集成。<br><a href="http://code.visualstudio.com" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Sublime Text<br><img src="./sublime.png" alt="Sublime"><br>Sublime Text具有漂亮的用户界面和强大的功能，例如代码缩略图，Python的插件，代码段等。还可自定义键绑定，菜单和工具栏。Sublime Text 的主要功能包括：拼写检查，书签，完整的 Python API ， Goto 功能，即时项目切换，多选择，多窗口等等。Sublime Text 是一个跨平台的编辑器，同时支持Windows、Linux、Mac OS X等操作系统。<br><a href="http://www.sublimetext.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>haroopad<br><img src="./haroopad.png" alt="haroopad"><br>它是开源、免费、跨平台的，支持windows，linux和mac系统。Haroopad已经内置了各种markdown扩展，支持100多种编程语言代码的直接显示，例如C/C++， JAVA， C#， Ruby， Python， Erlang， Makefile等等，甚至代码显示的背景框都有很多主题可以选择。另外它支持撰写数学公式，支持一套文本绘图DSL，支持自动生成文档目录等等。Haroopad支持直接将文档发布成PDF格式。最后Haroopad支持用户自定义显示样式。<br><a href="http://pad.haroopress.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="分析调试类"><a href="#分析调试类" class="headerlink" title="分析调试类"></a>分析调试类</h2><ul>
+<li><p>Wireshark<br><img src="./Wireshark.jpg" alt="Wireshark"><br>老牌网络抓包利器，各种平台都可以玩耍。<br><a href="https://www.wireshark.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>tcpdump<br><img src="./tcpdump.png" alt="haroopad"><br>这是一个命令行工具，可以看作是Wireshark的命令行版。<br>安装请 apt install</p>
+</li>
+<li><p>Charles<br><img src="./Charles.png" alt="Charles"><br>网络抓包利器加上代理功能，并支持自签名证书，所以可以用来在手机上抓取https的包。使用非常方便。付费软件，值得购买。<br><a href="https://www.charlesproxy.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="图片编辑器"><a href="#图片编辑器" class="headerlink" title="图片编辑器"></a>图片编辑器</h2><p>对图片的简单处理也是很有必要的所以。。</p>
+<ul>
+<li>GIMP<br><img src="./GIMP.png" alt="GIMP"><br>GIMP 是跨平台的图像处理程序。GIMP 是 GNU 图像处理程序(GNU Image Manipulation Program)的缩写。GIMP 能够实现多种图像处理方面的要求，包括照 片润饰、图像合成和创建图像。<br>GIMP 有许多功能，它即可以作为简单的画图程序，也能作为专家级的照片处理程序,或在线批处理系统、或大批量图像渲染器，以及图像格式转换器等<br>安装请 apt install<br><a href="http://www.gimp.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p>只能说版本管理是必须的。</p>
+<ul>
+<li>Git<br><img src="./Git.png" alt="Git"><br>Git 是个版本控制工具，运行速度快，最为出色的是合并追踪（merge tracing）能力。作为开源自由原教旨主义项目，Git 没有对版本库的浏览和修改做任何的权限限制，但可以通过其他工具达到有限的权限控制。<br>安装请 apt install</li>
+</ul>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>从文件服务器(FTP, Samba etc.)下载资料或者上传文件到服务器上。</p>
+<ul>
+<li><p>FileZilla<br><img src="./FileZilla.png" alt="FileZilla"><br>FileZilla是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。可控性、有条理的界面和管理多站点的简化方式使得Filezilla客户端版成为一个方便高效的FTP客户端工具，而FileZilla Server则是一个小巧并且可靠的支持FTP&amp;SFTP的FTP服务器软件。<br>安装请 apt install<br><a href="https://sourceforge.net/projects/filezilla/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>vsftp<br>vsftpd 是一个 UNIX 类操作系统上运行的服务器的名字，它可以运行在诸如 Linux, BSD, Solaris, HP-UX 以及 IRIX 上面。它支持很多其他的 FTP 服务器不支持的特征。<br>安装请 apt install</p>
+</li>
+</ul>
+<h2 id="虚拟机-amp-模拟器"><a href="#虚拟机-amp-模拟器" class="headerlink" title="虚拟机&amp;模拟器"></a>虚拟机&amp;模拟器</h2><p>兄弟们安装一个虚拟机运行QQ吧！</p>
+<ul>
+<li><p>VirtualBox<br><img src="./VirtualBox.jpg" alt="VirtualBox"><br>老牌虚拟机软件，支持市面上几乎所有流行的操作系统。<br><a href="http://www.virtualbox.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Genymotion<br><img src="./Genymotion.jpg" alt="Genymotion"><br>安卓模拟器，运行安卓APP如同在手机上一样的速度。<br>[软件主页以及下载地址](<a href="http://www.genymotion.org）" target="_blank" rel="noopener">http://www.genymotion.org）</a></p>
+</li>
+<li><p>kvm<br><img src="./kvm.jpg" alt="kvm"><br>KVM（用于基于内核的虚拟机）是用于包含虚拟化扩展（Intel VT或AMD-V）的x86硬件上的Linux的完全虚拟化解决方案。它包含一个可加载的内核模块kvm.ko，它提供了核心虚拟化基础架构和一个特定于处理器的模块kvm-intel.ko或kvm-amd.ko。<br>[软件主页以及下载地址](<a href="https://www.linux-kvm.org/page/Main_Page）" target="_blank" rel="noopener">https://www.linux-kvm.org/page/Main_Page）</a></p>
+</li>
+</ul>
+<h2 id="翻墙利器"><a href="#翻墙利器" class="headerlink" title="翻墙利器"></a>翻墙利器</h2><p>我要上谷歌搜索最新的Android开发文档和API，可是目前在国内用不了谷歌，怎么办？翻墙吧！</p>
+<ul>
+<li><p>Shadowsocks<br>利器不多说，Debian源里下载安装然后运行，配置，打开Chrome浏览器安装proxy-switchyomega，访问谷歌走你。。</p>
+</li>
+<li><p>XX-net<br>XX-Net是一个免费的桌面应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用google app引擎（GAE）作为代理服务器通过防火墙。<br><a href="https://github.com/XX-net/XX-Net" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Lantern<br>如果上面两个不行，那么试试这个吧，Lantern是一个免费的应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用各种技术保持解锁，包括域前端，p2p和可插拔传输。<br><a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>流程图是一种很有用的示意图，说明为获得一个问题的解决方案需执行的行为和操作顺序。流程图能促进程序员和业务人员之间的沟通。在问题的编程中流程图起到非常关键的作用，并在理解复杂和冗长问题的逻辑时非常有用。</p>
+<ul>
+<li><p>Dia<br><img src="./Dia.png" alt="Dia"><br>Dia图编辑器是免费的开源绘图软件Windows，Mac OS X和Linux。 Dia支持30多种不同图表类型，如流程图，网络图，数据库模型。超过一千个现成的对象有助于绘制专业图表。 Dia可以读取和写入许多不同的栅格和矢量图像格式。软件开发人员和数据库专家可以使用Dia作为CASE工具从其图纸生成代码框架。 Dia可以使用Python进行脚本化和扩展。<br><a href="https://sourceforge.net/projects/dia-installer/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Freeplane<br><img src="./Freeplane.png" alt="Freeplane"><br>Freeplane是由经典思维导图软件FreeMind的主创人员设计的另外一款同类型工具，Freeplane已由官方汉化，功能比较齐全，相较于FreeMind也毫不逊色。<br><a href="http://www.freeplane.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="远程链接"><a href="#远程链接" class="headerlink" title="远程链接"></a>远程链接</h2><p>有什么比远程别人帮你解决问题更爽的，有什么比远程办公更装B的！</p>
+<ul>
+<li>AnyDesk<br><img src="./AnyDesk.png" alt="AnyDesk"><br>AnyDesk是一款号称速度最快的免费远程连接/远程桌面控制软件，据说是前 TeamViewer 开发小组人员自立门户的产品，它拥有先进的视频压缩技术 DeskRT， 可轻松穿透防火墙/路由器，实测在电信、移动的跨网宽带环境下，速度确实要比 TeamViewer 和 QQ 流畅。<br><a href="http://anydesk.com/remote-desktop" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="网盘-or-Bt-Sync-or-Download"><a href="#网盘-or-Bt-Sync-or-Download" class="headerlink" title="网盘 or Bt Sync or Download"></a>网盘 or Bt Sync or Download</h2><ul>
+<li><p>BT Sync<br><img src="./BT-Sync.png" alt="BT-Sync"><br>BT 下载，大家应该都很熟悉。开发 BT 的技术公司又发明了一个新的玩意，叫做 BT Sync，都是采用 P2P 协议来进行文件传输。简言之，BT Sync是一个文件同步工具，让你的文件不仅能够在自己的各个设备间传输，同时也能让你的文件夹通过加密手段传输给第三方。<br><a href="https://www.resilio.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Syncthing<br><img src="./Syncthing.png" alt="Syncthing"><br>Syncthing是一个免费开源的工具，它能在你的各个网络计算机间同步文件/文件夹。它不像其它的同步工具，如BitTorrent Sync和Dropbox那样，它的同步数据是直接从一个系统中直接传输到另一个系统的，并且它是完全开源的，安全且私密的。<br><a href="https://syncthing.net/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>Dropbox<br><img src="./Dropbox.png" alt="Dropbox"><br>Dropbox是一款非常好用的免费网络文件同步工具，是Dropbox公司运行的在线存储服务，通过云计算实现因特网上的文件同步，用户可以存储并共享文件和文件夹。Dropbox提供免费和收费服务，Dropbox的收费服务包括Dropbox Pro 和 Dropbox for Business。在不同操作系统下有客户端软件，并且有网页客户端。<br><a href="https://www.dropbox.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>you-get<br>You-Get 乃一小小哒命令行程序，提供便利的方式，下载网络上的富媒体信息。<br><a href="https://you-get.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="即时聊天"><a href="#即时聊天" class="headerlink" title="即时聊天"></a>即时聊天</h2><ul>
+<li><p>Telegram<br><img src="./Telegram.png" alt="Telegram"><br>Telegram Messenger 是一个跨平台的即时通信软件，它的客户端是自由及开放源代码软件，但是它的服务器是专有软件。用户可以相互交换加密与自析构的消息，以及照片、视频、文件，支持所有的文件类型。官方提供移动端(Android、iOS、Windows Phone)、桌面端(Windows、macOS、Linux)和网页端(官方在线版)应用；同时官方开放应用程序接口，因此会有一些第三方的客户端。<br><a href="https://telegram.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+<li><p>electronic-wechat-linux<br><img src="./wechat.png" alt="Telegram"><br>一个Mac OS X 和 Linux 下更好用的微信客户端. 更多功能, 更少bug. 使用Electron构建.<br><a href="https://github.com/geeeeeeeeek/electronic-wechat" target="_blank" rel="noopener">软件主页以及下载地址</a></p>
+</li>
+</ul>
+<h2 id="创建图书"><a href="#创建图书" class="headerlink" title="创建图书"></a>创建图书</h2><ul>
+<li>GitBook<br><img src="./GitBook.png" alt="GitBook"><br>GitBook可用于创建图书，公共文档，企业手册，论文，研究论文等。是使用GitHub or Git和Markdown（或AsciiDoc）构建漂亮书籍的命令行工具（和Node.js库）。<br><a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="博客框架"><a href="#博客框架" class="headerlink" title="博客框架"></a>博客框架</h2><ul>
+<li>Hexo<br><img src="./Hexo.jpg" alt="Hexo"><br>Hexo 是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+<h2 id="录像和直播"><a href="#录像和直播" class="headerlink" title="录像和直播"></a>录像和直播</h2><ul>
+<li>OBS Studio<br><img src="./OBS-Studio.png" alt="OBS Studio"><br>免费和开源软件，用于录像和直播。在Windows，Mac或Linux上快速，轻松地下载并开始流式传输。<br><a href="https://obsproject.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/./wechatpay.png" alt="Susu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/./alipay.png" alt="Susu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Susu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/" title="开发者Debian里的十八般兵器">http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Debian/" rel="tag"># Debian</a>
+          
+            <a href="/tags/Testing-Stable/" rel="tag"># Testing/Stable</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/开发工具/" rel="tag"># 开发工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/12/许嵩-苏格拉没有底-简介/" rel="next" title="许嵩-苏格拉没有底[简述]">
+                <i class="fa fa-chevron-left"></i> 许嵩-苏格拉没有底[简述]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/28/Debian-8-安装Shadowsocks-libev/" rel="prev" title="Debian 8 安装Shadowsocks-libev">
+                Debian 8 安装Shadowsocks-libev <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
+            
+              <p class="site-author-name" itemprop="name">Susu</p>
+              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ilovesusu" title="GitHub &rarr; https://github.com/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x757375@gmail.com" title="E-Mail &rarr; mailto:0x757375@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" title="YouTube &rarr; https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://t.me/ilovesusu" title="Telegram &rarr; https://t.me/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.lingxing1017.party" title="http://blog.lingxing1017.party" rel="noopener" target="_blank">无新的Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成开发环境IDE"><span class="nav-number">1.</span> <span class="nav-text">集成开发环境IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档查看"><span class="nav-number">2.</span> <span class="nav-text">文档查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本编辑器"><span class="nav-number">3.</span> <span class="nav-text">文本编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析调试类"><span class="nav-number">4.</span> <span class="nav-text">分析调试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片编辑器"><span class="nav-number">5.</span> <span class="nav-text">图片编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本管理"><span class="nav-number">6.</span> <span class="nav-text">版本管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件共享"><span class="nav-number">7.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机-amp-模拟器"><span class="nav-number">8.</span> <span class="nav-text">虚拟机&amp;模拟器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻墙利器"><span class="nav-number">9.</span> <span class="nav-text">翻墙利器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">10.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程链接"><span class="nav-number">11.</span> <span class="nav-text">远程链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网盘-or-Bt-Sync-or-Download"><span class="nav-number">12.</span> <span class="nav-text">网盘 or Bt Sync or Download</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#即时聊天"><span class="nav-number">13.</span> <span class="nav-text">即时聊天</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建图书"><span class="nav-number">14.</span> <span class="nav-text">创建图书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客框架"><span class="nav-number">15.</span> <span class="nav-text">博客框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#录像和直播"><span class="nav-number">16.</span> <span class="nav-text">录像和直播</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Susu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'GbphhFp30XESSTbgbdbOydWl-gzGzoHsz',
+    appKey: 'Vtzjbas1D44Kd07rf3o3iTsN',
+    placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

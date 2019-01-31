@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="jDVulPdWvWRlKXRfd_OFH_yzQr-iSzBD-mU1qBLE3JY">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="二次完善与2017年 02月 14日 星期二 21:34:57 CST  经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了.">
+<meta name="keywords" content="Debian,Testing&#x2F;Stable,Ubuntu,Linux,Nvidia驱动安装(双显卡切换)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debian 真丶NvidiaGraphicsDrivers安装">
+<meta property="og:url" content="http://sumi.ml/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/index.html">
+<meta property="og:site_name" content="Susu的博客">
+<meta property="og:description" content="二次完善与2017年 02月 14日 星期二 21:34:57 CST  经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-15T07:09:23.885Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Debian 真丶NvidiaGraphicsDrivers安装">
+<meta name="twitter:description" content="二次完善与2017年 02月 14日 星期二 21:34:57 CST  经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了.">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Susu的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://sumi.ml/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Debian 真丶NvidiaGraphicsDrivers安装 | Susu的博客</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-130654260-1');
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Susu的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sumi.ml/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Susu">
+      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
+      <meta itemprop="image" content="/./avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susu的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Debian 真丶NvidiaGraphicsDrivers安装
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-25 15:58:48" itemprop="dateCreated datePublished" datetime="2016-08-25T15:58:48+08:00">2016-08-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 15:09:23" itemprop="dateModified" datetime="2018-12-15T15:09:23+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian-GNU-Linux/" itemprop="url" rel="index"><span itemprop="name">Debian GNU/Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div style="color:#F00">二次完善与2017年 02月 14日 星期二 21:34:57 CST</div>
+
+<p>经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了.<br><a id="more"></a></p>
+<p>ico</p>
+<h2 id="黑屏解决方案-写在前面"><a href="#黑屏解决方案-写在前面" class="headerlink" title="黑屏解决方案(写在前面)"></a>黑屏解决方案(写在前面)</h2><p>大兄弟,如果你已经黑屏了，那么ctrl+alt+F1进入终端，然后使用root身份登陆,然后执行下面的代码.(sudo 是为普通用户准备的)</p>
+<blockquote>
+<p>sudo apt-get purge nvidia*<br>sudo rm /etc/X11/xorg.conf</p>
+</blockquote>
+<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="关于单显卡和双显卡"><a href="#关于单显卡和双显卡" class="headerlink" title="关于单显卡和双显卡"></a>关于单显卡和双显卡</h3><ul>
+<li>笔记本<strong>双</strong>显卡：指笔记本拥有一个独立显卡和一个cpu集成的核心显卡，两个显卡可以通过系统切换使用，一般使用核心显卡相对节能，适合办公上网等。使用独立显卡性能较高，适合游戏和作图。</li>
+<li>笔记本<strong>单</strong>显卡：指笔记本只有一个独立显卡，或只有一个主板板载集成显卡，或只有一个cpu集成的核心显卡。不能进行显卡切换。</li>
+</ul>
+<h3 id="关于-nouveau-和-nvidia-驱动"><a href="#关于-nouveau-和-nvidia-驱动" class="headerlink" title="关于 nouveau 和 nvidia 驱动"></a>关于 nouveau 和 nvidia 驱动</h3><ul>
+<li>nouveau：是一个自由及开放源代码显卡驱动程序，是为Nvidia的显示卡所编写，此驱动程序是由一群独立的软件工程师所编写，Nvidia的员工也提供了少许帮助。简而言之就是开源驱动。</li>
+<li>nvidia 驱动：通常是指有NVIDIA官方提供的NVIDIA显卡驱动。(也就是俗称的闭源驱动、官方驱动)</li>
+</ul>
+<h3 id="NVIDIA-Optimus-和-Bumblebee"><a href="#NVIDIA-Optimus-和-Bumblebee" class="headerlink" title="NVIDIA Optimus 和 Bumblebee"></a>NVIDIA Optimus 和 Bumblebee</h3><ul>
+<li>Optimus：(官方中文译名：优驰)是NVIDIA针对笔记本电脑的显示切换技术。它可以实现笔记本电脑中独立显卡与主板内置显卡之间无缝、自动、实时的切换（用户无需重启或手动调整），从而实现能源的节约。</li>
+<li>Bumblebee：Bumblebee 致力于使 NVIDIA Optimus 在 GNU/Linux 系统上可用，实现两块不同的供电配置的显卡同时插入使用，共享同一个 framebuffer。（引自 <a href="https://github.com/Bumblebee-Project/Bumblebee/wiki/FAQ" target="_blank" rel="noopener">Bumblebee FAQ</a>）</li>
+</ul>
+<h2 id="查看显卡"><a href="#查看显卡" class="headerlink" title="查看显卡"></a>查看显卡</h2><p>在 Linux 中查看显卡设备很简单，运行下面这条命令即可：</p>
+<blockquote>
+<p>lspci -v | grep -E “VGA|3D”</p>
+</blockquote>
+<p>对于我的电脑是这样显示的</p>
+<blockquote>
+<p>00:02.0 VGA compatible controller: Intel Corporation 3rd Gen Core processor Graphics Controller (rev 09) (prog-if 00 [VGA controller])<br>01:00.0 VGA compatible controller: NVIDIA Corporation GF119M [GeForce 610M] (rev a1) (prog-if 00 [VGA controller])</p>
+</blockquote>
+<p>下面这个命令可以查看详细信息，例如正在使用什么驱动(Kernel driver)</p>
+<blockquote>
+<p>lspci -vnn | grep -E “VGA|3D” -A 10</p>
+</blockquote>
+<p>如果你的终端显示类似于下面这样，那么恭喜您，您的电脑百分之八九十是支持<a href="http://www.nvidia.com/object/optimus_technology.html" target="_blank" rel="noopener">NVIDIA Optimus Technology</a>的</p>
+<blockquote>
+<p>00:02.0 VGA compatible controller [0300]: Intel Corporation 3rd Gen Core processor Graphics Controller [8086:0166] (rev 09) (prog-if 00 [VGA controller])<br>01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GF119M [GeForce 610M] [10de:1058] (rev a1) (prog-if 00 [VGA controller])</p>
+</blockquote>
+<h2 id="显卡不支持NVIDIA-Optimus-Technology的解决方案"><a href="#显卡不支持NVIDIA-Optimus-Technology的解决方案" class="headerlink" title="显卡不支持NVIDIA Optimus Technology的解决方案"></a>显卡<strong>不支持</strong>NVIDIA Optimus Technology的解决方案</h2><h3 id="更具Debian-wiki进行安装"><a href="#更具Debian-wiki进行安装" class="headerlink" title="更具Debian wiki进行安装"></a>更具Debian wiki进行安装</h3><p><a href="https://wiki.debian.org/NvidiaGraphicsDrivers" target="_blank" rel="noopener">NvidiaGraphicsDrivers wiki地址</a></p>
+<h2 id="显卡支持NVIDIA-Optimus-Technology的解决方案"><a href="#显卡支持NVIDIA-Optimus-Technology的解决方案" class="headerlink" title="显卡支持NVIDIA Optimus Technology的解决方案"></a>显卡<strong>支持</strong>NVIDIA Optimus Technology的解决方案</h2><h3 id="Bumblebee简述"><a href="#Bumblebee简述" class="headerlink" title="Bumblebee简述"></a>Bumblebee简述</h3><p>Bumblebee旨在为NVIDIA Optimus笔记本电脑提供GNU / Linux发行版的支持。使用Bumblebee，您可以使用NVIDIA卡渲染,使用Intel卡显示图形。</p>
+<p>Bumblebee，开机加载的是intel的驱动，程序默认也都是用intel的集显，如果需要用独显要用optirun运行程序，这样能做到最大程度的提高电池续航能力。</p>
+<h3 id="安装bumblebee"><a href="#安装bumblebee" class="headerlink" title="安装bumblebee"></a>安装bumblebee</h3><p>其实很简单，<a href="https://wiki.debian.org/Bumblebee#Power_Management" target="_blank" rel="noopener">see it</a><br>添加32位支持（如果是64位系统的话）</p>
+<blockquote>
+<p>sudo dpkg –add-architecture i386</p>
+</blockquote>
+<p>个人怀疑一部分安装完后黑屏的情况可能和没有执行这一步有关。</p>
+<p>更新源,安装bumblebee</p>
+<blockquote>
+<p>sudo apt-get update<br>sudo apt-get install bumblebee-nvidia primus primus-libs:i386</p>
+</blockquote>
+<h3 id="使用bumblebee"><a href="#使用bumblebee" class="headerlink" title="使用bumblebee"></a>使用bumblebee</h3><p>要在终端中运行离散NVIDIA卡运行应用程序：</p>
+<blockquote>
+<p>$ optirun [options] <application> [application-parameters]</application></p>
+</blockquote>
+<p>例：</p>
+<blockquote>
+<p>$ optirun glxgears -info</p>
+</blockquote>
+<p>有关optirun的选项列表，请使用man optirun打开联机帮助页或运行：</p>
+<blockquote>
+<p>$ optirun –help</p>
+</blockquote>
+<h3 id="在Steam中使用bumblebee"><a href="#在Steam中使用bumblebee" class="headerlink" title="在Steam中使用bumblebee"></a>在Steam中使用bumblebee</h3><ol>
+<li>从Steam客户端的“库”页面中选择要使用Nvidia显卡运行的游戏，右键单击并选择“属性”。</li>
+<li>单击设置启动选项按钮，并为命令行指定primusrun ％command％。</li>
+<li>保存您的更改。此方法允许您选择在每个游戏基础上使用离散NVidia GPU。</li>
+</ol>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
+<li><p>我是否需要为我的笔记本/台式机安装Nvidia驱动？</p>
+<blockquote>
+<p>如果是双显卡，不是用Debian作图形，游戏等工作，实际上是不需要安装Nvidia的驱动的。</p>
+</blockquote>
+</li>
+<li><p>关于对<a href="https://wiki.debian.org/NvidiaGraphicsDrivers" target="_blank" rel="noopener">NvidiaGraphicsDrivers Wiki</a>的误解。</p>
+<blockquote>
+<p>这个wiki是讲解怎么安装Nvidia的驱动的（单显卡中的一种），并不是双显卡。</p>
+</blockquote>
+</li>
+<li><p>是不是Debian已经自动安装好了Nvidia开源驱动（nouveau）呢?</p>
+<blockquote>
+<p>执行lspci -v 就能看到了。<br>例如看到这样的字样就说明Debian已经为你安装了开源的nouveau驱动。<br>Kernel driver in use: nouveau<br>Kernel modules: nouveau</p>
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/./wechatpay.png" alt="Susu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/./alipay.png" alt="Susu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Susu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://sumi.ml/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/" title="Debian 真丶NvidiaGraphicsDrivers安装">http://sumi.ml/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Debian/" rel="tag"># Debian</a>
+          
+            <a href="/tags/Testing-Stable/" rel="tag"># Testing/Stable</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Nvidia驱动安装-双显卡切换/" rel="tag"># Nvidia驱动安装(双显卡切换)</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/" rel="next" title="Android Studio更新时不小心点了ignore（忽略）解决方案">
+                <i class="fa fa-chevron-left"></i> Android Studio更新时不小心点了ignore（忽略）解决方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/26/跨平台远程协助软件推荐/" rel="prev" title="跨平台远程协助软件推荐">
+                跨平台远程协助软件推荐 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
+            
+              <p class="site-author-name" itemprop="name">Susu</p>
+              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ilovesusu" title="GitHub &rarr; https://github.com/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x757375@gmail.com" title="E-Mail &rarr; mailto:0x757375@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" title="YouTube &rarr; https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://t.me/ilovesusu" title="Telegram &rarr; https://t.me/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.lingxing1017.party" title="http://blog.lingxing1017.party" rel="noopener" target="_blank">无新的Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#黑屏解决方案-写在前面"><span class="nav-number">1.</span> <span class="nav-text">黑屏解决方案(写在前面)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于单显卡和双显卡"><span class="nav-number">2.1.</span> <span class="nav-text">关于单显卡和双显卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-nouveau-和-nvidia-驱动"><span class="nav-number">2.2.</span> <span class="nav-text">关于 nouveau 和 nvidia 驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NVIDIA-Optimus-和-Bumblebee"><span class="nav-number">2.3.</span> <span class="nav-text">NVIDIA Optimus 和 Bumblebee</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看显卡"><span class="nav-number">3.</span> <span class="nav-text">查看显卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显卡不支持NVIDIA-Optimus-Technology的解决方案"><span class="nav-number">4.</span> <span class="nav-text">显卡不支持NVIDIA Optimus Technology的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更具Debian-wiki进行安装"><span class="nav-number">4.1.</span> <span class="nav-text">更具Debian wiki进行安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显卡支持NVIDIA-Optimus-Technology的解决方案"><span class="nav-number">5.</span> <span class="nav-text">显卡支持NVIDIA Optimus Technology的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bumblebee简述"><span class="nav-number">5.1.</span> <span class="nav-text">Bumblebee简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装bumblebee"><span class="nav-number">5.2.</span> <span class="nav-text">安装bumblebee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用bumblebee"><span class="nav-number">5.3.</span> <span class="nav-text">使用bumblebee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Steam中使用bumblebee"><span class="nav-number">5.4.</span> <span class="nav-text">在Steam中使用bumblebee</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">6.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Susu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'GbphhFp30XESSTbgbdbOydWl-gzGzoHsz',
+    appKey: 'Vtzjbas1D44Kd07rf3o3iTsN',
+    placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

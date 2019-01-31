@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="jDVulPdWvWRlKXRfd_OFH_yzQr-iSzBD-mU1qBLE3JY">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近Hexo + Github pages非常火,很多人都写了搭建方案,但是更多的人选择windows作为搭建的平台,因为我的工作环境是Debian Testing,所以我想写写怎么在Debian下搭建Hexo + Github pages">
+<meta name="keywords" content="Debian,Testing&#x2F;Stable,Ubuntu,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debian使用Hexo和GitHub搭建个人静态博客">
+<meta property="og:url" content="http://sumi.ml/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/index.html">
+<meta property="og:site_name" content="Susu的博客">
+<meta property="og:description" content="最近Hexo + Github pages非常火,很多人都写了搭建方案,但是更多的人选择windows作为搭建的平台,因为我的工作环境是Debian Testing,所以我想写写怎么在Debian下搭建Hexo + Github pages">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-15T07:09:23.881Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Debian使用Hexo和GitHub搭建个人静态博客">
+<meta name="twitter:description" content="最近Hexo + Github pages非常火,很多人都写了搭建方案,但是更多的人选择windows作为搭建的平台,因为我的工作环境是Debian Testing,所以我想写写怎么在Debian下搭建Hexo + Github pages">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Susu的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://sumi.ml/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Debian使用Hexo和GitHub搭建个人静态博客 | Susu的博客</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-130654260-1');
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Susu的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sumi.ml/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Susu">
+      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
+      <meta itemprop="image" content="/./avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susu的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Debian使用Hexo和GitHub搭建个人静态博客
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-12 16:22:11" itemprop="dateCreated datePublished" datetime="2016-09-12T16:22:11+08:00">2016-09-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 15:09:23" itemprop="dateModified" datetime="2018-12-15T15:09:23+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian-GNU-Linux/" itemprop="url" rel="index"><span itemprop="name">Debian GNU/Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近Hexo + Github pages非常火,很多人都写了搭建方案,但是更多的人选择windows作为搭建的平台,因为我的工作环境是Debian Testing,所以我想写写怎么在Debian下搭建Hexo + Github pages<br><a id="more"></a></p>
+<h2 id="预先准备"><a href="#预先准备" class="headerlink" title="预先准备"></a>预先准备</h2><p>1.github帐号</p>
+<blockquote>
+<p><strong>注册</strong>github账号我想这就不用我教了吧！地址：<a href="https://github.com/join" target="_blank" rel="noopener">Github注册</a></p>
+</blockquote>
+<p>登录完成之后，在你的主页点击图标 New Repository 创建一个新的版本库，因为我们是使用 Github Pages 去搭建我们的静态博客，所以版本库的名称应该是你的用户名+.github.io。如：我的用户名是：ilovesusu，那么版本库的名字应该是： ilovesusu.github.io,之后你将要访问的你的博客地址就是： <a href="https://ilovesusu.github.io" target="_blank" rel="noopener">https://ilovesusu.github.io</a></p>
+<p>2.Debian安装git</p>
+<blockquote>
+<p>sudo apt install git git-core</p>
+</blockquote>
+<p>3.配置SSH<br>打开 Git Bash ，执行下面的命令生成 SSH 访问私钥及公钥。</p>
+<blockquote>
+<p>$ ssh-keygen -t rsa -C “email@email.com”</p>
+</blockquote>
+<p>输入命令回车之后会提示你输入一些东西，就是设置密码，不想设置一直回车到底就好了。然后你的 ~/.ssh 文件下就会生成两个文件 id_rsa 和 id_rsa.pub 。</p>
+<p>打开你的 Github -&gt; setting -&gt; SSH Keys 。然后点击 New SSH Key 创建一个新的SSH Key。Title 可以用你的计算机名，可以用以区分。将文件 id_rsa.pub 中的所以内容复制粘贴到 Key 下面。然后使用下面的命令测试是否可以连接上 Github 。</p>
+<blockquote>
+<p>$ ssh -T git@github.com</p>
+</blockquote>
+<h2 id="安装Nodejs-npm管理工具"><a href="#安装Nodejs-npm管理工具" class="headerlink" title="安装Nodejs + npm管理工具"></a>安装Nodejs + npm管理工具</h2><p>在Debian8以上安装Nodejs非常方便,源里已经有了,所以直接通过apt安装.</p>
+<blockquote>
+<p>sudo apt install nodejs nodejs-legacy</p>
+</blockquote>
+<p>nodejs-legacy是nodejs的馈赠包,包含了nodejs的很多内容.<br>紧接着,安装npm管理工具</p>
+<blockquote>
+<p>sudo apt install npm</p>
+</blockquote>
+<p>然后查看安装的版本号来确定是否安装成功.</p>
+<blockquote>
+<p>nodejs -v<br>npm -v</p>
+</blockquote>
+<h2 id="安装与配置Hexo"><a href="#安装与配置Hexo" class="headerlink" title="安装与配置Hexo"></a>安装与配置Hexo</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>hexo的安装非常简单,但是需要注意的是命令中的-g参数.-g是全局安装安装，默认当前目录安装.<br>执行下述命令即可全局安装</p>
+<blockquote>
+<p>npm install hexo-cli -g</p>
+</blockquote>
+<p>安装以后马上就能创建一个博客了<br>$ hexo init blog (这里通过init参数创建并初始化一个blog目录)<br>初始化完成后，文件夹下的目录如下：</p>
+<blockquote>
+<p>.<br>├── _config.yml<br>├── package.json<br>├── scaffolds<br>├── source<br>├── ├── _drafts<br>├── └── _posts<br>└── themes</p>
+</blockquote>
+<ul>
+<li>_config.yml 文件是网站的配置文件，可以在其中配置网站的大部分参数。</li>
+<li>package.json 文件是应用程序的信息。</li>
+<li>source 是资源文件夹，是用来存放用户资源的地方。</li>
+<li>themes 是主题文件夹，Hexo会根据主题来生成不同的静态页面。</li>
+<li>scaffolds是模板件夹，当新建文章的时候，Hexo会根据模板来建立文件。</li>
+</ul>
+<p>$ cd blog （进入blog目录）<br>$ npm install （通过npm的install命令安装hexo使用的一些node.js包，配置文件是package.json）<br>$ hexo g （生成静态页面，生成的内容在public文件夹下）<br>$ hexo server （启动本地服务，进行文章预览调试。hexo s –debug 命令可以用来调试）</p>
+<h3 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h3><p>我使用的是yelee主题，下面只介绍怎么安装这种主题，其他主题可以在Hexo Themes、github里面寻找。<br>先进入你的Hexo文件夹。然后使用下面的命令clone下yelee主题。</p>
+<blockquote>
+<p>$ git clone <a href="https://github.com/MOxFIVE/hexo-theme-yelee.git" target="_blank" rel="noopener">https://github.com/MOxFIVE/hexo-theme-yelee.git</a> themes/yelee</p>
+</blockquote>
+<p>然后打开Hexo主文件夹下的_config.yml，修改其中的theme 属性。theme: 后面要加空格。</p>
+<blockquote>
+<p>theme: yelee</p>
+</blockquote>
+<h3 id="部署到github-pages"><a href="#部署到github-pages" class="headerlink" title="部署到github pages"></a>部署到github pages</h3><p>先使用下面的命令对Git进行初始配置。</p>
+<blockquote>
+<p>$ git config –global user.name “your name”<br>$ git config –global user.email “email@email.com”</p>
+</blockquote>
+<p>然后打开Hexo主文件夹下的_config.yml，设置其中的deploy 参数，详细请查看Hexo官方文档中部署部分。<br>我的设置如下所示：</p>
+<blockquote>
+<p>deploy:<br>  type: git<br>  repo: git@github.com:ilovesusu/ilovesusu.github.io.git<br>  branch: master</p>
+</blockquote>
+<p>在上面的参数设置好了之后，使用下面的命令安装 hexo-deployer-git 插件，只有安装了插件之后才可以部署到Github Pages。</p>
+<blockquote>
+<p>$ npm install hexo-deployer-git –save</p>
+</blockquote>
+<p>安装完插件之后使用下面的命令进行部署：</p>
+<blockquote>
+<p>$ hexo g （生成静态文件）<br>$ hexo d （部署到github）</p>
+</blockquote>
+<h3 id="创建一篇新博客"><a href="#创建一篇新博客" class="headerlink" title="创建一篇新博客"></a>创建一篇新博客</h3><blockquote>
+<p>$ hexo new “Hello Hexo”</p>
+</blockquote>
+<h2 id="Hexo的插件"><a href="#Hexo的插件" class="headerlink" title="Hexo的插件"></a>Hexo的插件</h2><p><a href="https://hexo.io/plugins/" target="_blank" rel="noopener">Hexo plugins</a></p>
+<p>Hexo有很多插件用来增强它的功能,比如RSS,SEO,资源文件…</p>
+<h3 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h3><p>hexo-generator-feed 用于生成RSS订阅</p>
+<blockquote>
+<p>npm install hexo-generator-feed –save<br>然后在_config.yml中添加<br>#RSS订阅<br>feed:<br>  type: atom<br>  path: atom.xml<br>  limit: 20<br>  hub:</p>
+</blockquote>
+<h3 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h3><p>hexo-generator-sitemap 用于生成搜索引擎网站地图</p>
+<blockquote>
+<p>npm install hexo-generator-sitemap –save</p>
+</blockquote>
+<h3 id="资源文件存放"><a href="#资源文件存放" class="headerlink" title="资源文件存放"></a>资源文件存放</h3><p>管理资源非常方便的功能可以通过将 config.yml 文件中的 post_asset_folder 选项设为 true 来打开。</p>
+<blockquote>
+<p>_config.yml<br>post_asset_folder: true</p>
+</blockquote>
+<p>当资源文件管理功能打开后，Hexo将会在你每一次创建新文章时<strong>自动创建</strong>一个文件夹。这个资源文件夹将会有与这个 markdown <strong>文件一样的名字</strong>。将所有与你的文章有关的资源放在这个关联文件夹中之后，你可以通过<strong>相对路径</strong>来引用它们，这样你就得到了一个更简单而且方便得多的工作流。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/./wechatpay.png" alt="Susu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/./alipay.png" alt="Susu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Susu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://sumi.ml/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/" title="Debian使用Hexo和GitHub搭建个人静态博客">http://sumi.ml/2016/09/12/Debian使用Hexo和GitHub搭建个人静态博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Debian/" rel="tag"># Debian</a>
+          
+            <a href="/tags/Testing-Stable/" rel="tag"># Testing/Stable</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/09/优秀npm镜像推荐及使用/" rel="next" title="优秀npm镜像推荐及使用">
+                <i class="fa fa-chevron-left"></i> 优秀npm镜像推荐及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/26/Android-Studio-常见问题总结/" rel="prev" title="Android-Studio-常见问题总结">
+                Android-Studio-常见问题总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
+            
+              <p class="site-author-name" itemprop="name">Susu</p>
+              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ilovesusu" title="GitHub &rarr; https://github.com/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x757375@gmail.com" title="E-Mail &rarr; mailto:0x757375@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" title="YouTube &rarr; https://www.youtube.com/channel/UCcnMu4iFxrnvwgMEMTPLSAQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://t.me/ilovesusu" title="Telegram &rarr; https://t.me/ilovesusu" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.lingxing1017.party" title="http://blog.lingxing1017.party" rel="noopener" target="_blank">无新的Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预先准备"><span class="nav-number">1.</span> <span class="nav-text">预先准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nodejs-npm管理工具"><span class="nav-number">2.</span> <span class="nav-text">安装Nodejs + npm管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装与配置Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改主题"><span class="nav-number">3.2.</span> <span class="nav-text">修改主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署到github-pages"><span class="nav-number">3.3.</span> <span class="nav-text">部署到github pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一篇新博客"><span class="nav-number">3.4.</span> <span class="nav-text">创建一篇新博客</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo的插件"><span class="nav-number">4.</span> <span class="nav-text">Hexo的插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSS"><span class="nav-number">4.1.</span> <span class="nav-text">RSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SEO"><span class="nav-number">4.2.</span> <span class="nav-text">SEO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源文件存放"><span class="nav-number">4.3.</span> <span class="nav-text">资源文件存放</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Susu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'GbphhFp30XESSTbgbdbOydWl-gzGzoHsz',
+    appKey: 'Vtzjbas1D44Kd07rf3o3iTsN',
+    placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
