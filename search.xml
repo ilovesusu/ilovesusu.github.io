@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[数据库完全备份还原及还原某一张表]]></title>
+    <url>%2F2019%2F01%2F16%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[数据库备份和还原是非常重要的，这里将备份还原的常用命令进行总结。 数据库备份1.备份某个数据库 12mysqldump -u root -p[密码] [选项] [数据库名] [表名] &gt; /备份路径/备份文件名# 备份库到目录下，-p之后可跟密码，也可不写。不写就在回车之后输入密码验证。 备份文件后缀都为.sql 2.创建一个数据库school，对school库的info1、info2表备份 1mysqldump -u root -p123123 school info1 info2 &gt; /root/info.sql 3.备份多个数据库 12mysqldump -u root -p --databases mysql study &gt; /root/mysql_study.sql# --databases 数据库名 数据库名... 4.备份所有数据库 123mysqldump -u root -p --opt --all-databases &gt; /root/all.sql# --opt 表示激活了Mysqldump命令的quick，add-drop-table，add-locks，extended-insert，lock-tables参数，也就是通过--opt参数在使用Mysqldump导出Mysql数据库信息时不需要再附加上述这些参数。# --all-databases 表示所有数据库； 5.备份数据库中的表 12mysqldump -u root -p study info &gt; /root/study_info.sql# 备份info表 6.备份数据库的表结构 12mysqldump -u root -p -d study info &gt; /root/study_info_table_structure.sql# -d 库名+表名 表示表结构 数据库还原登录后使用source还原 1source /root/school.sql 直接使用mysql命令还原 1mysql -u root -p123123 school &lt; /root/school.sql 还原某张表1234# 使用sed命令将user表的表结构抽取出导出到新的sql文件中sed -e'/./&#123;H;$!d;&#125;' -e 'x;/CREATE TABLE `users`/!d;q' xxxbackup.sql &gt; 1.sql# 使用grep 将所有包含 INSERT INTO `users` 的行追加到新sql文件中grep 'INSERT INTO `users`' xxxbackup.sql &gt;&gt; 1.sq]]></content>
+      <categories>
+        <category>Debian</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[联想Y7000等硬件开关导致wifi不可用的解决方案]]></title>
+    <url>%2F2018%2F12%2F12%2F%E8%81%94%E6%83%B3Y7000%E7%AD%89%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%85%B3%E5%AF%BC%E8%87%B4wifi%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[花了8000+大洋买了联想笔记本电脑安装Debian系统,但是发现无法使用wifi(已经安装Firmware)。经过研究发现需要开启无线硬件开关. 首先安装RFKill,RFKill 是Linux内核中的一个子系统，它可提供一个接口，在此接口中可查询、激活并取消激活计算机系统中的无线电传输。 1sudo apt install rfkill 然后查看所有设备的情况 1234567891011121314151617$ rfkill list all0:ideapad_wlan: Wireless LAN Soft blocked: no Hard blocked:yes1:ideapad_bluetooth: Bluetooth Soft blocked: no Hard blocked: yes2:phy0: Wireless LAN Soft blocked: no Hard blocked:no3:hci0: Bluetooth Soft blocked: yes Hard blocked: no 根据返回内容可以看到，优先级前的ideapad_wlan Hard blocked 默认为yes，即内核默认关闭了wifi硬件，而现在联想笔记本只有软件wifi开关，没有硬件开关，所以引起了wifi无法开启的尴尬问题。 其实解决问题的办法很简单利用黑名单将wifi硬件锁内核模块加入黑名单,阻止其自动启动 首先进入/etc/modprobe.d/文件夹下创建.conf文件，把ideapad_wlan模块加入黑名单。 这模块每种型号品牌可能不一样,但是原理是一样的哦 1#sudo nano /etc/modprobe.d/ideapad.conf 打开文件后 输入如下内容 1blacklist ideapad_laptop 保存并关闭,在重启系统之后，右上角的wifi就可以使用了。 如果不想重启可以使用以下命令快速移除某模块 1sudo modprobe -r ideapad_laptop ps：modprobe命令用于智能地向内核中加载模块或者从内核中移除模块。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>SQLite</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[从零开始,学习web前端之前端发展史]]></title>
+    <url>%2F2018%2F12%2F10%2F%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8B%E5%89%8D%E7%AB%AF%E5%8F%91%E5%B1%95%E5%8F%B2%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[详细解释 Payload Shellcode Exploit Poc]]></title>
+    <url>%2F2018%2F12%2F10%2F%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-Payload-Shellcode-Exploit-Poc%2F</url>
+    <content type="text"><![CDATA[在信息安全领域，shellcode通常是作为攻击载荷出现。 “shellcode”之所以得名，是因为这段代码通常会返回一个shell，以供攻击者控制被攻击的主机。类似功能的攻击代码都可以称之为shellcode。 因为攻击载荷的功能不仅限于生成一个shell，有人曾说shellcode这个名称并不准确。 Shellcode大多以机器语言写成。]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>Payload</tag>
+        <tag>Shellcode</tag>
+        <tag>Exploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[服务器扩容数据盘]]></title>
+    <url>%2F2018%2F11%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9%E6%95%B0%E6%8D%AE%E7%9B%98%2F</url>
+    <content type="text"><![CDATA[随着业务的增长，您的数据盘容量可能无法满足数据存储的需要，这时您可以使用磁盘扩容功能扩容数据盘。 1.查看系统中有多少可以识别的硬盘、U盘123456789101112131415161718192021[root@localhost ~]# fdisk -l磁盘 /dev/vda：42.9 GB, 42949672960 字节，83886080 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0x0008d73a 设备 Boot Start End Blocks Id System/dev/vda1 * 2048 83884031 41940992 83 Linux磁盘 /dev/vdb：42.9 GB, 42949672960 字节，83886080 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0x0c70d2d8 设备 Boot Start End Blocks Id System/dev/vdb1 2048 83886079 41942016 83 Linux 2.确保系统没有挂载你要操作的硬盘123456789101112131415161718192021222324252627282930[root@localhost ~]# fdisk -l磁盘 /dev/vda：42.9 GB, 42949672960 字节，83886080 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0x0008d73a 设备 Boot Start End Blocks Id System/dev/vda1 * 2048 83884031 41940992 83 Linux磁盘 /dev/vdb：42.9 GB, 42949672960 字节，83886080 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0x0c70d2d8 设备 Boot Start End Blocks Id System/dev/vdb1 2048 83886079 41942016 83 Linux[root@izx71k71i0q19uz ~]# df -h文件系统 容量 已用 可用 已用% 挂载点## 此处可以看到vda1处于挂载状态/dev/vda1 40G 22G 16G 59% /devtmpfs 7.8G 0 7.8G 0% /devtmpfs 7.8G 548K 7.8G 1% /dev/shmtmpfs 7.8G 676K 7.8G 1% /runtmpfs 7.8G 0 7.8G 0% /sys/fs/cgrouptmpfs 1.6G 0 1.6G 0% /run/user/0 3.使用fdisk命令对新硬盘进行分区 运行命令 fdisk [数据盘设备名] 进入 fdisk 界面。本示例中，命令为 fdisk /dev/vdb1。 输入m查看帮助 输入 d 并按回车键，删除原来的分区，选择分区编号即可删除分区。 输入 n 并按回车键，开始创建新的分区。 输入 p 并按回车键，选择创建主分区。因为创建的是一个单分区数据盘，所以只需要创建主分区。 输入分区编号并按回车键。因为这里仅创建一个分区，所以输入 1。 输入第一个可用的扇区编号：按回车键采用默认值。 输入最后一个扇区编号：因为这里仅创建一个分区，所以按回车键采用默认值。 输入查看分区类型的id，然后输入选择好的id回车即可。 输入 p 并按回车键，查看当前分区表。 输入 t 并按回车键，用来指定分区类型。 输入 wq 并按回车键，开始分区，请确定无误后操作。 1234567891011121314151617181920212223[root@localhost ~]# fdisk /dev/vdb1Welcome to fdisk (util-linux 2.23.2).Changes will remain in memory only, until you decide to write them.Be careful before using the write command.Command (m for help): dSelected partition 1Partition 1 is deletedCommand (m for help): nPartition type:p primary (0 primary, 0 extended, 4 free)e extendedSelect (default p):Using default response pPartition number (1-4, default 1):First sector (2048-83886080, default 2048):Using default value 2048Last sector, +sectors or +size&#123;K,M,G&#125; (2048-83886080, default 83886080):Using default value 83886080Partition 1 of type Linux and of size 40 GiB is setCommand (m for help): wqThe partition table has been altered!Calling ioctl() to re-read partition table.Syncing disks. 4.通知操作系统，分区表已经改变1[root@localhost ~]# partprobe 5.格式化1[root@localhost ~]# mkfs -t ext4 /dev/vdb1 注：-t ext4表示写入的是ext4文件系统。并且只能给主分区sdb1和扩展分区sdb5写入文件系统（不能给扩展分区sdb2写入文件系统） 6. 建立挂载点并挂载12[root@localhost ~]# mkdir wtf[root@localhost ~]# mount /dev/vdb1 /root/wtf 7.查看挂载情况：12345678910[root@localhost ~]# df -h文件系统 容量 已用 可用 已用% 挂载点/dev/vda1 40G 22G 16G 59% /devtmpfs 7.8G 0 7.8G 0% /devtmpfs 7.8G 548K 7.8G 1% /dev/shmtmpfs 7.8G 676K 7.8G 1% /runtmpfs 7.8G 0 7.8G 0% /sys/fs/cgrouptmpfs 1.6G 0 1.6G 0% /run/user/0/dev/vdb1 40G 11G 27G 30% /root/wtf##可以看到已经挂载了]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>服务器扩容</tag>
+        <tag>数据盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian 配置 Mysql 数据库主从，读写分离，负载均衡]]></title>
+    <url>%2F2018%2F11%2F21%2FDebian-%E9%85%8D%E7%BD%AE-Mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%EF%BC%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%2F</url>
+    <content type="text"><![CDATA[MySQL数据库主从复制技术主要有以下一些特点： 数据分布 (Data distribution ) 负载均衡(load balancing) 备份(Backups) 高可用性和容错性 (High availability and failover) … 利用这些特点完成能实现多种多样的用途 实时灾备，作为后备数据库，主数据库服务器故障后，可切换到从数据库继续工作，避免数据丢失。 读写分离，提供优质的查询服务。业务量越来越大，I/O访问频率过高，单机无法满足，此时做多库的存储，降低磁盘I/O访问的频率，提高单个机器的I/O性能。 备份，避免影响业务 … 主从形式也是多种多样： 一主一从 互为主从(主主复制) 一主多从 多主一从 … MySQL主从复制的原理 master在执行某sql之后，记录二进制log文件(bin-log)。 在slave端的IO线程连接上master端后，会请求从指定binlog日志文件的指定pos节点位置(或者从最开始的日志)开始复制之后的日志内容。 master端在接收到来自slave端的IO线程请求后，通知负责复制进程的IO线程，根据slave端IO线程的请求信息，读取指定 binlog日志指定pos节点位置之后的日志信息，然后返回给slave端的IO线程。该返回信息中除了binlog日志所包含的信息之外，还包括本次返回的信息在master端的binlog文件名以及在该binlog日志中的pos节点位置。 slave端的IO线程在接收到master端IO返回的信息后，将接收到的binlog日志内容依次写入到slave端的relay log文件(mysql-relay-bin.xxxxxx)的最末端，并将读取到的master端的binlog文件名和pos节点位置记录到master- info（该文件存在slave端）文件中，以便在下一次读取的时候能够清楚的告诉master，我需要从哪个binlog文件的哪个pos节点位置开 始，请把此节点以后的日志内容发给我。 slave端的SQL线程在检测到relaylog文件中新增内容后，会马上解析该log文件中的内容。然后还原成在master端真实执行的真实SQL语句，并在自身按顺序依次执行这些SQL语句。 MySQL主从复制的缺点吹了那么多东西，也说说缺点吧！ 主从间的数据库不是实时同步，就算网络连接正常，也存在瞬间主从数据不一致的情况。 如果主从的网络断开，则从库会在网络恢复正常后，批量进行同步。 如果对从库进行修改数据，那么如果此时从库正在在执行主库的bin-log时，则会出现错误而停止同步，这个是很危险的操作。所以一般情况下，我们不在从库上修改数据。 注意： 一个衍生的配置是双主、互为主从配置，只要双方的修改不冲突，则可以工作良好。 如果需要多主库的话，可以用环形配置，这样任意一个节点的修改都可以同步到所有节点。 项目场景 主服务器10.10.20.111，其中已经有数据库且库中较多，读写操作频繁。 从服务器10.10.20.116，空的啥也没有 由于数据库中数据较多且数据库设计不合理，导致很多SQL慢查询，虽然进行了 SQL慢查询优化 ，但是由于读写频繁，服务器压力大，所以提案了两种方案优化。 互为主从并用nginx实现负载 读写分离，使用mysql中间件提供负载均衡及连接池 最后选择了配置互为主从并用nginx实现负载均衡。当然我在文章最后也会提供Mysql中间件实现读写分离的方法 mysql主从搭建准备工作因为主从服务器需要有相同的初态，所以首先要将主库的数据备份并恢复到从库。 1、将主服务器要同步的数据库加锁，避免同步时数据发生改变12mysql&gt;use db;mysql&gt;flush tables with read lock; 2、将主服务器数据库中数据导出1mysql&gt;mysqldump -uroot -pxxxx db &gt; db.sql; 这个命令是导出数据库中所有表结构和数据 3、将初始数据导入从服务器数据库1mysql&gt;mysqldump -uroot -pxxxx db &lt; db.sql; 主服务器配置1、修改主MySQL配置123456789101112nano /etc/mysql/mariadb.conf.d/50-server.cnf在[mysqld]中找到server-id，完成以内容的修改#主数据库端ID号，通常设置为ip的最后一个10进制位，这里我设置为1server_id = 1 #开启二进制日志，这里是二进制日志的前缀名称及其存放地点log-bin = /var/log/mysql/mysql-bin#需要复制的数据库名，如果复制多个数据库，重复设置这个选项即可binlog-do-db = db##binlog-do-db = db1#二进制日志自动删除的天数，默认值为0,表示“没有自动删除”，启动时和二进制日志循环时可能删除expire_logs_days = 7 2、重启MySQL，创建允许从服务器同步数据的账户1234#创建slave账号account，密码123456mysql&gt;grant replication slave on *.* to &apos;account&apos;@&apos;10.10.20.116&apos; identified by &apos;123456&apos;;#更新数据库权限mysql&gt;flush privileges; 3、查看主服务器状态123456mysql&gt;show master status/G;***************** 1. row **************** File: mysql-bin.000033 #当前记录的日志 Position: 337523 #日志中记录的位置 Binlog_Do_DB:Binlog_Ignore_DB: 从服务器配置1、修改从MySQL配置1234567891011nano /etc/mysql/mariadb.conf.d/50-server.cnf在[mysqld]中添加server_id = 2log-bin = mysql-binlog-slave-updatessync_binlog = 0#指定slave要复制哪个库replicate-do-db = db#MySQL主从复制的时候，当Master和Slave之间的网络中断，但是Master和Slave无法察觉的情况下（比如防火墙或者路由问题）。Slave会等待slave_net_timeout设置的秒数后，才能认为网络出现故障，然后才会重连并且追赶这段时间主库的数据slave-net-timeout = 60 2、执行同步命令1234#执行同步命令，设置主服务器ip，同步账号密码，同步位置mysql&gt;change master to master_host=&apos;10.10.20.111&apos;,master_user=&apos;account&apos;,master_password=&apos;123456&apos;,master_log_file=&apos;mysql-bin.000033&apos;,master_log_pos=337523;#开启同步功能mysql&gt;start slave; 3、查看从服务器状态1234567891011121314151617mysql&gt;show slave status\G;*************************** 1. row *************************** Slave_IO_State: Waiting for master to send event Master_Host: 10.10.20.111 Master_User: account Master_Port: 3306 Connect_Retry: 60 Master_Log_File: mysql-bin.000033 Read_Master_Log_Pos: 337523 Relay_Log_File: db2-relay-bin.000002 Relay_Log_Pos: 337686 Relay_Master_Log_File: mysql-bin.000033 Slave_IO_Running: Yes ##这两行很重要都是YES表示成功 Slave_SQL_Running: Yes Replicate_Do_DB: Replicate_Ignore_DB: ... 测试主从是否配置成功1、解锁主服务器数据库首先解锁主库。 mysql&gt;unlock tables; 然后在主库上创建一张空表，然后在从数据库上查看是否成功同步。 mysql互为主从搭建0.创建授权用户1234567#A服务器mysql&gt; grant replication slave on *.* to &apos;account&apos;@&apos;10.10.20.116&apos; identified by &apos;123456&apos;;Query OK, 0 rows affected (0.00 sec)#B服务器mysql&gt; grant replication slave on *.* to &apos;account&apos;@&apos;10.10.20.111&apos; identified by &apos;123456&apos;;Query OK, 0 rows affected (0.00 sec) 1.编辑主库配置文件1234567891011121314#主库配置文件nano /etc/mysql/mariadb.conf.d/50-server.cnflog-bin=mysql-bin #开启二进制日志server-id=1relay-log=mysql-relay-bin #开启中继日志#将从服务器从主服务器收到的更新记入到从服务器自己的二进制日志文件中,#从库做为其他从库的主库时 log-slave-updates参数是必须要添加log_slave_updates = on#这个参数一般用在主主同步中，用来错开自增值, 防止键值在相互同步时冲突，导致数据丢失auto_increment_increment=2 #自动增长的步长auto_increment_offset=1 #自动增长的起始数值#控制binlog的写入频率。每执行多少次事务写入一次(这个参数性能消耗很大，但可减小MySQL崩溃造成的损失)sync_binlog = 1修改配置完成以后重启 2.编辑从库配置文件12345678#从库配置文件，先关闭二进制日志nano /etc/mysql/mariadb.conf.d/50-server.cnfserver-id=2#log-bin=mysql-bin#log_slave_updates = onauto_increment_increment=2auto_increment_offset=2修改配置完成以后重启 3.将表导入到从服务器上123mysqldump --databases db --lock-all-tables --master-data=2 &gt; /root/db.sqlscp /root/db.sql root@10.10.20.116:/root/mysql -uroot -p db &lt; dump.sql #从服务器上执行 为了防止数据库内容变化，在主数据库导出数据前和从数据库导入数据后，应该对数据库进行加锁。 4.让从库先成为slave首先查看主库的状态 123456mysql&gt;show master status/G;***************** 1. row **************** File: mysql-bin.000033 #当前记录的日志 Position: 337523 #日志中记录的位置 Binlog_Do_DB:Binlog_Ignore_DB: 然后让从库先成为slave 1mysql&gt; change master to master_host='10.10.20.111',master_user='account',master_password='123456',master_port=3306,MASTER_LOG_FILE='mysql-bin.000033', MASTER_LOG_POS=337523; 5.让主库成为slave12345#修改从库的配置nano /etc/mysql/mariadb.conf.d/50-server.cnf#将刚刚注释掉的参数生效log-bin=mysql-binlog_slave_updates = on 修改配置完成以后重启从库，然后查看从库的状态 123456mysql&gt; show master status/G;***************** 1. row **************** File: mysql-bin.000001 #当前记录的日志 Position: 120 #日志中记录的位置 Binlog_Do_DB:Binlog_Ignore_DB: 然后让主库成为slave 12mysql&gt; change master to master_host='10.10.20.116',master_user='account',master_password='123456',master_port=3306,MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=120;mysql&gt; start slave; 6.查看主从数据库的状态主库的状态 12345678910mysql&gt; show slave status\G;*************************** 1. row ***************************Slave_IO_State: Waiting for master to send eventMaster_Host: 10.10.20.116Master_User: accountMaster_Port: 3306...Slave_IO_Running: YesSlave_SQL_Running: Yes... 从库的状态 1234567891011mysql&gt; show slave status\G;*************************** 1. row ***************************Slave_IO_State: Waiting for master to send eventMaster_Host:10.10.20.111Master_User: accountMaster_Port: 3306Connect_Retry: 60...Slave_IO_Running: YesSlave_SQL_Running: Yes... 7.测试互为主从是否成功首先解锁主库。 1mysql&gt;unlock tables; 然后在主库上创建一张空表，然后在从数据库上查看是否成功同步。然后在从库上删除这张空表，然后在主数据库上查看是否成功同步。 Nginx实现Mysql负载均衡读写分离方案（mysql-proxy）读写分离方案主要解决的是“数据库读性能瓶颈”问题水平拆分方案主要解决的是“数据库数据量大”问题垂直拆分方案主要解决的是“数据库多字段引起的表IO”问题 查看Mysql binlog日志123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172show binlog events\G;*************************** 1. row *************************** Log_name: mysql-bin.000001 Pos: 4 Event_type: Format_desc Server_id: 1End_log_pos: 249 Info: Server ver: 10.1.37-MariaDB-1, Binlog ver: 4*************************** 2. row *************************** Log_name: mysql-bin.000001 Pos: 249 Event_type: Gtid_list Server_id: 1End_log_pos: 274 Info: []*************************** 3. row *************************** Log_name: mysql-bin.000001 Pos: 274 Event_type: Binlog_checkpoint Server_id: 1End_log_pos: 313 Info: mysql-bin.000001*************************** 4. row *************************** Log_name: mysql-bin.000001 Pos: 313 Event_type: Gtid Server_id: 1End_log_pos: 351 Info: BEGIN GTID 0-1-1*************************** 5. row *************************** Log_name: mysql-bin.000001 Pos: 351 Event_type: Query Server_id: 1End_log_pos: 476 Info: use `mysql`; update user set Host='192.168..42.28' where User='slave_user'*************************** 6. row *************************** Log_name: mysql-bin.000001 Pos: 476 Event_type: Query Server_id: 1End_log_pos: 546 Info: COMMIT*************************** 7. row *************************** Log_name: mysql-bin.000001 Pos: 546 Event_type: Gtid Server_id: 1End_log_pos: 584 Info: BEGIN GTID 0-1-2*************************** 8. row *************************** Log_name: mysql-bin.000001 Pos: 584 Event_type: Query Server_id: 1End_log_pos: 708 Info: use `mysql`; update user set Host='192.168.42.28' where User='slave_user'*************************** 9. row *************************** Log_name: mysql-bin.000001 Pos: 708 Event_type: Query Server_id: 1End_log_pos: 778 Info: COMMIT*************************** 10. row *************************** Log_name: mysql-bin.000001 Pos: 778 Event_type: Stop Server_id: 1End_log_pos: 797 Info:10 rows in set (0.02 sec)]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Mysql主从</tag>
+        <tag>读写分离</tag>
+        <tag>负载均衡</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian LNMP安装及优化]]></title>
+    <url>%2F2018%2F11%2F18%2FDebian-LNMP%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BC%98%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[用LNMP很久了，这篇文章算是一个知识总结吧，初步计划会一直在本文章中更新Nginx的内容。 LNMP环境搭建安装Nginx首先，我们应该更新本地包索引，然后我们可以安装服务器 12sudo apt updatesudo apt install nginx 在 Debian 中，Nginx安装完毕后将自动运行。Web浏览器中输入服务器IP地址，你将到Nginx的默认登陆页面： http://IP地址 or http://127.0.0.1 安装mariaDB当我们有了一个Web服务器，我们需要安装MySQL，MySQL是一个数据库管理系统，来存储和管理我们站点的数据。 您可以输入以下命令轻松安装： 1sudo apt install mariadb-server 注意：在Debian 9中，MySQL项目的社区分支–MariaDB - 被打包为默认的MySQL变体。虽然MariaDB在大多数情况下运行良好，但如果您需要仅在Oracle的MySQL中找到的功能，则可以从MySQL开发人员维护的存储库中安装和使用软件包。要安装官方MySQL服务，请服用教程如何在Debian 9上安装最新的MySQL。 现在已安装MySQL数据库软件，但其配置不完整。 为了服务器安全，我们可以运行一个安全脚本，询问我们是否要修改一些不安全的默认值。键入以下命令开始脚本： 1sudo mysql_secure_installation 系统将要求您输入MySQL root帐户的密码。我们还没有设置它，所以只需点击ENTER。然后，系统会询问您是否要设置该密码。您应该键入y然后设置root密码。 对于这个脚本询问的其他问题，您应该按y。这将删除一些匿名用户和测试数据库，禁用远程root登录，并加载这些新规则，以便MySQL立即更新您所做的更改。 此时，您的数据库系统现已设置好并受到安全保护。 安装PHP我们现在已经安装了Nginx以服务我们的页面和安装的MySQL来存储和管理我们的数据。但是，我们仍然没有任何可以生成动态内容的工具。这就是PHP的用武之地。 现在我们来设置PHP。 由于Nginx不像其他一些Web服务器那样包含对PHP脚本的处理，因此我们需要安装fpm，它代表”fastCGI进程管理器”。我们将告诉Nginx将PHP请求传递给该软件进行处理。我们还将安装一个额外的帮助程序包，允许PHP与我们的MySQL数据库后端进行通信。安装将引入必要的PHP核心文件以使其工作。安装php-fpm和php-mysql包： 1sudo apt install php-fpm php-mysql 现在我们成功安装了PHP组件。接下来我们将配置Nginx以使用它们。 配置Nginx以使用PHP-fpm现在我们已经安装了所有必需的组件。我们唯一需要的配置更改是告诉Nginx让我们的PHP处理器用于动态内容。 我们将保留默认的Nginx配置，创建一个新的配置文件和新的Web根目录来保存我们的PHP文件。我们将配置文件和目录命名为服务器的域名或主机名。 首先，创建一个新目录在/var/www下用来保存PHP站点： 1sudo mkdir /var/www/your_domain 然后，在Nginx的sites-available目录中打开一个新的配置文件： 1sudo nano /etc/nginx/sites-available/your_domain 这将创建一个新的空白文件。粘贴以下简单配置： 12345678910111213141516171819202122server &#123; listen 80 default_server; listen [::]:80 default_server; root /var/www/your_domain; index index.php index.html index.htm; server_name your_domain; location / &#123; ##首先尝试将请求文件作为内容提供，如果请求是目录，返回显示404。 try_files $uri $uri/ =404; &#125; location ~ \.php$ &#123; ##将PHP脚本传递给FastCGI服务器 include snippets/fastcgi-php.conf; ##FastCGI配置 # php-fpm(unix套接字): fastcgi_pass unix:/var/run/php/php7.0-fpm.sock; ##php-cgi(tcp套接字): fastcgi_pass 127.0.0.1:9000; &#125;&#125; 这是一个非常基本的配置，它侦听端口80并从我们刚创建的Web根目录提供文件。它只会响应关键字server_name后提供的名称的请求，并且在Nginx将结果发送给用户之前，任何 .php 结尾的文件都将由进程 php-fpm 处理。 完成自定义内容的修改后保存并关闭文件。 通过软链接链接到Nginx sites-enabled目录中的配置文件来激活您的配置： 1sudo ln -s /etc/nginx/sites-available/your_domain.conf /etc/nginx/sites-enabled/ 接着输入以下内容测试您的配置是否存在语法错 1sudo nginx -t 如果报告了任何错误，请返回并重新检查您的文件，然后再继续。 准备好后，重新加载Nginx进行更改： 1sudo systemctl reload nginx 接下来，我们将在新的Web根目录中创建一个文件来测试PHP处理。 创建PHP文件以测试配置现在我们完全安装了LNMP。但是我们还是需要测试Nginx是否可以正确地将.php文件传递给PHP-fpm进行处理。 我们可以通过在文档根目录中创建测试PHP文件来完成此操作。创建info.php新文件，并添加内容： 1sudo nano /var/www/your_domain/info.php 在新文件中键入或粘贴以下行。这是 PHP代码，它将返回有关我们服务器的信息： 123&lt;?php phpinfo();?&gt; 修改完成后，保存并退出并修改权限。 1sudo chown -R www-data:www-data /var/www/your_domain/* 现在，您可以通过在Web浏览器中访问服务器的域名或公共IP地址来访问此页面： http://your_domain/info.php 您应该看到PHP生成的网页，其中包含有关您的服务器的信息： 如果您看到一个看起来像这样的页面，那么您已成功搭建了LNMP环境。 在验证完LNMP环境正确的页面后，最好删除您创建的文件，因为它实际上可以向未经授权的用户展示您的服务器的配置，这可能会使得您的服务器被入侵。 现在，输入以下命令删除文件： 1sudo rm /var/www/html/info.php 如果以后需要测试，您可以随时重新生成此文件。 Nginx基本操作查看Nginx配置详解 Nginx默认虚拟主机当通过ip或者未知域名访问你的网站的时候，你希望禁止显示任何有效内容，可以给他返回500.目前国内很多机房都要求网站主关闭空主机头，防止未备案的域名指向过来造成麻烦。就可以这样设置： 1234server &#123; listen 80 default_server; return 500;&#125; 其中default_server关键字就是指默认虚拟主机。 Nginx多站点创建域名目录首先在/var/www/下创建域名目录 1sudo mkdir /var/www/aaa.com /var/www/bbb.com 这时/var/www/下是这样三个目录 html Debian默认配置的主目录aaa.com 网站aaa.com的主目录bbb.com 网站bbb.com的主目录 12$ls /var/www/html aaa.com bbb.com 创建域名入口文件在这里为了演示方便，我们可以直接在第二步的两个目录中分别创建 index.html 文件： 1sudo vim /var/www/aaa.com/index.html 然后添加下面的内容： 12345678&lt;html&gt; &lt;head&gt; &lt;title&gt;Welcome to aaa.com!&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Success! The aaa.com server is working!&lt;/h1&gt; &lt;/body&gt;&lt;/html&gt; 对应的 bbb.com 我们可以这样： 1sudo vim /var/www/bbb.com/index.html 在 bbb.com 这里添加下面的内容： 12345678&lt;html&gt; &lt;head&gt; &lt;title&gt;Welcome to bbb.com!&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Success! The bbb.com server is working!&lt;/h1&gt; &lt;/body&gt;&lt;/html&gt; 然后在/etc/nginx/sites-available/目录下添加配置文件 创建不同的配置文件在安装完 Nginx 之后，Nginx 的默认配置文件是 /etc/nginx/sites-available/default ，我们要配置多站点的话，可以复制一份默认配置文件用来修改： 12sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/aaa.comsudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/bbb.com 然后编辑 /etc/nginx/sites-available/aaa.com 配置文件： 删除不必要的配置内容和注释，大概修改成下面的配置： 12345678910111213server &#123; listen 80; listen [::]:80; root /var/www/aaa.com/; index index.html index.htm index.php; server_name aaa.com www.aaa.com; location / &#123; try_files $uri $uri/ =404; &#125;&#125; 这样就配置完 aaa.com 了，接下来就照葫芦画瓢，我们修改 bbb.com 的配置文件，大概修改成一下内容便可： 12345678910111213server &#123; listen 80; listen [::]:80; root /var/www/bbb.com/; index index.html index.htm index.php; server_name bbb.com www.bbb.com; location / &#123; try_files $uri $uri/ =404; &#125;&#125; 这样我们的两个域名配置文件就设置好了。 建立软链接有了 aaa.com 和 bbb.com 的配置之后，我们需要启用这两个配置的使用： 12sudo ln -s /etc/nginx/sites-available/aaa.com /etc/nginx/sites-enabled/sudo ln -s /etc/nginx/sites-available/bbb.com /etc/nginx/sites-enabled/ 执行上面的命令之后，我们再使用 nginx -t 检测 Nginx 的配置文件是否有错： 1sudo nginx -t 如果你没有看到报错，就可以直接重启 Nginx 服务了： 1sudo systemctl reload nginx 大功告成！ Nginx用户认证有时候我们需要对一下web内容做一些访问限制，只有输入正确的用户密码才允许访问web内容。当web上的一些内容不想被其他人知道，但是又想让部分人看到时，nginx的http auth模块以及Apache http auth都是很好的解决方案。 第1步 - 安装Apache Tools因为需要htpassword命令来配置密码。而此命令是apache2-utils包的一部分，因此第一步是安装该程序包。 1sudo apt-get install apache2-utils 步骤2 - 设置HTTP基本身份验证凭据现在我们为运行网站的用户创建密码。 该密码和关联的用户名将存储在您指定的文件中。密码将被加密，文件名可以是您喜欢的任何名称。我们创建并使用文件/etc/nginx/.htpasswd和用户名nginx。 要创建密码，请运行以下命令。您需要进行身份验证，然后指定并确认密码。其中参数 -c 是创建文件，以后要添加新用户要 去处-c ，不然会直接生成新文件而不是追加 1sudo htpasswd -c /etc/nginx/.htpasswd nginx 查看文件中的用户名和散列密码。 12cat /etc/nginx/.htpasswdnginx:$apr1$AH5oNlri$yIwoaNJymwXd04UTGTw0/1 第3步 - 更新Nginx配置既然已经创建了HTTP基本身份验证凭据文件，那么下一步就是更新Nginx配置来使用它。使用nano或您喜欢的文本编辑器打开该文件。 1sudo nano /etc/nginx/sites-available/default 在location部分下，添加两个指令： 12345678910111213...server_name localhost;location / &#123; # First attempt to serve request as file, then # as directory, then fall back to displaying a 404. try_files $uri $uri/ =404; ## 值自定义用于浏览器中显示名称 auth_basic &quot;Auth&quot;; ## 值为htpasswd生成的文件地址绝对路径 auth_basic_user_file /etc/nginx/.htpasswd;&#125;... 保存并关闭文件。 第4步 - 测试安装程序要应用更改，请先测试Nginx配置文件是否有错。 1sudo nginx -t 如果你没有看到报错，就可以直接重启 Nginx 服务了： 1sudo systemctl reload nginx 现在尝试访问您刚刚保护的网站。您应该看到一个身份验证窗口（显示”Auth”，是设置的auth_basic关键字的值，），在您输入正确的凭据之前，您将无法访问该网站。如果输入您设置的用户名和密码，您将看到默认的Nginx主页。 加密admin目录有些时候我们需要加密的目录是admin目录，或者一些内部专有目录，那么只要按照下面所示进行内容配置。 12345678...server_name localhost;location /admin/ &#123; auth_basic &quot;Auth&quot;; auth_basic_user_file /etc/nginx/.htpasswd;&#125;... Nginx域名重定向有时候我们需要将test.com test1.com test2.com这几个域名都跳转到test.com，则需要这样配置test.com.conf文件 123456789101112server&#123; listen 80; ## server_name后面支持写多个域 server_name test.com test1.com test2.com; index index.html index.htm index.php; root /data/wwwroot/test.com; if ($host != &apos;test.com&apos; ) &#123; ## permanent为永久重定向，状态码为301，redirect则为302 rewrite ^/(.*)$ http://test.com/$1 permanent; &#125;&#125; 上述配置^/(.)$以及!=是正则表达式语法规则：location [=|~|~|^~] /uri/ { … } 模式 含义 location = /uri = 表示精确匹配，只有完全匹配上才能生效 location ^~ /uri ^~ 开头对URL路径进行前缀匹配,~表示区分大小写。 location ~ pattern 表示区分大小写的正则匹配 location ~* pattern 表示不区分大小写的正则匹配 location /uri 不带任何修饰符，也表示前缀匹配，但是在正则匹配之后 location / 通用匹配，任何未匹配到其它location的请求都会匹配到 Nginx日志格式配置及日志审查操作Nginx日志对于统计、系统服务排错很有用。Nginx日志主要分为两种：access_log(访问日志)和error_log(错误日志)。通过访问日志我们可以得到用户的IP地址、浏览器的信息，请求的处理时间等信息。错误日志记录了访问出错的信息，可以帮助我们定位错误的原因。 access_log(访问日志)在 Debian中，Nginx预定义了名为combined日志格式，如果没有明确指定日志格式默认使用该格式： 123log_format combined &apos;$remote_addr - $remote_user [$time_local] &apos; &apos;&quot;$request&quot; $status $body_bytes_sent &apos; &apos;&quot;$http_referer&quot; &quot;$http_user_agent&quot;&apos;; 如果不想使用Nginx预定义的格式，可以通过log_format指令来自定义。 语法 1log_format name [escape=default|json] string ...; 作用域可以应用access_log指令的作用域分别有http，server，location，limit_except。也就是说，在这几个作用域外使用该指令，Nginx会报错。 以下是access_log指令的基本语法和参数的含义。 变量 含义 $bytes_sent 发送给客户端的总字节数 $body_bytes_sent 发送给客户端的字节数，不包括响应头的大小 $connection 连接序列号 $connection_requests 当前通过连接发出的请求数量 $msec 日志写入时间，单位为秒，精度是毫秒 $pipe 如果请求是通过http流水线发送，则其值为”p”，否则为”.” $request_length 请求长度（包括请求行，请求头和请求体） $request_time 请求处理时长，单位为秒，精度为毫秒，从读入客户端的第一个字节开始，直到把最后一个字符发送张客户端进行日志写入为止 $status 响应状态码 $time_iso8601 标准格式的本地时间,形如”2018-05-24T18:31:27+08:00” $time_local 通用日志格式下的本地时间，如”24/May/2018:18:31:27 +0800” $http_referer 请求的referer地址。 $http_user_agent 客户端浏览器信息。 $remote_addr 客户端IP $http_x_forwarded_for 当前端有代理服务器时，设置web节点记录客户端地址的配置，此参数生效的前提是代理服务器也要进行相关的x_forwarded_for设置。 $request 完整的原始请求行，如 “GET / HTTP/1.1” $remote_user 客户端用户名称，针对启用了用户认证的请求 $request_uri 完整的请求地址，如 “https://sumi.ml/“ 下面我们看一几个例子加深一下理解。例如以下自定义格式，作用域是http 1234567...http &#123; access_log /var/log/nginx/access.log custom; log_format custom &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos; &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos; &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;&#125; 紧接着重启Nginx以后访问网站并查看日志 1127.0.0.1 - - [1/Nov/2018:14:07:20 +0800] &quot;GET /favicon.ico HTTP/1.1&quot; 401 597 &quot;http://127.0.0.1/&quot; &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot; &quot;-&quot; 我们看到最终的日志记录中$remote_user、$http_x_forwarded_for都对应了一个-，这是因为这几个变量为空。 error_log(错误日志)错误日志在Nginx中是通过error_log指令实现的。该指令记录服务器和请求处理过程中的错误信息。 语法配置错误日志文件的路径和日志级别。 1error_log file [level]; 默认级别为error: 1error_log /var/log/nginx/error.log error; 第一个参数指定日志的写入位置。 第二个参数指定日志的级别。level可以是debug, info, notice, warn, error, crit, alert,emerg中的任意值。可以看到其取值范围是按紧急程度从低到高排列的。只有日志的错误级别等于或高于level指定的值才会写入错误日志中。默认值是error。 基本用法 例子中指定了错误日志的路径为：/var/logs/nginx/nginx-error.log，日志级别使用默认的error。 error_log /var/log/nginx/error.log; 作用域它可以配置在：main,http, mail, stream, server,location。 日志分割自己写脚本编写nginx日志分割脚本 12345#!/bin/bashLOGS_PATH=/var/log/nginx/YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)cp $&#123;LOGS_PATH&#125;/access.log $&#123;LOGS_PATH&#125;/access_$&#123;YESTERDAY&#125;.log &amp;&amp; &gt;$&#123;LOGS_PATH&#125;/access.logcp $&#123;LOGS_PATH&#125;/error.log $&#123;LOGS_PATH&#125;/error_$&#123;YESTERDAY&#125;.log &amp;&amp; &gt;$&#123;LOGS_PATH&#125;/error.log 设置定时任务运行脚本 sudo crontab -u root -e 内容如下 0 0 * * * /usr/local/nginx/logs/NginxLogRotate.sh 使用logrotateNginx日志过滤静态文件访问记录1234567891011121314151617181920server &#123; listen 80 default_server; listen [::]:80 default_server; root /var/www/your_domain; index index.php index.html index.htm; server_name your_domain; location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ &#123; expires 7d; access_log off; &#125; location ~.*\.(js|css)$ &#123; expires 12h; acces_log off; &#125;&#125; Nginx防盗链首先去要理解什么是盗链请求一个网页时，首先会传回该网页的文本内容，当客户端 浏览器在解析文本的过程中发现有图片资源需要展示时，会再次向服务器发起对该图片资源的请求，服务器将存储的图片资源再发送给客户端。在上述过程中，如果别人的服务器上只包含了网页的文本内容，并没有存储相关的图片资源，而是将图片资源链接到你的站点的服务器上，那么你的服务器就会成为他人的资源池,这就形成了盗链行为通常，我们不希望自己的服务器成为他人的资源池,所以需要做防盗链 1234567location ~* \.(gif|jpg|png|swf|flv)$ &#123; valid_referers none blocked *.nginxcn.com; if ($invalid_referer) &#123; rewrite ^/ /xxx.png #return 404; &#125;&#125; Nginx referer指令语法说明123valid_referers none | blocked | server_names | string …;默认值: -配置段: server, location 12345none：&quot;Referer&quot; 来源头部为空的情况blocked：&quot;Referer&quot;来源头部不为空，但是里面的值被代理或者防火墙删除了，这些值都不以http://或者https://开头.server_names：&quot;Referer&quot;来源头部包含当前的server_names（当前域名）arbitrary string：任意字符串,定义服务器名或者可选的URI前缀.主机名可以使用*开头或者结尾，在检测来源头部这个过程中，来源域名中的主机端口将会被忽略掉regular expression：正则表达式,~表示排除https://或http://开头的字符串. Nginx 访问控制Nginx 反向代理Nginx 负载均衡Nginx 使用HttpsLNMP 优化PHP-fpm 优化POOL进程管理]]></content>
+      <categories>
+        <category>Debian</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>LNMP安装</tag>
+        <tag>LNMP优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian Gun/Linux 搭建pyqt5开发环境]]></title>
+    <url>%2F2018%2F10%2F10%2FDebian-Gun-Linux-%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[PyQt是Python GUI编程可选方案之一。可以用来代替Python内置的Tkinter。Python可以的其他GUI库有PyGTK、wxPython等。PyQt是Qt库的python绑定,QT还有可用于 C、Java、Perl 和 Ruby 的绑定。 在Linux上安装PyQt的方法有很多,这里我们展示以下几种. 利用 virtualenv 进行pip安装这里就直接使用Pycharm来演示吧! 首先打开Pycharm,然后创建一个项目,选择使用Virtualenv 创建成功以后项目中会生成一个venv的文件夹,这是一个虚拟的python环境,你可以通过命令行中pip安装您需要的包,也可以在setting中选择project[项目名称]–&gt; project interpreter 搜索安装需要的包.如下图所示 使用Debian deb包安装为什么[目前]不使用 Debian 的 pip 进行安装首先需要声明,书写本文时 Debian Testing python3-pip 的版本是 9.0.1-2.3,而Python官方的pip已经是18.1了,为什么Debian不对pip进行版本升级呢?其实这是一系列历史遗留问题导致的 由于Debian 同时支持Python2/3 在打包的时候也想做到软件包同时支持py2/3,这是一个很好的想法,也通过一些办法实现了,但是某天pip上游说从某版本开始不支持py2了,这个时候那些自动化打包脚本就不能使用了,因为脚本会生成同时支持py2/3的包,但是9.0.1+++以上就不支持py2了.这会导致一系列的包被破坏,所以目前Testing中pip一直没有升级,这样的软件包还有很多,但是不用担心,因为Debian已经开始移除Python2,虽然不知道什么时候所有的py2包能全部移除完毕,但是那时,pip安装pyqt5就不是问题啦!]]></content>
+      <categories>
+        <category>Debian</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>pyqt5</tag>
+        <tag>搭建pyqt5开发环境</tag>
+        <tag>开发环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[从零开始,学习web前端之HTML/CSS 速写神器：Emmet(转载)]]></title>
+    <url>%2F2018%2F09%2F12%2F%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8BHTML-CSS-%E9%80%9F%E5%86%99%E7%A5%9E%E5%99%A8%EF%BC%9AEmmet-%E8%BD%AC%E8%BD%BD%2F</url>
+    <content type="text"><![CDATA[转载于：http://bubkoo.com/2014/01/04/emmet-a-toolkit-for-improving-html-css-workflow/ 在前端开发的过程中，一个最繁琐的工作就是写 HTML、CSS 代码。数量繁多的标签、属性、尖括号、标签闭合等，让前端们甚是苦恼。于是，我向大家推荐 Emmet，它提供了一套非常简单的语法规则，书写起来非常爽快，然后只需要敲一个快捷键就立刻生成对应的 HTML 或 CSS 代码，极大提高了代码书写效率。 Emmet 的前身是大名鼎鼎的 Zen coding，它是一个编辑器插件，需要基于指定的编辑器使用，官方网站提供多编辑器支持，目前它支持的编辑器如下： Sublime TextEclipse/AptanaTextMateCodaEspressoChocolatKomodo EditNotepad++PSPadtextareaCodeMirrorBracketsNetBeansAdobe Dreamweaver 请参照上面列表安装对应的编辑器插件，我一般使用 Sublime Text 3，下面就以 Sublime Text 3 插件 为例，讲解 Emmet 的安装、基础语法。 在 Sublime text 3 中安装 Emmet目前，Emmet 已经可以通过 Package Control 安装了。如果你的 Sublime Text 3 还没有安装 Package Control，请参照以下方法安装，已经安装的童鞋请自行跳过。 为 Sublime Text 3 安装 Package Control 组件： 按 Ctrl + ` 打开控制台，粘贴以下代码到底部命令行并回车： import urllib.request,os; pf = ‘Package Control.sublime-package’; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), ‘wb’).write(urllib.request.urlopen( ‘http://sublime.wbond.net/‘ + pf.replace(‘ ‘,’%20’)).read()) 重启 Sublime Text 3 在 Perferences-&gt;Package Settings 中看到 Package Control，则表示安装成功 使用 Package Control 安装 Emmet 插件： 在 Package Control 中选择 Install package 或者按 Ctrl+Shift+P，打开命令板 输入 pci 然后选择 Install Package 搜索输入 emmet 找到 Emmet Css Snippets，点击就可以自动完成安装。 快速体验 EmmetEmmet 可以快速的编写 HTML、CSS 以及实现其他的功能。它根据当前文件的解析模式来判断要使用 HTML 语法还是 CSS 语法来解析。例如当前文件的后缀为 .html 那 Sublime text 3 就会用 HTML 的解析模式来解析高亮这个文件，Emmet 遇到里面的指令就会根据 HTML 的语法把它编译成 HTML 结构。如果是在一个 .c 的 C 语言文件中，你写出来的用于编译 HTML 指令就不会被 Emmet 识别编译。 此外，在没有后缀的文件中，你可以按下shift + ctrl + p呼出面板，输入seth就可以设置当前文件的解析模式为 HTML 。了解这些之后，下面我们来见证强大的 Emmet。 如果让你编写下面的这个 HTML 结构，你需要多长时间？ 12345678910&lt;div id="page"&gt; &lt;div class="logo"&gt;&lt;/div&gt; &lt;ul id="navigation"&gt; &lt;li&gt;&lt;a href=""&gt;Item 1&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=""&gt;Item 2&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=""&gt;Item 3&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=""&gt;Item 4&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=""&gt;Item 5&lt;/a&gt;&lt;/li&gt; &lt;/ul&gt;&lt;/div&gt; 然而，这一切你只需要编写下面这一句按照 Emmet 语法写出来的语句，然后用 Emmet 编译一下，就可以生成了！ 1#page&gt;div.logo+ul#navigation&gt;li*5&gt;a&#123;Item $&#125; 我们把它复制到 Sublime text 3 中已经打开的 HTML 文件中，这时候紧跟着敲击一下 TAB 键，见证奇迹的时刻到来了。 怎么样？很神奇吧，仅仅写一行代码，就可以生成这么一个复杂的 HTML 结构，而且还可以生成对应的 class 、id 和有序号的内容。而且 Emmet 的语法很简单，虽然你现在可能还看不懂，后面的系列教程会详细讲解它的语法，你现在只需要知道 Emmet 的工作流程： 打开 HTML 或 CSS 文件-&gt;按语法编写指令-&gt;按下 TAB 键-&gt;生成 快速编写HTML代码生成 HTML 文档初始结构HTML文档需要包含一些固定的标签，比如 doctype、html、head、body 以及 meta 等等，现在你只需要1秒钟就可以输入这些标签。比如输入!或html:5，然后按 Tab 键： 12345678910&lt;!doctype html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt; title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt; 这就是一个 HTML5 的标准结构，也是默认的 HTML 结构。如果你想生成 HTML4 的过渡型结构，那么输入指令 html:xt 即可生成如下结构： 12345678910&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;&lt;head&gt; &lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt; &lt; title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt; Emmet 会自动把 doctype 给你补全了，怎么样，这样的功能会不会让你动心？ 简单总结一下常用的 HTML 结构指令： html:5 或者 ! 生成 HTML5 结构 html:xt 生成 HTML4 过渡型 html:4s 生成 HTML4 严格型 生成带有 id 、class 的 HTML 标签Emmet 默认的标签为 div，如果我们不给出标签名称的话，默认就生成 div 标签。生成 id 为 page 的 div 标签，我们只需要编写下面指令： div#page 或者使用默认标签的方式： #page 如果编写一个 class 为 content 的 p 标签，我们需要编写下面指令： p.content 同时指定标签的 id 和 class，如生成 id 为 navigation，class 为 nav 的 ul 标签： ul#navigation.nav 指定多个 class，如上例中还需要给 ul 指定一个 class 为 dropdown： ul#navigation.nav.dropdown 生成的 HTML 结构如下： 123&lt;ul id="navigation" class="nav dropdown"&gt;&lt;/ul&gt; 兄弟：+生成标签的兄弟标签，即平级元素，使用指令 + ，例如下面指令： div+ul+bq 生成的 HTML 结构如下： 123&lt;div&gt;&lt;/div&gt;&lt;ul&gt;&lt;/ul&gt;&lt;blockquote&gt;&lt;/blockquote&gt; 后代：&gt; 表示后面要生成的内容是当前标签的后代。例如我要生成一个无序列表，而且被 class 为 nav 的 div 包裹，那么可以使用下面指令： div.nav&gt;ul&gt;li 生成的 HTML 结构如下： 12345&lt;div class=&quot;nav&quot;&gt; &lt;ul&gt; &lt;li&gt;&lt;/li&gt; &lt;/ul&gt;&lt;/div&gt; 上级元素：^上级 （Climb-up）元素是什么意思呢？前面咱们说过了生成下级元素的符号“&gt;”，当使用 div&gt;ul&gt;li 的指令之后，再继续写下去，那么后续内容都是在 li 下级的。如果我想编写一个跟 ul 平级的 span 标签，那么我需要先用 “^” 提升一下层次。例如： div.nav&gt;ul&gt;li^span 就会生成如下结构： 123456&lt;div class="nav"&gt; &lt;ul&gt; &lt;li&gt;&lt;/li&gt; &lt;/ul&gt; &lt;span&gt;&lt;/span&gt;&lt;/div&gt; 如果我想相对与 div 生成一个平级元素，那么就再上升一个层次，多用一个 “^” 符号： div.nav&gt;ul&gt;li^^span 结果如下： 123456&lt;div class="nav"&gt; &lt;ul&gt; &lt;li&gt;&lt;/li&gt; &lt;/ul&gt;&lt;/div&gt;&lt;span&gt;&lt;/span&gt; 重复多份：*特别是一个无序列表，ul 下面的 li 肯定不只是一份，通常要生成很多个 li 标签。那么我们可以直接在 li 后面 * 上一些数字： ul&gt;li*5 这样就直接生成五个项目的无序列表了。如果想要生成多份其他结构，方法类似。 分组：()用括号进行分组，表示一个代码块，分组内部的嵌套和层级关系和分组外部无关，例如： div&gt;(header&gt;ul&gt;li*2&gt;a)+footer&gt;p 生成结构如下： 1234567891011&lt;div&gt; &lt;header&gt; &lt;ul&gt; &lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/header&gt; &lt;footer&gt; &lt;p&gt;&lt;/p&gt; &lt;/footer&gt;&lt;/div&gt; 可以看出整个分组成为 div 的后代，并且分组与 footer 平级。此外，分组还可以很方便的结合上面说的 “*” 符号生成重复结构： (div&gt;dl&gt;(dt+dd)*3)+footer&gt;p 生成结构如下： 12345678910111213&lt;div&gt; &lt;dl&gt; &lt;dt&gt;&lt;/dt&gt; &lt;dd&gt;&lt;/dd&gt; &lt;dt&gt;&lt;/dt&gt; &lt;dd&gt;&lt;/dd&gt; &lt;dt&gt;&lt;/dt&gt; &lt;dd&gt;&lt;/dd&gt; &lt;/dl&gt;&lt;/div&gt;&lt;footer&gt; &lt;p&gt;&lt;/p&gt;&lt;/footer&gt; 属性：[attr]a 标签中往往需要附带 href 属性和 title 属性，如果我们想生成一个 href 为 “http://bubkoo.com” ，title 为“bubkoo’s blog”的 a 标签，可以这样写： a[href=&quot;http://bubkoo.com&quot; title=&quot;bubkoo&#39;s blog&quot;] 此外，也可以生成一些自定义属性： div[data-title=&quot;bubkoo&#39;s blog&quot; data-content=&quot;CUCKOO USHERS SPRING IN&quot;] 就会生成： 123&lt;div data-title="bubkoo's blog" data-content="CUCKOO USHERS SPRING IN"&gt;&lt;/div&gt; 编号：$例如无序列表，我想为五个个 li 增加一个 class 属性值 item1 ，然后依次递增从 1-5，那么就需要使用 $ 符号： ul&gt;li.item$*5 结构是： 1234567&lt;ul&gt; &lt;li class="item1"&gt;&lt;/li&gt; &lt;li class="item2"&gt;&lt;/li&gt; &lt;li class="item3"&gt;&lt;/li&gt; &lt;li class="item4"&gt;&lt;/li&gt; &lt;li class="item5"&gt;&lt;/li&gt;&lt;/ul&gt; $ 表示一位数字，只出现一个的话，就从 1 开始，如果出现多个，就从 0 开始。如果我想生成三位数的序号，那么要写三个 $： ul&gt;li.item$$$*5 输出： 1234567&lt;ul&gt; &lt;li class="item001"&gt;&lt;/li&gt; &lt;li class="item002"&gt;&lt;/li&gt; &lt;li class="item003"&gt;&lt;/li&gt; &lt;li class="item004"&gt;&lt;/li&gt; &lt;li class="item005"&gt;&lt;/li&gt;&lt;/ul&gt; 此外，也可以在 $ 后面增加 @- 来实现倒序排列： ul&gt;li.item$@-*5 输出： 1234567&lt;ul&gt; &lt;li class="item5"&gt;&lt;/li&gt; &lt;li class="item4"&gt;&lt;/li&gt; &lt;li class="item3"&gt;&lt;/li&gt; &lt;li class="item2"&gt;&lt;/li&gt; &lt;li class="item1"&gt;&lt;/li&gt;&lt;/ul&gt; 同时，还可以使用 @N 指定开始的序号： ul&gt;li.item$@3*5 那么输出： 1234567&lt;ul&gt; &lt;li class="item3"&gt;&lt;/li&gt; &lt;li class="item4"&gt;&lt;/li&gt; &lt;li class="item5"&gt;&lt;/li&gt; &lt;li class="item6"&gt;&lt;/li&gt; &lt;li class="item7"&gt;&lt;/li&gt;&lt;/ul&gt; 配合上面倒序输出，可以这样写： ul&gt;li.item$@-3*5 就可以生成以 3 为底倒序列表： 1234567&lt;ul&gt; &lt;li class="item7"&gt;&lt;/li&gt; &lt;li class="item6"&gt;&lt;/li&gt; &lt;li class="item5"&gt;&lt;/li&gt; &lt;li class="item4"&gt;&lt;/li&gt; &lt;li class="item3"&gt;&lt;/li&gt;&lt;/ul&gt; 文本内容：{}生成超链接一般要加上可点击的文本内容，如上面的连接： 1a[href=&quot;http://bubkoo.com&quot; title=&quot;bubkoo&apos;s blog&quot;]&#123;猛击这里&#125; 就会生成 1&lt;a href="http://bubkoo.com" title="bubkoo's blog"&gt;猛击这里&lt;/a&gt; 另外，在生成内容的时候，特别要注意前后的符号关系，虽然 a&gt;{Click me} 和 a{Click me} 生成的结构是相同的，但是加上其他的内容就不一定了，例如： 12345&lt;!-- a&#123;click&#125;+b&#123;here&#125; --&gt;&lt;a href=""&gt;click&lt;/a&gt;&lt;b&gt;here&lt;/b&gt;&lt;!-- a&gt;&#123;click&#125;+b&#123;here&#125; --&gt;&lt;a href=""&gt;click&lt;b&gt;here&lt;/b&gt;&lt;/a&gt; 隐式标签隐式标签表示 Emmet 可以省略某些标签名，例如，声明一个带类的div，只需输入.item，就会生成。另外，Emmet 还会根据父标签进行判定，例如，在中输入ul&gt;.item$*5，就可以生成： 1234567&lt;ul&gt; &lt;li class="item1"&gt;&lt;/li&gt; &lt;li class="item2"&gt;&lt;/li&gt; &lt;li class="item3"&gt;&lt;/li&gt; &lt;li class="item4"&gt;&lt;/li&gt; &lt;li class="item5"&gt;&lt;/li&gt;&lt;/ul&gt; 下面是所有的隐式标签名称： li：用于 ul 和 ol 中 tr：用于 table、tbody、thead 和 tfoot 中 td：用于 tr 中 option：用于 select 和 optgroup 中 不要有空格在写指令的时候，你可能为了代码的可读性，使用一些空格什么的排版一下。这就会导致代码无法使用。例如下面这句： 12&lt;!-- a&#123;click&#125;+b&#123;here&#125; --&gt;(header &gt; ul.nav &gt; li*5) + footer 执行结果会不是你所希望的那样，所以，指令之间不要有空格。 HTML 简写规则简单总结 E 代表HTML标签。 E#id 代表id属性。 E.class 代表class属性。 E[attr=foo] 代表某一个特定属性。 E{foo} 代表标签包含的内容是foo。 E&gt;N 代表N是E的子元素。 E+N 代表N是E的同级元素。 E^N 代表N是E的上级元素。 飞一般的 CSS 书写首先，Sublime Text 3 已经提供了比较强大的 CSS 样式所写方法来提高 CSS 编写效率。例如编写 position: absolute; 这一个属性，我们只需要输入 posa 这四个字母即可。可以在平时书写过程中，留意一下 ST3 提供了哪些属性的缩写方法，这样就可以提高一定的效率了。但是 Emmet 提供了更多的功能，请往下看。 简写属性和属性值比如要定义元素的宽度，只需输入w100，即可生成： 1width: 100px; Emmet 的默认设置 w 是 width 的缩写，后面紧跟的数字就是属性值。默认的属性值单位是 px ，你可以在值的后面紧跟字符生成单位，可以是任意字符。例如，w100foo 会生成： 1width:100foo; 同样也可以简写属性单位，如果你紧跟属性值后面的字符是 p，那么将会生成： 1width:100%; 下面是单位别名列表： p 表示% e 表示 em x 表示 ex 像 margin 这样的属性，可能并不是一个属性值，生成多个属性值需要用横杠（-）连接两个属性值，因为 Emmet 的指令中是不允许空格的。例如使用 m10-20 可以生成： 1margin: 10px 20px; 如果你想生成负值，多加一条横杠即可。例如：m10–20 可以生成： 1margin: 10px -20px; 需要注意的是，如果你对每个属性都指定了单位，那么不需要使用横杠分割。例如使用 m10e20e 可以生成： 1margin: 10em 20em; 如果使用了横杠分割，那么属性值就变成负值了。例如使用 m10e-20e 就生成： 1margin: 10em -20em; 如果你想一次生成多条语句，可以使用 “+” 连接两条语句，例如使用 h10p+m5e 可以生成： 12height: 10%;margin: 5em; 颜色值也是可以快速生成的，例如 c#3 生成 color: #333;，更复杂一点的，使用 bd5#0s可以生成 border: 5px #000 solid;。 下面是颜色值生成规则： -‘#1’ → #111111-‘#e0’ → #e0e0e0-‘#fc0’ → #ffcc00 生成 !important 这条语句也当然很简单，只需要一个 “!” 就可以了。 附加属性使用 @f 即可生成 CSS3 中的 font-face 的代码结构： 1234@font-face &#123; font-family:; src:url();&#125; 但是这个结构太简单，不包含一些其他的 font-face 的属性，诸如 background-image、 border-radius、 font、@font-face、 text-outline、 text-shadow 等属性，我们可以在生成的时候输入 “+” 生成增强的结构，例如我们可以输入 @f+ 命令，即可输出选项增强版的 font-face 结构： 12345678910@font-face &#123; font-family: 'FontName'; src: url('FileName.eot'); src: url('FileName.eot?#iefix') format('embedded-opentype'), url('FileName.woff') format('woff'), url('FileName.ttf') format('truetype'), url('FileName.svg#FontName') format('svg'); font-style: normal; font-weight: normal;&#125; 模糊匹配如果有些缩写你拿不准，Emmet 会根据你的输入内容匹配最接近的语法，比如输入 ov:h、ov-h、ovh 和 oh，生成的代码是相同的： 1overflow: hidden; 供应商前缀CSS3 等现在还没有出正式的 W3C 规范，但是很多浏览器已经实现了对应的功能，仅作为测试只用，所以在属性前面加上自己独特的供应商前缀，不同的浏览器只会识别带有自己规定前缀的样式。然而为了实现兼容性，我们不得不编写大量的冗余代码，而且要加上对应的前缀。使用 Emmet 可以快速生成带有前缀的 CSS3 属性。 在任意字符前面加上一条横杠（-），即可生成该属性的带前缀代码，例如输入 -foo-css，会生成： 12345-webkit-foo-css: ;-moz-foo-css: ;-ms-foo-css: ;-o-foo-css: ;foo-css: ; 虽然 foo-css 并不是什么属性，但是照样可以生成。此外，你还可以详细的控制具体生成哪几个浏览器前缀或者先后顺序，使用 -wm-trf 即可生成： 123-webkit-transform: ;-moz-transform: ;transform: ; 可想而知，w 就是 webkit 前缀的缩写，m 是 moz 前缀缩写，s 是 ms 前缀缩写，o 就是 opera 浏览器前缀的缩写。如果使用 -osmw-abc 即可生成： 12345-o-abc: ;-ms-abc: ;-moz-abc: ;-webkit-abc: ;abc: ; 渐变背景CSS3 中新增加了一条属性 linear-gradient 使用这个属性可以直接制作出渐变的效果。但是这个属性的参数比较复杂，而且需要添加实验性前缀，无疑需要生成大量代码。而在 Emmet 中使用 lg() 指令即可快速生成，例如：使用 lg(left, #fff 50%, #000) 可以直接生成： 12345background-image: -webkit-gradient(linear, 0 0, 100% 0, color-stop(0.5, #fff), to(#000));background-image: -webkit-linear-gradient(left, #fff 50%, #000);background-image: -moz-linear-gradient(left, #fff 50%, #000);background-image: -o-linear-gradient(left, #fff 50%, #000);background-image: linear-gradient(left, #fff 50%, #000); 附加功能生成Lorem ipsum文本Lorem ipsum 指一篇常用于排版设计领域的拉丁文文章，主要目的是测试文章或文字在不同字型、版型下看起来的效果。通过 Emmet，你只需输入 lorem 或 lipsum 即可生成这些文字。还可以指定文字的个数，比如 lorem10，将生成： Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, esse, provident, nihil laudantium vitae quam natus a earum assumenda ex vel consectetur fugiat eveniet minima veritatis blanditiis molestiae harum est! 定制你还可以定制Emmet插件： 添加新缩写或更新现有缩写，可修改 snippets.json文件更改Emmet过滤器和操作的行为，可修改 preferences.json 文件定义如何生成HTML或XML代码，可修改 syntaxProfiles.json 文件 快捷键 Ctrl+, 展开缩写 Ctrl+M 匹配对 Ctrl+H 使用缩写包括 Shift+Ctrl+M 合并行 Ctrl+Shift+? 上一个编辑点 Ctrl+Shift+? 下一个编辑点 Ctrl+Shift+? 定位匹配对 最后Emmet 的官方 API 列表在这里，有一个pdf版本可以【点此下载】]]></content>
+      <categories>
+        <category>Debian</category>
+        <category>编程</category>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>web</tag>
+        <tag>Emmet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian 搭建RTMP/HLS流媒体服务器]]></title>
+    <url>%2F2018%2F06%2F07%2FDebian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。现在将最新的解决方案记录下来。 旧方法之前大家都是通过添加模块nginx-rtmp-module编译打包来搭建的。主要借鉴了 【置顶】搭建nginx rtmp直播服务器，ffmpeg模拟推流Ubuntu下编译Nginx的RTMP直播模块 新方法既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿 如果使用apt 就很简单了，一句命令搞定，但是缺点就是可能不是最新的发布版 1apt install nginx-full nginx-rtmp-module 修改/etc/nginx/nginx.conf 12345678910111213rtmp &#123; server &#123; listen 1935; chunk_size 4000; #HLS application hls &#123; live on; hls on; hls_path /var/www/html/hls; hls_fragment 5s; &#125; &#125;&#125; 修改虚拟主机配置文件(xxx是文件名称): 1sudo nano /etc/nginx/sites-enabled/xxx 12345678910location /hls &#123; #是W3C标准里用来检查该跨域请求是否可以被通过 add_header Access-Control-Allow-Origin *; types &#123; application/vnd.apple.mpegurl m3u8; video/mp2t ts; &#125; root /var/www/html/; add_header Cache-Control no-cache;&#125; 创建目录: 1sudo mkdir /usr/share/nginx/html/hls 重启nginx: 1sudo systemctl restart nginx.service 重启完成后，nginx算是成功了，下面就可以测试了，可以使用ffmpeg或obs来推流。 obs:&gt; ffmpeg: 1ffmpeg -re -i test.flv -f flv rtmp://192.168.242.172/myapp/test1]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>RTMP/HLS</tag>
+        <tag>直播</tag>
+        <tag>流媒体服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[debian9 安装 openvas9]]></title>
+    <url>%2F2018%2F02%2F02%2Fdebian9-%E5%AE%89%E8%A3%85-openvas9%2F</url>
+    <content type="text"><![CDATA[debian 中虽然有openvas的软件包，但是在安装完成以后，实际上不能完成openvas-setup安装。经过几天的搜索、琢磨，终于功夫不负有心人，现将openvas安装中需要修改的配置进行总结。 问题描述在执行openvas-setup后，脚本将在NVT下载结束时显示错误，如下所示。 (openvassd:2272): lib kb_redis-CRITICAL : get_redis_ctx: redis connection error: No such file or directory(openvassd:2272): lib kb_redis-CRITICAL : redis_new: cannot access redis at ‘/tmp/redis.sock’(openvassd:2272): lib kb_redis-CRITICAL **: get_redis_ctx: redis connection error: No such file or directoryopenvassd: no process found 问题根源经过google搜索等查找渠道，我找到以下几个问题 openvas 的 openvassd 进程调用的kb_location有误 openvas-scanner 在配置文件 /etc/default/openvas-scanner 中的SCANNER_SOCKET字段配置有误 openvas-scanner 的systemd服务文件中ExecStart=/usr/sbin/openvassd –unix-socket=字段配置有误 第一个问题的原因是因为openvassd使用unix-socket与redis通信，然后默认调用/tmp/redis.sock，但是/tmp/redis.sock由于systemd的原因，需要关闭PrivateTmp才能行。至于PrivateTmp，看这个 第二个问题的原因是debian9中openvas软件包的默认配置就有问题。默认配置文件 /etc/default/openvas-scanner 中的SCANNER_SOCKET=/tmp/redis.sock，这是错误的配置。 第三个问题的原因是/lib/systemd/system/openvas-scanner.service文件中ExecStart=/usr/sbin/openvassd –unix-socket=/tmp/redis.sock是一个错误的socket指向。 解决方案 openvas 的 openvassd 进程调用的kb_location有误 修改/etc/openvas/openvassd.conf文件内容如下：（文件不存在请自己创建） kb_location=/var/run/redis/redis.sock openvas-scanner 在配置文件 /etc/default/openvas-scanner 中的SCANNER_SOCKET字段配置有误 需要修改内容如下 SCANNER_SOCKET=/var/run/openvassd.sock openvas-scanner 的systemd服务文件中ExecStart=/usr/sbin/openvassd –unix-socket=字段配置有误 需要修改内容如下 ExecStart=/usr/sbin/openvassd –unix-socket=/var/run/openvassd.sock]]></content>
+      <categories>
+        <category>Debian</category>
+      </categories>
+      <tags>
+        <tag>Openvas</tag>
+        <tag>扫描器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Nvidia optirun|primusrun 缺少 libGL.so.1 解决方案]]></title>
+    <url>%2F2017%2F11%2F03%2FNvidia-optirun-primusrun-%E7%BC%BA%E5%B0%91-libGL-so-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[当您运行optirun或primus时，您或许会遇到…libGL.so.1: cannot open shared object file: No such file or directory…这个错误暂时状态是open#876033 错误提示完整错误提示为： $ primus: fatal: failed to load any of the libraries: /usr/lib/x86_64-linux-gnu/nvidia/libGL.so.1:/usr/lib/i386-linux-gnu/nvidia/libGL.so.1:/usr/lib/nvidia/libGL.so.1/usr/lib/x86_64-linux-gnu/nvidia/libGL.so.1: cannot open shared object file: No such file or directory/usr/lib/i386-linux-gnu/nvidia/libGL.so.1: cannot open shared object file: No such file or directory/usr/lib/nvidia/libGL.so.1: cannot open shared object file: No such file or directory $ primus: fatal: failed to load any of the libraries: /usr/lib/x86_64-linux-gnu/ nvidia/libGL.so.1:/usr/lib/i386-linux-gnu/nvidia/libGL.so.1:/usr/lib/nvidia/libGL.so.1/usr/lib/x86_64-linux-gnu/nvidia/libGL.so.1: wrong ELF class: ELFCLASS64/usr/lib/i386-linux-gnu/nvidia/libGL.so.1: cannot open shared object file: No such file or directory/usr/lib/nvidia/libGL.so.1: cannot open shared object file: No such file or directory 解决方案首先，确保你已经开启了i386的支持 1sudo dpkg --add-architecture i386 其次，确保你已经安装了primus-libs-ia32包，如果没有安装请安装。 1sudo apt install primus-libs-ia32 然后执行命令安装这些软件包：libgl1-nvidia-glx libgl1-nvidia-glx:i386 nvidia-driver-libs nvidia-driver-libs-i386 1sudo apt install libgl1-nvidia-glx libgl1-nvidia-glx:i386 nvidia-driver-libs nvidia-driver-libs-i386 转载自：https://wiki.debian-fr.xyz/NVidia_Optimus_Bumblebee#libGL.so.1]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Nvidiao</tag>
+        <tag>ptirun|primusrun</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql|mariaDB 安装详细教程]]></title>
+    <url>%2F2017%2F10%2F30%2Fmysql-mariaDB-%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[MariaDB 是深受欢迎的数据库管理服务器软件 MySQL 的一个自由开源的分支。它由 MySQL 的原开发者在 GPLv2（通用公共许可证 2 版）下开发，并保持开源。既然这么清真，我们来学习一下如何在 Debian 及其子类发行版中安装 MariaDB 10.X 稳定版。 获取 MariaDB 仓库及其密钥打开这个 安装更新系统安装包列表，并像下面这样安装 MariaDB 服务器： 12$ sudo apt-get update$ sudo apt-get install mariadb-server 安装过程中，会提示您为您的 MariaDB 服务器设置一个安全的 root 用户密码，并且会重复确认。 保护数据库1$ sudo mysql_secure_installation 运行 mysql_secure_installation 脚本来保护数据库，你可以设置： 设置 root 密码（如果在上面的配置环节你没有进行设置的话）。 禁止远程 root 登录 移除测试数据库 移除匿名用户 重载权限配置 忘记密码我们忘记了密码，或者数据库被入侵者修改了密码，该如何处理呢，下述了解决步骤。 停止mysql或者mariadb服务(systenV|systemd) 12service mysqld|mariadb stopsystemctl stop mariadb.service 跳过授权表启动 1mysqld_safe --skip-grant-table &amp; 修改mysql.user表的密码,不用密码登陆 1234mysql -urootuse mysql;update user set password=password('newpass') where user='root';exit; 杀掉mysqld进程 1pkill mysqld 重启服务(systenV|systemd) 12service mysqld|mariadb startsystemctl restart mariadb.service]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql|mariaDB 问题解决方案]]></title>
+    <url>%2F2017%2F10%2F30%2Fmysql-mariaDB-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[Debian 安装mysql|mariaDB以后，通常都会出现各种始料未及的错误，本教程将介绍如何解决此问题。 “Plugin ‘unix_socket’ is not loaded 或 ERROR 1698 (28000): Access denied for user ‘root’@’localhost’.什么是Unix_Socket插件？MariaDB 5.2.0中首先支持Unix_Socket身份验证插件，允许用户使用操作系统凭据通过Unix套接字连接到MariaDB。默认情况下不安装此插件。 注意：某些情况也会出现上述问题。在Debian 9中，某个情况下（也许在安装和删除mariadb之后）mysql无法运行。提示错误“Plugin ‘unix_socket’ is not loaded”。 解决方案首先切换root 1su - 然后按照： 123systemctl stop mariadb.servicemysqld_safe --skip-grant-tables &amp;mysql -uroot 这将完全停止mysql，绕过用户身份验证（不需要密码）并使用用户“root”连接到mysql。现在，在mysql控制台中，使用mysql管理db： 1use mysql; 要将root密码重置为mynewpassword（根据您的需要更改），只是为了确保： 1update user set password=PASSWORD("mynewpassword") where User='root'; 而这一个将覆盖身份验证方法，删除unix_socket请求（和其他一切），恢复正常和工作的密码方法： 1update user set plugin="mysql_native_password"; 退出mysql控制台： 1quit; 停止并启动与mysql相关的所有内容： 123systemctl stop mariadb.servicekill -9 \$(pgrep mysql)systemctl restart mariadb.service MySQL远程访问权限MariaDB默认是不允许用户远程登录的，如果需要远程登录，则需要以下操作。 允许root用户远程登录MariaDB 修改配置文件的端口绑定 打开的目录可能会根据MySQL的版本稍有不同，可以先尝试打开/etc/mysql/mariadb.conf.d/*这些配置文件，若该文件不存在或文件内容为空，则尝试下面的文件路径。 1sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf 在下面行的开头加上#，注释掉该行，然后保存退出： 1bind-address = 127.0.0.1 修改访问权限 进入mysql,输入如下命令，输入密码，进入mysql命令行 1mysql -u root -p 授权root用户访问权限，并刷新权限，此处的root可用其它MySQL用户替换，pwd部分需替换为该用户对应的密码 123grant all privileges on *.* to root@"%" identified by "newPWD" with grant option;flush privileges;exit; 重启mysql服务 1/etc/init.d/mysql restart]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[nvidia Bumblebee don't work]]></title>
+    <url>%2F2017%2F09%2F16%2Fnvidia-Bumblebee-don-t-work%2F</url>
+    <content type="text"><![CDATA[在Debian安装了Bumblebee，但是使用的时候提示错误。 [ERROR]The Bumblebee daemon has not been started yet or the socket path /var/run/bumblebee.socket was incorrect.[ERROR]Could not connect to bumblebee daemon - is it running? 二级菜单查了资料，现将解决方案复制如下：（翻译） 我升级了一些软件包后遇到这个问题。似乎问题是由Nvidia内核模块从“nvidia”更名为“nvidia_current”引起的。 如果您有这个问题，您可以通过编辑/etc/bumblebee/bumblebee.conf和添加修改以下值来解决问题： …[bumblebeed]Driver=nvidia…[driver-nvidia]KernelDriver=nvidia_currentModule=nvidia… 然后重新开始大黄蜂服务： sudo systemctl restart bumblebeed.service 并测试： optirun glxgears 参考文献： https://github.com/Bumblebee-Project/Bumblebee/issues/238https://github.com/Bumblebee-Project/Bumblebee/issues/330]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Bumblebee</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql学习总结]]></title>
+    <url>%2F2017%2F09%2F11%2Fmysql%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[Mysql是最流行的关系型数据库管理系统，在WEB应用方面MySQL是最好的RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一. 下载安装安装：详细看这里 123apt install mysql-server mysql-clientorapt install mariadb-server mariadb-client 服务端启动：1sudo service mariadb start 客户端连接使用mysql-client连接1mysql -h host -u user 使用mycli连接1mycli -h host -u user 数据库操作mysql默认数据库123mysql - 用户权限相关数据test - 用于用户测试数据information_schema - MySQL本身架构相关数据 展示所有数据库1SHOW DATABASES; 创建数据库1CREATE DATABASE DB_NAME; 使用数据库1USE DB_NAME; 显示当前使用数据库中所有表1SHOW TABLES; 用户管理创建用户1234create user '用户名'@'IP地址' identified by '密码'; -- 用户名@IP地址 用户只能在改IP下才能访问 -- 用户名@192.168.1.% 用户只能在改IP段下才能访问(通配符%表示任意) -- 用户名@% 用户可以再任意IP下访问(默认IP地址为%) 删除用户1drop user '用户名'@'IP地址'; 修改用户1rename user '用户名'@'IP地址'; to '新用户名'@'IP地址';; 修改密码1set password for '用户名'@'IP地址' = Password('新密码') 授权管理123456show grants for '用户'@'IP地址' -- 查看权限grant 权限 on 数据库.表 to '用户'@'IP地址' -- 授权revoke 权限 on 数据库.表 from '用户'@'IP地址' -- 取消权限CREATE USER 'abcxander'@'localhost';GRANT ALL PRIVILEGES ON *.* to 'abcxander'@'localhost' WITH GRANT OPTION; -- 创建一个可以做任何事情的新用户（如：root） 对于权限做一个总结 官方文档 全局权限 Privilege Description CREATE USER 使用CREATE USER语句创建用户 FILE 读取和写入服务器上的文件 GRANT OPTION 授予全局特权 您只能授予您所拥有的权限 PROCESS 通过 SHOW PROCESSLIST 或 mysqladmin进程列表 显示活动进程的信息 RELOAD 执行FLUSH语句或等效的mysqladmin命令 REPLICATION CLIENT 执行SHOW MASTER STATUS和SHOW SLAVE STATUS信息语句 REPLICATION SLAVE 主服务器在主服务器上使用的帐户需要此权限。 这是需要获得主机上的更新 SHOW DATABASES 使用SHOW DATABASES语句列出所有数据库 SHUTDOWN 使用SHUTDOWN或mysqladmin shutdown命令关闭服务器 SUPER 执行超级用户语句：CHANGE MASTER TO，KILL（没有此权限的用户只能杀死自己的线程）,PURGE LOGS，SET全局系统变量或mysqladmin调试命令 数据库权限 Privilege Description CREATE 创建数据库时，需要授予数据库权限来使用CREATE DATABASE语句 CREATE ROUTINE 使用CREATE PROCEDURE和CREATE FUNCTION语句创建存储过程 CREATE TEMPORARY TABLES 使用CREATE TEMPORARY TABLE语句创建临时表，该权限可以写入和删除这些临时表 DROP 删除数据库 EVENT 创建，删除和更改事件（EVENT），在MySQL 5.1.6中添加的语句 GRANT OPTION 授予数据库权限，您只能授予您所拥有的权限 LOCK TABLES 使用LOCK TABLES语句获取显式锁; 您还需要让表具有SELECT权限，以便于锁定它。 表权限 Privilege Description ALTER 使用ALTER TABLE语句更改现有表的结构 CREATE 使用CREATE TABLE语句创建一个表，您可以为尚不存在的表授予CREATE权限 CREATE VIEW 使用CREATE_VIEW语句创建视图。 DELETE 使用DELETE语句从表中删除行 DROP 使用DROP TABLE语句或使用DROP VIEW语句来删除表和视图 GRANT OPTION 授予表权限，您只能授予您所拥有的权限 INDEX 使用CREATE INDEX语句在表上创建一个索引 INSERT 使用INSERT语句将行添加到表中，也可以在各个列上设置INSERT权限 SELECT 使用SELECT语句从表中读取数据，SELECT特权也可以在各个列上设置 SHOW VIEW 查看视图权限 TRIGGER 执行关联到您更新表上的触发器，执行CREATE TRIGGER和DROP TRIGGER语句。 您仍然可以看到触发器 UPDATE 使用UPDATE语句更新表中的现有行 列权限可以为表的各个列设置一些权限，要使用列权限，请明确指定表，并在特权类型之后提供表的字段。例如，以下语句将允许用户读取员工的姓名和职位，但不能读取同一表中的其他信息，例如薪水。GRANT SELECT (name, position) on Employee to &#39;jeffrey&#39;@&#39;localhost&#39;; Privilege Description INSERT (column_list) 使用INSERT语句添加一行指定内容，如果使用列级别INSERT权限，则必须在INSERT语句后指定使用的字段，所有其他列将被设置为其默认值，或NULL SELECT (column_list) 使用SELECT语句读取列中的值，您无法访问或查询您没有SELECT权限的任何列，包括在WHERE，ON，GROUP BY和ORDER BY子句 UPDATE (column_list) 使用UPDATE语句更新现有行列的值，UPDATE语句通常包括一个仅更新某些行的WHERE子句，您必须在表的相应列具有SELECT权限或WHERE子句。 函数权限 Privilege Description ALTER ROUTINE 使用ALTER FUNCTION语句更改存储函数的特性 EXECUTE 使用存储功能。 你需要通过函数访问的任何表或列的SELECT权限 GRANT OPTION 授予函数权限。 您只能授予您所拥有的权限。 程序权限 Privilege Description ALTER ROUTINE 使用ALTER PROCEDURE语句更改存储过程的特性 EXECUTE 使用CALL语句执行存储过程，您执行的存储过程可能允许您没有权限的操作，例如将行插入到表中 GRANT OPTION 授予权限。 您只能授予您所拥有的权限 代理权限 Privilege Description PROXY 允许一个用户作为另一个用户的代理 示例: GRANT PROXY ON &#39;marijana&#39;@&#39;somehost&#39; TO &#39;barrfhionn&#39;@&#39;somehost&#39;; 设置每个帐户的资源限制 Limit Type Decription MAX_QUERIES_PER_HOUR 帐户每小时可发出的报表数量（包括更新） MAX_UPDATES_PER_HOUR 帐户可以每小时发出的更新数量（不是查询） MAX_CONNECTIONS_PER_HOUR 帐户可以每小时启动的连接数 MAX_USER_CONNECTIONS 可以从同一帐户接受的同时连接数; 如果为0，将使用max_connections; 如果max_connections为0，则该帐户的并发连接没有限制 MAX_STATEMENT_TIME 用户执行的语句超时（秒）。 另请参见超过一定时间执行的中止声明 帐户SSL / TLS选项 Option Description REQUIRE NONE 此帐户不需要TLS，但仍可使用 REQUIRE SSL 该帐户必须使用TLS，但不需要有效的X509证书 REQUIRE X509 该帐户必须使用TLS，并且必须具有有效的X509证书 REQUIRE ISSUER ‘issuer’ 该帐户必须使用TLS，并且必须具有有效的X509证书。 此外，证书颁发机构必须是通过’issuer’颁发者指定 REQUIRE SUBJECT ‘subject’ 该帐户必须使用TLS，并且必须具有有效的X509证书。 此外，证书必须是通过’subject’指定 REQUIRE CIPHER ‘cipher’ 该帐户必须使用TLS，并且必须具有有效的X509证书。 此外，用于连接的加密必须使用’cipher’密码中指定的方法之一 示例: 1234GRANT USAGE ON *.* TO 'someone'@'localhost' REQUIRE SUBJECT '/CN=www.mydom.com/O=My Dom, Inc./C=US/ST=Oregon/L=Portland' AND ISSUER '/C=FI/ST=Somewhere/L=City/ O=Some Company/CN=Peter Parker/emailAddress=p.parker@marvel.com' AND CIPHER 'SHA-DES-CBC3-EDH-RSA'; 数据表操作创建表123456create table 表名( 字段名 类型 是否可以为空 defalut 2 auto_increment primary key， 字段名 类型 是否可以为空, primary key(字段名,字段名), constraint 外键名称（例如:FK_从表_主表） foreign key 从表(外键字段) references 主表(主键字段))ENGINE=InnoDB DEFAULT CHARSET=utf8; 删除表1drop table 表名 清空表12delete from 表名; (可通过where来删除部分内容)truncate table 表名; (清空表) 修改表 操作 sql语句 修改数据库字符集和对照表 ALTER DATABASE DB_NAME CHARACTER SET = \&#39;utf8\&#39; COLLATE = \&#39;utf8_bin\&#39;; 添加列 ALTER TABLE 表名 add 字段名 类型; 删除列 ALTER TABLE 表名 drop column 字段名; 修改列类型 ALTER TABLE 表名 modify column 字段名 类型; 修改列字段名，类型 ALTER TABLE 表名 change 原字段名 新字段名 类型; 添加主键 ALTER TABLE 表名 add primary key(字段名); 删除主键 ALTER TABLE 表名 drop primary key; 删除自增并删除主键 ALTER TABLE 表名 modify 字段名 字段名 int, drop primary key; 添加外键 ALTER TABLE 从表 add constraint 外键名称\（例如:FK_从表_主表\） foreign key 从表\(外键字段\) references 主表\(主键字段\); 删除外键 ALTER TABLE 表名 drop foreign key 外键名称; 修改默认值 ALTER TABLE 表名 ALTER column 字段名 SET DEFAULT 1000; 删除默认值 ALTER TABLE 表名 ALTER column 字段名 DROP DEFAULT; 表内容操作增123insert into 表名 (字段名,字段名...) values (值,值,值...);insert into 表名 (字段名,字段名...) values (值,值,值...),(值,值,值...);insert into 表名 (字段名,字段名...) select (字段名,字段名...) from 表名; 删12delete from 表名;delete from 表名 where id＝1 and name＝'abcx'; 改1update 表名 set name ＝ 'abcx' where id&gt;1 查普通查询123select * from 表名select * from 表名 where id &gt; 1select nid,name,gender as gg from 表名 where id &gt; 1 条件查询12345select * from 表 where id &gt; 1 and name != 'abcx' and num = 12;select * from 表 where id between 5 and 16; --BETWEEN 操作符选取介于两个值之间的数据范围内的值select * from 表 where id in (11,22,33);select * from 表 where id not in (11,22,33);select * from 表 where id in (select nid from 表); --可以将查询出的内容当作条件 模糊查询12345select * from 表 where name like 'abc%' -- abc开头的所有（多个字符串）select * from 表 where name like 'abc_' -- abc开头的所有（一个字符）select * from 表 where name like 'abc[a-f]' -- [ ] 指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符select * from 表 where name like 'abc[^a-f]' -- [^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符select * from 表 where name like '%[!0-9]%' -- [!] 排除 匹配内容不包含数字 分页查询123select * from 表 limit 5; -- 前5行select * from 表 limit 4,5; -- 从第4行开始的5行select * from 表 limit 5 offset 4; -- 从第4行开始的5行 查询排序123select * from 表 order by 列 asc; -- 根据 “列” 从小到大排列select * from 表 order by 列 desc; -- 根据 “列” 从大到小排列select * from 表 order by 列1 desc,列2 asc; -- 根据 “列1” 从大到小排列，如果相同则按列2从小到大排序 分组查询123456select num from 表 group by num;select num,nid from 表 group by num,nid;select num,nid from 表 where nid &gt; 10 group by num,nid order by nid desc;select num,nid,count(*),sum(score),max(score),min(score) from 表 group by num nid;select num from 表 group by num having max(id) &gt; 10; --特别的：group by 必须在where之后，order by之前 连表查询12345678910111213141516171819无对应关系则不显示select A.num, A.name, B.namefrom A,BWhere A.nid = B.nid自连接，无对应关系则不显示select A.num, A.name, B.namefrom A inner join Bon A.nid = B.nid左连接，A表所有显示，如果B中无对应关系，则值为nullselect A.num, A.name, B.namefrom A left join Bon A.nid = B.nid右连接，B表所有显示，如果B中无对应关系，则值为nullselect A.num, A.name, B.namefrom A right join Bon A.nid = B.nid 组合查询123456789101112组合，自动处理重合select nicknamefrom Aunionselect namefrom B组合，不处理重合select nicknamefrom Aunion allselect namefrom B]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>mysql</tag>
+        <tag>mariadb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian下 Genymotion黑屏解决方案总汇]]></title>
+    <url>%2F2017%2F08%2F13%2FDebian%E4%B8%8B-Genymotion%E9%BB%91%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%80%BB%E6%B1%87%2F</url>
+    <content type="text"><![CDATA[在日常使用 genymotion 的过程在，由于各种奇葩的操作,导致genymotion在使用的时候回黑屏黑屏真的是很烦，毕竟工作可能就耽误了，所以这里总结一下黑屏原因及解决方案 Vbox hostonly network broken导致黑屏打开Android虚拟机是这样的直接从Vbox中打开是这样的如上述图所示，这其实是Vbox自身的bug导致的，这里了解bug发生在5.1.24版本，在5.1.26版本中修复了。如果您还在使用vbox5.1.24那么解决方案是这里简单修复 Vbox网络适配器配置错误如果是这种情况，您应该尝试以下操作 运行VirtualBox。 打开文件&gt;首选项&gt;网络（或VirtualBox&gt; Mac OS X的首选项）。 单击主编辑网络。 检查适配器IPv4地址是否在与DHCP服务器地址相同的网络中（缺省为192.168.56.0/24）如果没有，您的虚拟设备无法启动 可以参阅Vbox网络适配器配置您也可以通过单击来删除主机专用网络。Genymotion将在下一个虚拟设备启动时自动重新创建它。 防火墙或其他程序阻止Genogotion如果可能的话，可以尝试断开任何可能阻碍这种情况的vpn服务或其他软件，并确保genogotion能够通过本地网络连接到虚拟设备。 如果您有防火墙，请确保您允许连接到Genymotion网络，默认设置为192.168.56.0/24。 Genymotion卡在 eula acceptance导致黑屏选定这个窗口（获取焦点） 点击 TAB 两次 点击 SPACE 点击 TAB 两次 点击SPACE 这会点击确认复选框,默认接受EULA 风险:你没有读EULA就接受了协议 总结遇到genymotion发生故障时，首先不能着急，要冷静的查阅排误，切记要冷静的回想自己进行了什么骚操作.]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian 8 安装Shadowsocks-libev]]></title>
+    <url>%2F2016%2F11%2F28%2FDebian-8-%E5%AE%89%E8%A3%85Shadowsocks-libev%2F</url>
+    <content type="text"><![CDATA[现在我将向您展示如何在Debian 8安装shadowsocks-libev。由于它是用C编写的，所以它消耗非常少的内存，非常适合嵌入式设备和低端盒。因为Debian8 默认是没有shadowsocks-libev包的。查看所有架构下的shadowsocks-libev 安装听老大说shadowsocks.org 提供的 deb 源严重过时了，最好不要用。建议修改。。 首先，获取GPG公钥，然后用apt-键导入到系统中。 wget http://shadowsocks.org/debian/1D27208A.gpgsudo apt-key add 1D27208A.gpg 现在打开/etc/apt/sources.list文件。 sudo vi /etc/apt/sources.list 将下列行放置在文件的结尾。 #Debian 8deb http://shadowsocks.org/debian wheezy main 保存并关闭文件。现在更新本地包索引并安装shadowsocks-libev。 sudo apt-get update;sudo apt-get install shadowsocks-libev~~ 看这里 所以，现在更新新的办法，就是使用Debian Backports。切换为root并且使用你最顺手的编辑器打开文件 /etc/apt/sources.list : susu@debian:~$ suPassword:debian:/home/human# nano /etc/apt/sources.list 增加以下几行: # Backports repositorydeb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free 如果你是开源软件的狂热爱好者,你可能会想要移除 contrib 和 non-free 两个部分 既然你已经增加了软件库, 更新APT的缓存来包含在backports目录列表中的可用软件: debian:/home/susu# apt-get update 然后就直接安装： apt-get install shadowsocks-libev 配置shadowsocks-libev配置文件为：/etc/shadowsocks-libev/config.json，格式说明： 1234567&#123; "server":"example.com or X.X.X.X", "server_port":443, "password":"password", "method":"rc4-md5", "timeout":60&#125; 其中： server：主机IPserver_port：服务器监听端口password：密码method：加密方式 默认为table,其他有rc4,rc4-md5,aes-128-cfb, aes-192-cfb, aes-256-cfb,bf-cfb, camellia-128-cfb, camellia-192-cfb,camellia-256-cfb, cast5-cfb, des-cfb 多用户： 1234567891011121314&#123; "server":"my_server_ip"， "local_address": "127.0.0.1", "local_port":1080, "port_password": &#123; "8381": "foobar1", "8382": "foobar2", "8383": "foobar3", "8384": "foobar4" &#125;, "timeout":300, "method":"aes-256-cfb", "fast_open": false&#125; 配置完成以后需要重启服务： sudo service shadowsocks-libev restart]]></content>
+      <categories>
+        <category>科学上网</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>科学上网</tag>
+        <tag>shadowsocks-libev</tag>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[开发者Debian里的十八般兵器]]></title>
+    <url>%2F2016%2F11%2F26%2F%E5%BC%80%E5%8F%91%E8%80%85Debian%E9%87%8C%E7%9A%84%E5%8D%81%E5%85%AB%E8%88%AC%E5%85%B5%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。 集成开发环境IDE集成开发环境一般是集编辑，编译，链接，调试，版本管理和打包发布于一体的大型开发软件。它的特点是功能丰富，上手快，易操作。缺点也显而易见，笨重，运行速度慢，需要更多的CPU，内存资源。 IntelliJ IDEA IntelliJ IDEA被认为是当前Java开发效率最快的IDE工具。它集成了开发过程中实用的众多功能，几乎可以不用鼠标可以方便的完成你要做的任何事情，最大程度的加快开发的速度。简单而又功能强大。与其他的一些繁冗而复杂的IDE工具有鲜明的对比。软件主页以及下载地址 Eclipse 是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development Kit，JDK）。但是近几年使用人数在下滑，逐渐转向Android Studio和IntelliJ IDEA了。软件主页以及下载地址 Android Studio 是一个Android集成开发工具，基于IntelliJ IDEA. 类似 Eclipse ADT，Android Studio 提供了集成的 Android 开发工具用于开发和调试。软件主页以及下载地址 文档查看 Zeal热情是一个软件开发离线文档浏览器。Zeal目前有195个很棒的文档！软件主页以及下载地址 文本编辑器 AtomAtom是由GitHub开发的自由及开放源代码的文字与代码编辑器，支持OS X、Windows和Linux操作系统，支持Node.js所写的插件，并内置由Github提供的Git版本控制系统。多数的延伸包皆为开放源代码授权，并由社区建置与维护。Atom基于Electron（最初以Atom Shell知名）和许可使用Chromium和Node.js的跨平台应用框架，并使用CoffeeScript和Less撰写。Atom也可当作IDE使用。被它的开发者称为“给21世纪的黑客风格编辑器（hackable text editor for the 21st Century）”。自2014年5月6日起，Atom的核心程序、包管理器以及Atom基于Chromium的桌面程序框架皆使用MIT授权条款发布。软件主页以及下载地址 Visual Studio CodeVS Code是一种新型工具，它结合了代码编辑器的简单性和开发人员在核心编辑构建 - 调试周期中需要的工具。代码提供全面的编辑和调试支持，可扩展性模型，以及与现有工具的轻量级集成。软件主页以及下载地址 Sublime TextSublime Text具有漂亮的用户界面和强大的功能，例如代码缩略图，Python的插件，代码段等。还可自定义键绑定，菜单和工具栏。Sublime Text 的主要功能包括：拼写检查，书签，完整的 Python API ， Goto 功能，即时项目切换，多选择，多窗口等等。Sublime Text 是一个跨平台的编辑器，同时支持Windows、Linux、Mac OS X等操作系统。软件主页以及下载地址 haroopad它是开源、免费、跨平台的，支持windows，linux和mac系统。Haroopad已经内置了各种markdown扩展，支持100多种编程语言代码的直接显示，例如C/C++， JAVA， C#， Ruby， Python， Erlang， Makefile等等，甚至代码显示的背景框都有很多主题可以选择。另外它支持撰写数学公式，支持一套文本绘图DSL，支持自动生成文档目录等等。Haroopad支持直接将文档发布成PDF格式。最后Haroopad支持用户自定义显示样式。软件主页以及下载地址 分析调试类 Wireshark老牌网络抓包利器，各种平台都可以玩耍。软件主页以及下载地址 tcpdump这是一个命令行工具，可以看作是Wireshark的命令行版。安装请 apt install Charles网络抓包利器加上代理功能，并支持自签名证书，所以可以用来在手机上抓取https的包。使用非常方便。付费软件，值得购买。软件主页以及下载地址 图片编辑器对图片的简单处理也是很有必要的所以。。 GIMPGIMP 是跨平台的图像处理程序。GIMP 是 GNU 图像处理程序(GNU Image Manipulation Program)的缩写。GIMP 能够实现多种图像处理方面的要求，包括照 片润饰、图像合成和创建图像。GIMP 有许多功能，它即可以作为简单的画图程序，也能作为专家级的照片处理程序,或在线批处理系统、或大批量图像渲染器，以及图像格式转换器等安装请 apt install软件主页以及下载地址 版本管理只能说版本管理是必须的。 GitGit 是个版本控制工具，运行速度快，最为出色的是合并追踪（merge tracing）能力。作为开源自由原教旨主义项目，Git 没有对版本库的浏览和修改做任何的权限限制，但可以通过其他工具达到有限的权限控制。安装请 apt install 文件共享从文件服务器(FTP, Samba etc.)下载资料或者上传文件到服务器上。 FileZillaFileZilla是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。可控性、有条理的界面和管理多站点的简化方式使得Filezilla客户端版成为一个方便高效的FTP客户端工具，而FileZilla Server则是一个小巧并且可靠的支持FTP&amp;SFTP的FTP服务器软件。安装请 apt install软件主页以及下载地址 vsftpvsftpd 是一个 UNIX 类操作系统上运行的服务器的名字，它可以运行在诸如 Linux, BSD, Solaris, HP-UX 以及 IRIX 上面。它支持很多其他的 FTP 服务器不支持的特征。安装请 apt install 虚拟机&amp;模拟器兄弟们安装一个虚拟机运行QQ吧！ VirtualBox老牌虚拟机软件，支持市面上几乎所有流行的操作系统。软件主页以及下载地址 Genymotion安卓模拟器，运行安卓APP如同在手机上一样的速度。[软件主页以及下载地址](http://www.genymotion.org） kvmKVM（用于基于内核的虚拟机）是用于包含虚拟化扩展（Intel VT或AMD-V）的x86硬件上的Linux的完全虚拟化解决方案。它包含一个可加载的内核模块kvm.ko，它提供了核心虚拟化基础架构和一个特定于处理器的模块kvm-intel.ko或kvm-amd.ko。[软件主页以及下载地址](https://www.linux-kvm.org/page/Main_Page） 翻墙利器我要上谷歌搜索最新的Android开发文档和API，可是目前在国内用不了谷歌，怎么办？翻墙吧！ Shadowsocks利器不多说，Debian源里下载安装然后运行，配置，打开Chrome浏览器安装proxy-switchyomega，访问谷歌走你。。 XX-netXX-Net是一个免费的桌面应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用google app引擎（GAE）作为代理服务器通过防火墙。软件主页以及下载地址 Lantern如果上面两个不行，那么试试这个吧，Lantern是一个免费的应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用各种技术保持解锁，包括域前端，p2p和可插拔传输。软件主页以及下载地址 流程图流程图是一种很有用的示意图，说明为获得一个问题的解决方案需执行的行为和操作顺序。流程图能促进程序员和业务人员之间的沟通。在问题的编程中流程图起到非常关键的作用，并在理解复杂和冗长问题的逻辑时非常有用。 DiaDia图编辑器是免费的开源绘图软件Windows，Mac OS X和Linux。 Dia支持30多种不同图表类型，如流程图，网络图，数据库模型。超过一千个现成的对象有助于绘制专业图表。 Dia可以读取和写入许多不同的栅格和矢量图像格式。软件开发人员和数据库专家可以使用Dia作为CASE工具从其图纸生成代码框架。 Dia可以使用Python进行脚本化和扩展。软件主页以及下载地址 FreeplaneFreeplane是由经典思维导图软件FreeMind的主创人员设计的另外一款同类型工具，Freeplane已由官方汉化，功能比较齐全，相较于FreeMind也毫不逊色。软件主页以及下载地址 远程链接有什么比远程别人帮你解决问题更爽的，有什么比远程办公更装B的！ AnyDeskAnyDesk是一款号称速度最快的免费远程连接/远程桌面控制软件，据说是前 TeamViewer 开发小组人员自立门户的产品，它拥有先进的视频压缩技术 DeskRT， 可轻松穿透防火墙/路由器，实测在电信、移动的跨网宽带环境下，速度确实要比 TeamViewer 和 QQ 流畅。软件主页以及下载地址 网盘 or Bt Sync or Download BT SyncBT 下载，大家应该都很熟悉。开发 BT 的技术公司又发明了一个新的玩意，叫做 BT Sync，都是采用 P2P 协议来进行文件传输。简言之，BT Sync是一个文件同步工具，让你的文件不仅能够在自己的各个设备间传输，同时也能让你的文件夹通过加密手段传输给第三方。软件主页以及下载地址 SyncthingSyncthing是一个免费开源的工具，它能在你的各个网络计算机间同步文件/文件夹。它不像其它的同步工具，如BitTorrent Sync和Dropbox那样，它的同步数据是直接从一个系统中直接传输到另一个系统的，并且它是完全开源的，安全且私密的。软件主页以及下载地址 DropboxDropbox是一款非常好用的免费网络文件同步工具，是Dropbox公司运行的在线存储服务，通过云计算实现因特网上的文件同步，用户可以存储并共享文件和文件夹。Dropbox提供免费和收费服务，Dropbox的收费服务包括Dropbox Pro 和 Dropbox for Business。在不同操作系统下有客户端软件，并且有网页客户端。软件主页以及下载地址 you-getYou-Get 乃一小小哒命令行程序，提供便利的方式，下载网络上的富媒体信息。软件主页以及下载地址 即时聊天 TelegramTelegram Messenger 是一个跨平台的即时通信软件，它的客户端是自由及开放源代码软件，但是它的服务器是专有软件。用户可以相互交换加密与自析构的消息，以及照片、视频、文件，支持所有的文件类型。官方提供移动端(Android、iOS、Windows Phone)、桌面端(Windows、macOS、Linux)和网页端(官方在线版)应用；同时官方开放应用程序接口，因此会有一些第三方的客户端。软件主页以及下载地址 electronic-wechat-linux一个Mac OS X 和 Linux 下更好用的微信客户端. 更多功能, 更少bug. 使用Electron构建.软件主页以及下载地址 创建图书 GitBookGitBook可用于创建图书，公共文档，企业手册，论文，研究论文等。是使用GitHub or Git和Markdown（或AsciiDoc）构建漂亮书籍的命令行工具（和Node.js库）。软件主页以及下载地址 博客框架 HexoHexo 是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。软件主页以及下载地址 录像和直播 OBS Studio免费和开源软件，用于录像和直播。在Windows，Mac或Linux上快速，轻松地下载并开始流式传输。软件主页以及下载地址]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>开发工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[许嵩-苏格拉没有底[简述]]]></title>
+    <url>%2F2016%2F11%2F12%2F%E8%AE%B8%E5%B5%A9-%E8%8B%8F%E6%A0%BC%E6%8B%89%E6%B2%A1%E6%9C%89%E5%BA%95-%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[许嵩最大的悲哀就是在歌迷还是初中高中生年纪的时候出了一张成熟的大学生才能听懂的专辑，然后那些因为听不懂而脱粉的粉丝很多年以后却想不起这张专辑，只记住了许嵩是自己非主流时候喜欢过的歌手。这几天的查阅，我才算是真正的见识了许嵩的文采。 专辑–苏格拉没有底转载自网易云音乐：http://music.163.com/#/album?id=16937在文中加入自己的看法，仅代表个人看法，如有不妥，敬请指出。 从昔日那个写着哼着《城府》夺得各大音乐试听榜冠军的音乐顽童成长到今时，许嵩在音乐层面一直保持独立做派，此番再度包揽十首词曲的全部创作。毫无粉饰的生存哲学，超越现实的想象思辨，细而不腻的私人回忆，在十首作品里尽数展现。自成一派的制作风格与词曲质感，随性慵懒的演绎方式，标志性的假音与转音，舒服惬意的中慢板R&amp;B节奏……令人一听便可品出强烈的个人风味。浪漫与幽默并存、务实与务虚交织，《苏格拉没有底》仿若暗器般无色无味却能迅速在人心中稳固沉积，在悠然自得的节奏摆荡中持续扩散。 《苏格拉没有底》真的是许嵩最屌最有深意最深不见底的一张专辑！拆迁、青少年性启蒙、酒桌文化、微博新社交、备胎等等各方面的社会现象，都能隐晦地写进歌里，真的是“嬉笑怒骂皆文章”。 《想象之中》这首慢板R&amp;B作品，内敛中带些慵懒的唱腔——无论是走在街头，坐在车里，临睡前，对着电脑时……听起来都很惬意。作为这张专辑的总制作人，许嵩就是有这样一种能力，让人轻易就跟着他的安排陷入思考或回忆。当然，这与他虽年纪轻轻就已全权制作过两张专辑及十余首热门单曲的经验有莫大关系。《想象之中》由一个诡异中带点滑稽感的电子音色开场，这种阴郁懒散的情感基调，已成为他的个人特质。大气却不乏细腻之处的旋律，值得玩味的歌词，保障了该作品的一线水准。单论演唱而言，许嵩亦有一种独特的声线气质：慵懒中仍保持着清新的气息。大量滑音、装饰音穿插在整首作品中，但却也不会给人以油滑之感。至于情绪的分寸拿捏也相当到位：3分37秒，沙哑的一瞬，情绪的涌动把伤感推到新的高度。 真心付出感情的会持续很久很久。但最终还是没有避开分开的宿命。曾经热烈的感情冰冻消逝，只留下片段回忆。后来发现这一切都和原本想象中的不同。爱并不是“追逐占有”，爱也可以转化为遥远的祝福。你过的开心，那我也会为你开心。 《河山大好》像是一种童趣的重返，他从来都不是一个只会苦着脸唱悲歌的忧郁人，他的喜与悲都在歌里了。他的作品情绪向来是立体、多面的。纵观整张专辑，十首风格迥异的词曲均出自一人之手，这份真实与挥洒，让作者的形象变得愈发清晰可爱。《河山大好》似乎有劝年轻人莫要宅的含义，但却没有半点说教之感，而是如同一个老友，邀你一起出门走走。“保持浪漫心态，活着就不算坏”与其说是一种情绪，不如说是一种情怀；“地球离了谁它都照样公转自转”，谁都别把自己太当回事，这种论调就更洒脱。不落俗套的旋律，清新的念唱，R&amp;B的节奏骨架，构建起了整首歌的律动，让人情不自禁跟着节奏摆荡，有“出去走走”的冲动。 生活中不是上课上班就是上网。放假就是睡觉看电视打牌。和父母家人相处交流的时间也非常少。生活变得无聊无趣。但是生活的乐趣远远很多，只是现代人渐渐都忘记了。工作学习的时候要投入，但是放松的时候也要投入。祖国大好河山，如果此生没有踏遍祖国的几个地方也会很遗憾吧。宅男：只不过是河山大好 《拆东墙》词面上，许嵩借叙述一个唐代小酒馆老板的悲情人生，影射当下种种社会现实，颇有后现代意味。没有愤怒、没有发泄，而是以淡淡的悲悯之情，让诸多尖锐话题拥有了新的探讨方式与出口，称得上是惊艳之作。从大局而言，起承转合收放自如；细节上，黑色幽默与巧思不断，许嵩的笔风独树一帜。如果说这种“借古喻今”还称不上是创举，那么全曲的最后一句则把这首作品引入哲学思考的范畴。至于音乐部分，念唱流畅如水；R&amp;B吉他丝丝入扣；副歌的旋律与歌词咬合度超高。词、曲、唱、制作出自一人，且如这般天然合一，当下恐怕没有几人做得到了。 此段来自于百度：《拆东墙》描绘了唐代一个“小人物”的悲惨命运。“小人物”科举未中，子承父业，相貌平平，辛勤隐忍。 但“小人物”也有理想，“小人物”也有爱，“小人物”也有信念，“小人物”却命运艰难，最终黯然离开。马蹄阵阵连绵，朝代更迭不休，无论何时，这种“小人物”都存在在每个角落，他们那么不起眼，他们在实现哪怕一点点小理想的路上都走的那么艰辛，因为他们是小人物，小人物的“命运”就是这么多舛。可拆了东墙的，西墙也未必补的上。词面上，许嵩借叙述一个唐代小酒馆老板的悲情人生，影射当下种种社会现实，颇有后现代意味。没有愤怒、没有发泄，而是以淡淡的悲悯之情，让诸多尖锐话题拥有了新的探讨方式与出口，称得上是惊艳之作。从大局而言，起承转合收放自如；细节上，黑色幽默与巧思不断，许嵩的笔风独树一帜。如果说这种“借古喻今”还称不上是创举，那么全曲的最后一句则把这首作品引入哲学思考的范畴。至于音乐部分，念唱流畅如水；R&amp;B吉他丝丝入扣；副歌的旋律与歌词咬合度超高。词、曲、唱、制作出自一人，且如这般天然合一，当下恐怕没有几人做得到了。这首歌绝不会这样浅显。我猜是关于强拆的吧。现在强拆问题挺严重的。不同意拆就断水断电。所以现在有了一个新名词——钉子户。大概是从古代开始的吧。第二点我想说的是现在女孩子找男朋友都先看条件怎么样。结婚后也只是贪贪小财。可男方确实很痴情。连菜都自己去买。这是一个傻乎乎却额憨厚的而后来又写出了无奈的感觉。真的是，很多事是不由人的。从东墙一直拆到最后拆干净了。而最后碍于面子，西墙也要拆……。我自认为咱家嵩的最后一句写得最好。 《医生》“我也没那种，庸俗的情结”。不知许嵩暗指的是哪种情结，但也正基于这种朦胧，这首作品的疗伤范围似乎变得更大了。成熟厚重的音乐，初时让人不解：为什么许嵩在这首歌的表达上要如此传统保守？读着歌词渐渐明白了：爱情世界里的一个老实人，他的保守的内在，他为对方疗伤的决心，他此地无银三百两的说自己没那种庸俗的情结……让人的心有被揪了一下的痛感。以如此的曲风呈现如此的歌词内容，也是一种恰如其分吧。 《医生》的主人公也许就是所谓“备胎”，在对方不能和最爱在一次时的第二选择。可谁愿意当最爱的那个人的男二号呢？对于爱情的定义真的好难揣摩，求求苏医好我。 《微博控》科技的浪潮也注定了越来越多的人会成为那种“不玩微博就觉得少了点什么”的微博控。而许嵩对生活的观察依然敏锐，对热门事物的理解依然独到。《微博控》透过描写一对相互都玩微博的恋人，传达了感情在网络交织的叶片上有趣的脉络。而副歌更是隐含了对“做的多不如说得多”的社会现状的思考。把创作深度藏匿于简单的歌词背后，是许嵩从作品《素颜》里就呈现了的另一路特质。至于韩范儿的R&amp;B曲风，弹性十足的俏皮演绎，都是这首歌的加分项。 wo是可以什么都不做,但不可以什么都不说,wo又登陆了wo微博,分享直播wo的生活,我是可以什么都不说,但不可以什么都不做,放下客户端立地成佛.手机控，低头族应该注意了 《毁人不倦》“几片来自松岛的枫叶”……作为整张专辑中最冷艳的一首作品，作词、作曲、编曲、混音连同录音均由许嵩一人包办。阴郁空灵的编曲，让人印象颇深。在隐晦的歌词中，自嘲、批判、痛苦重叠交织，他骨子里的反叛由此窥见。 这首歌最重要的混音。- 1:10 为革命为革命为革命保护视力- 1:30 Baby 三陪 可怜她没有人陪 嘿嘿- 2:23 忘不了的痛，心的更痛，陌生人，你的做错，让她很痛，初夏的雨夜 习惯不辞而别 《双人旁》简简单单的抒情作品，回归原始的感动。人生在世，每个人的身旁都有或有过那么一个爱的人，那种温暖，是每个人都乐于回味享受的。90’s R&amp;B风格，简约而怀旧；作者使出了很萌的唱法，让这首歌的气质跳脱于整张专辑的冷色调。难得的温馨流露。 请配合《梧桐灯》服用～ 《降温》这首作品没有“歌词”，而是一则唱出来的“日记”。真实感极强的词句，记录2010年11月20日的生活细节；从多处貌似无心插柳的“设局”，不难揣测此篇日记的良苦用心。念唱式的旋律层层递进，带点儿混搭感的三弦与京味儿独白——作为一首实验之作，它不是徒有其表。而结尾一句突然跳转画面，实谓神来之笔。 好像是娓娓道来的一篇日记。忙碌的生活，平静中带有一些烦躁的心情，冷冷的天气，冷漠的人际关系，无聊八卦的节目，烟花般的爱情，没有安全感。是不是很多都市中的人都这样呢？嵩哥有些慵懒带点无奈的声线和京剧的曲调结合，很有新意，真假声完美融合，就像有些人的感情真假也难辨，该过来的过来，该离开的离开，冷暖自知。节目和嘉宾都在瞎侃指的就是非诚勿扰。十一月二十号那天正是非诚勿扰播出的时候，刚好那期是一段男嘉宾和女嘉宾在纠结不相信爱情的话题，所以许嵩在歌词里写了，我不相信爱情，目前非常缺乏安全感，然而最后一句更是点睛之作，他们说的爱，如果有我就为它平反，江上两条红船，寒风斜雨中你摇摆，鄙人指出的只是这首神作的一点点。 《敬酒不吃》当作为生存本能的吃与喝被利益目的附身——不是所有人都愿意接受这套规则。许嵩把社会生活中的极微小画面做艺术放大，相当犀利。带点爵士味的R&amp;B，清冷凛冽；独特的真假声转换，宣称着“我就这副死样”……通过这首作品，看不到许嵩的努力，只看到许嵩的天资。因为，这样的作品绝不是靠“用心写”就能写出的——如果骨子里没有那种把音乐当成玩儿的洒脱劲的话。 很多人对于不顺应自己意思的人总会狠狠地甩下这句话。可是就是有那么多“敬酒不吃吃罚酒”的人存在着。因为不是所有“酒”都那么有诚意，不是所有的“酒”都值得一饮而尽。浮躁的社会有太多无聊的饭局酒场，是要吃敬酒还是吃罚酒每个人都有不同的选择了。可是与其忍受着内心的不情愿，而选择顺从阿谀最后甚至同流合污，不如干脆点做自己，反而坦荡荡。独特的视角唱出了人追求纯洁高尚的一种态度。有点轻视和不屑是否能刺痛了某些人呢？很深刻的反映了酒桌上的文化。 《千百度》当中国风的歌被写滥，人们都在奇怪为什么除了台湾的周杰伦，能把中国风写红唱红的就只剩许嵩了？中国风可不是用几个民乐器夹杂几个半文不白的句子就能红。周杰伦有方文山，而许嵩只有许嵩，如《清明雨上》、《半城烟沙》、《庐州月》等等口碑之作，全部出自许嵩笔下。典故的化用，创造新词汇的想象力，借古喻今的手法，传统戏曲技巧的融入——他自有他自己的一套。在《千百度》里，温婉内敛与开阔大格局兼容并蓄，这是许嵩独有的音乐气质，换个人唱就没有这个味了。其实纵观专辑里的每一首作品，都具备这种“非他莫属”的专属质感。]]></content>
+      <categories>
+        <category>心情随笔</category>
+      </categories>
+      <tags>
+        <tag>Music</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[改GNOME 3的屏幕录制的默认时间]]></title>
+    <url>%2F2016%2F11%2F01%2F%E6%94%B9GNOME-3%E7%9A%84%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B6%E7%9A%84%E9%BB%98%E8%AE%A4%E6%97%B6%E9%97%B4%2F</url>
+    <content type="text"><![CDATA[GNOME 3配备了一个不错的嵌入式屏幕录像机。该屏幕录像机是非常方便的，但它有一个重大缺陷（以我的观点）：截屏的默认最大长度为30秒。我不能理解这样一个较低的值对于屏幕录制来说是几个意思！但是经过修改以后能达到这样的效果。 在GNOME 3的早期版本中，这个值是硬编码，这个值的改变是困难的。 在GNOME 3.10中，截屏录制的最大长度由gconf注册。所以，你现在可以设置它的缺省值。 下面我将告诉你两种方式来修改视频录制的最大长度属性： 使用dconf编辑器 键入dconf-editor在终端; 进入org-&gt;gnome-&gt;settings-daemon-&gt;plugins-&gt;media-keys并设置属性的值max-screencast-length，通过双击修改实际值（30） 使用gsettings命令打开一个终端，输入： gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 45 此命令屏幕最大长度截屏的值设置为45秒。 友情提示：0为不限时长。]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Gnome</tag>
+        <tag>Gnome 3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Eclipse 提示框背景色黑色解决方案]]></title>
+    <url>%2F2016%2F10%2F27%2FEclipse-%E6%8F%90%E7%A4%BA%E6%A1%86%E8%83%8C%E6%99%AF%E8%89%B2%E9%BB%91%E8%89%B2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[Debian下Eclipse提示框背景色为黑色看起来很不舒服，这是因为Eclipse默认使用系统的主题Ambiance。 解决其实出现这种问题解决起来也很容易，只需要换一个gtk2的主题就能搞定。 sudo apt install murrine-themes gtk-theme-switch第一个软件包是一个gtk2主题包，第二个软件包是一个主题选择工具 有了这两个包，只需要运行gtk-theme-switch随便选择一个主题就可以解决黑主题的问题了，但是随便选择的有可能不是很美观，所以可以选择多次尝试调整。 调整好以后是这样的。 #注意Please note, this issue has been resolved in Eclipse as of 8th November 2016. To have this fixed, please download one of the latest integration builds: http://download.eclipse.org/eclipse/downloads/(The maintenance builds don’t have the patch at the time of writing 2016-11Nov-09Wed). I wrote a patch that introduced a new preference in Eclipse “Information Background/Text” under General -&gt; Appearance -&gt; Colors and Fonts. This preference generates the correct color on Linux/Gtk (White background, black text).See: Bug 505738 – Define a information hover color which JDT, CDT or others can use https://bugs.eclipse.org/bugs/show_bug.cgi?id=505738 Subsequently I made Javadoc colors inherit it’s color from that preference. See:Bug 501742 – Default Javadoc text and background color should use colors consistent with Java editor background/foreground. https://bugs.eclipse.org/bugs/show_bug.cgi?id=501742 As an added bonus, it also works on the Dark Theme:Bug 505851 – [Dark Theme] Style the HOVER_ colors for the dark theme https://bugs.eclipse.org/bugs/show_bug.cgi?id=505851]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Eclipse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux 下使用 adb fastboot 刷 LineageOS ROM]]></title>
+    <url>%2F2016%2F10%2F18%2Flinux-%E4%B8%8B%E4%BD%BF%E7%94%A8-adb-fastboot-%E5%88%B7-LineageOS-ROM%2F</url>
+    <content type="text"><![CDATA[linux环境下使用[Android SDK Platform-tools]中的adb fastboot工具刷机其实也是很简单的,有兴趣的同学可以学习一下. 1.搭建 Android SDK Platform-tools 环境link:搭建 Android SDK环境 2.准备 Recovery 及 ROM下载TWRP Recovery从这里]选择对应的设备的 Recovery，我这里是小米mix ，去下载页面下载： $ wget https://dl.twrp.me/lithium/twrp-3.1.1-0-lithium.img 下载LineageOS ROM从这里选择对应设备的构建版本，我这里选了个 xiaomi mix 版本的，stable 版本还没跟上来，我这里选了个 nightly 版本的lineage-14.1-20170810-nightly-lithium-signed.zip，下载： $ wget https://mirrorbits.lineageos.org/full/lithium/20170810/lineage-14.1-20170810-nightly-lithium-signed.zip 官方给出的 md5sum: e842d7bdc988c4da799d31bbc205e243b05b059bc85c10ed5d80076cfd57fe95 验证一下，确保下下来的包是完整的： $ md5 lineage-14.1-20170810-nightly-lithium-signed.zipMD5 (lineage-14.1-20170810-nightly-lithium-signed.zip) = e842d7bdc988c4da799d31bbc205e243b05b059bc85c10ed5d80076cfd57fe95 没问题，继续 ~其他系统请采用相应的 md5sum 验证方式。 3.刷入 TWRP Recovery 首先进入 fastboot 模式： $ adb reboot bootloader 刷入 TWRP Recovery: $ fastboot flash recovery twrp-3.1.1-0-lithium.imgsending ‘recovery’ (7122 KB)…OKAY [ 1.033s]writing ‘recovery’…OKAY [ 1.196s]finished. total time: 2.229s 此时使用音量键选择 Recovery Mode，按电源键，稍等片刻，系统会自动重启进入到 TWRP Recovery 模式。 4.刷入 LineageOS ROM进入 Recovery 模式后，先 双 wipe: wipe data/factory reset 和 wipe cache partition，以防出现一些不可预知的现象。 adb 刷入然后使用音量键选择 install zip 再选择 install zip from sideload，计算机上运行: $ adb sideload lineage-14.1-20170810-nightly-lithium-signed.ziploading: ‘lineage-14.1-20170810-nightly-lithium-signed.zip’sending: ‘lineage-14.1-20170810-nightly-lithium-signed.zip’ 100% 手机上执行完毕后，会自动退回到选择 zip 包的界面，手机下方会看到以下文字： Finding update package…Opening update package…Installing update…fixing fs_size in crypto footer… 最后一行不是 Instalation aborted. 表示成功。返回上一层，选择 reboot system now， 稍等片刻，就会进入到 LineageOS 的安装界面。 卡刷 首先把刷机包放在sd卡中.(xxx为你的刷机包名称)$sudo ./adb push xxx.zip /sdcard/然后通过Recovery中的install手动选择刷机包进行安装]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-Studio-常见问题总结]]></title>
+    <url>%2F2016%2F09%2F26%2FAndroid-Studio-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[使用Android studio开发时会出现很多的问题,这篇文章就是总结在开发中出现的问题. 问题问题1全新的Debian (64位)搭建好Android开发环境，编译出错：Error:Execution failed for task ‘:facebookSDK:processReleaseResources’.&gt; java.io.IOException: Cannot run program “/opt/sdk/build-tools/20.0.0/aapt”: error=2, No such file or directory 解决方案问题1解决方案原因:是64位系统搞的鬼。解决的方案就是安装几个32位的兼容库，如下： $ sudo apt-get install -y libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Android-Studio</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian使用Hexo和GitHub搭建个人静态博客]]></title>
+    <url>%2F2016%2F09%2F12%2FDebian%E4%BD%BF%E7%94%A8Hexo%E5%92%8CGitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[最近Hexo + Github pages非常火,很多人都写了搭建方案,但是更多的人选择windows作为搭建的平台,因为我的工作环境是Debian Testing,所以我想写写怎么在Debian下搭建Hexo + Github pages 预先准备1.github帐号 注册github账号我想这就不用我教了吧！地址：Github注册 登录完成之后，在你的主页点击图标 New Repository 创建一个新的版本库，因为我们是使用 Github Pages 去搭建我们的静态博客，所以版本库的名称应该是你的用户名+.github.io。如：我的用户名是：ilovesusu，那么版本库的名字应该是： ilovesusu.github.io,之后你将要访问的你的博客地址就是： https://ilovesusu.github.io 2.Debian安装git sudo apt install git git-core 3.配置SSH打开 Git Bash ，执行下面的命令生成 SSH 访问私钥及公钥。 $ ssh-keygen -t rsa -C “email@email.com” 输入命令回车之后会提示你输入一些东西，就是设置密码，不想设置一直回车到底就好了。然后你的 ~/.ssh 文件下就会生成两个文件 id_rsa 和 id_rsa.pub 。 打开你的 Github -&gt; setting -&gt; SSH Keys 。然后点击 New SSH Key 创建一个新的SSH Key。Title 可以用你的计算机名，可以用以区分。将文件 id_rsa.pub 中的所以内容复制粘贴到 Key 下面。然后使用下面的命令测试是否可以连接上 Github 。 $ ssh -T git@github.com 安装Nodejs + npm管理工具在Debian8以上安装Nodejs非常方便,源里已经有了,所以直接通过apt安装. sudo apt install nodejs nodejs-legacy nodejs-legacy是nodejs的馈赠包,包含了nodejs的很多内容.紧接着,安装npm管理工具 sudo apt install npm 然后查看安装的版本号来确定是否安装成功. nodejs -vnpm -v 安装与配置Hexo安装hexo的安装非常简单,但是需要注意的是命令中的-g参数.-g是全局安装安装，默认当前目录安装.执行下述命令即可全局安装 npm install hexo-cli -g 安装以后马上就能创建一个博客了$ hexo init blog (这里通过init参数创建并初始化一个blog目录)初始化完成后，文件夹下的目录如下： .├── _config.yml├── package.json├── scaffolds├── source├── ├── _drafts├── └── _posts└── themes _config.yml 文件是网站的配置文件，可以在其中配置网站的大部分参数。 package.json 文件是应用程序的信息。 source 是资源文件夹，是用来存放用户资源的地方。 themes 是主题文件夹，Hexo会根据主题来生成不同的静态页面。 scaffolds是模板件夹，当新建文章的时候，Hexo会根据模板来建立文件。 $ cd blog （进入blog目录）$ npm install （通过npm的install命令安装hexo使用的一些node.js包，配置文件是package.json）$ hexo g （生成静态页面，生成的内容在public文件夹下）$ hexo server （启动本地服务，进行文章预览调试。hexo s –debug 命令可以用来调试） 修改主题我使用的是yelee主题，下面只介绍怎么安装这种主题，其他主题可以在Hexo Themes、github里面寻找。先进入你的Hexo文件夹。然后使用下面的命令clone下yelee主题。 $ git clone https://github.com/MOxFIVE/hexo-theme-yelee.git themes/yelee 然后打开Hexo主文件夹下的_config.yml，修改其中的theme 属性。theme: 后面要加空格。 theme: yelee 部署到github pages先使用下面的命令对Git进行初始配置。 $ git config –global user.name “your name”$ git config –global user.email “email@email.com” 然后打开Hexo主文件夹下的_config.yml，设置其中的deploy 参数，详细请查看Hexo官方文档中部署部分。我的设置如下所示： deploy: type: git repo: git@github.com:ilovesusu/ilovesusu.github.io.git branch: master 在上面的参数设置好了之后，使用下面的命令安装 hexo-deployer-git 插件，只有安装了插件之后才可以部署到Github Pages。 $ npm install hexo-deployer-git –save 安装完插件之后使用下面的命令进行部署： $ hexo g （生成静态文件）$ hexo d （部署到github） 创建一篇新博客 $ hexo new “Hello Hexo” Hexo的插件Hexo plugins Hexo有很多插件用来增强它的功能,比如RSS,SEO,资源文件… RSShexo-generator-feed 用于生成RSS订阅 npm install hexo-generator-feed –save然后在_config.yml中添加#RSS订阅feed: type: atom path: atom.xml limit: 20 hub: SEOhexo-generator-sitemap 用于生成搜索引擎网站地图 npm install hexo-generator-sitemap –save 资源文件存放管理资源非常方便的功能可以通过将 config.yml 文件中的 post_asset_folder 选项设为 true 来打开。 _config.ymlpost_asset_folder: true 当资源文件管理功能打开后，Hexo将会在你每一次创建新文章时自动创建一个文件夹。这个资源文件夹将会有与这个 markdown 文件一样的名字。将所有与你的文章有关的资源放在这个关联文件夹中之后，你可以通过相对路径来引用它们，这样你就得到了一个更简单而且方便得多的工作流。]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[优秀npm镜像推荐及使用]]></title>
+    <url>%2F2016%2F09%2F09%2F%E4%BC%98%E7%A7%80npm%E9%95%9C%E5%83%8F%E6%8E%A8%E8%8D%90%E5%8F%8A%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[npm全称Node Package Manager，是node.js的模块依赖管理工具。由于npm的源在国外，所以国内用户使用起来各种不方便。下面整理出了一部分国内优秀的npm镜像资源，国内用户可以选择使用。 国外优秀npm镜像npmjs镜像 搜索地址：https://www.npmjs.com/ registry地址： http://registry.npmjs.org. 国内优秀npm镜像淘宝npm镜像 搜索地址：http://npm.taobao.org/ registry地址：http://registry.npm.taobao.org/ cnpmjs镜像 搜索地址：http://cnpmjs.org/ registry地址：http://r.cnpmjs.org/ 如何使用有很多方法来配置npm的registry地址，下面根据不同情境列出几种比较常用的方法。以淘宝npm镜像举例： 临时使用 npm –registry https://registry.npm.taobao.org install express 持久使用 npm config set registry https://registry.npm.taobao.org 配置后可通过下面方式来验证是否成功 npm config get registry 或 npm info express 通过cnpm使用 npm install -g cnpm –registry=https://registry.npm.taobao.org nvm 加速在.bashrc中添加 export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+        <tag>npm mirror</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[跨平台远程协助软件推荐]]></title>
+    <url>%2F2016%2F08%2F26%2F%E8%B7%A8%E5%B9%B3%E5%8F%B0%E8%BF%9C%E7%A8%8B%E5%8D%8F%E5%8A%A9%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90%2F</url>
+    <content type="text"><![CDATA[远程技术就是实现远程办公、远程管理设备而开发的一种技术。,虽然QQ远程协助也挺实用，但受到的束缚远远无法满足人们远程办公等需求,就跨平台来讲,还有很多优秀的软件呢!现在我就一一推荐给大家吧! 远程协助利器AnyDesk AnyDesk是一款号称速度最快的免费远程连接/远程桌面控制软件，据说是前 TeamViewer 开发小组人员自立门户的产品，它拥有先进的视频压缩技术 DeskRT， 可轻松穿透防火墙/路由器，实测在电信、移动的跨网宽带环境下，速度确实要比 TeamViewer 和 QQ 流畅。虽然目前软件为Beta版，但潜力巨大…… Download it 分享：免费小巧远程协助利器：AnyDesk 专业版许可证密钥KEY：7K2CV32ER6T8F8I，我一个个朋友花美刀买的KEY，可以做企业商业用途！ TeamViewer TeamViewer是一个远程控制软件，兼容于Microsoft Windows、Mac OS X、Linux、iOS、Android操作系统，也可以通过网页浏览器连接已安装TeamViewer的电脑。该软件可以轻易的穿透防火墙。 Download it]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>远程协助利器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian 真丶NvidiaGraphicsDrivers安装]]></title>
+    <url>%2F2016%2F08%2F25%2FDebian-%E7%9C%9F%E4%B8%B6NvidiaGraphicsDrivers%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[二次完善与2017年 02月 14日 星期二 21:34:57 CST 经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了. ico 黑屏解决方案(写在前面)大兄弟,如果你已经黑屏了，那么ctrl+alt+F1进入终端，然后使用root身份登陆,然后执行下面的代码.(sudo 是为普通用户准备的) sudo apt-get purge nvidia*sudo rm /etc/X11/xorg.conf 预备知识关于单显卡和双显卡 笔记本双显卡：指笔记本拥有一个独立显卡和一个cpu集成的核心显卡，两个显卡可以通过系统切换使用，一般使用核心显卡相对节能，适合办公上网等。使用独立显卡性能较高，适合游戏和作图。 笔记本单显卡：指笔记本只有一个独立显卡，或只有一个主板板载集成显卡，或只有一个cpu集成的核心显卡。不能进行显卡切换。 关于 nouveau 和 nvidia 驱动 nouveau：是一个自由及开放源代码显卡驱动程序，是为Nvidia的显示卡所编写，此驱动程序是由一群独立的软件工程师所编写，Nvidia的员工也提供了少许帮助。简而言之就是开源驱动。 nvidia 驱动：通常是指有NVIDIA官方提供的NVIDIA显卡驱动。(也就是俗称的闭源驱动、官方驱动) NVIDIA Optimus 和 Bumblebee Optimus：(官方中文译名：优驰)是NVIDIA针对笔记本电脑的显示切换技术。它可以实现笔记本电脑中独立显卡与主板内置显卡之间无缝、自动、实时的切换（用户无需重启或手动调整），从而实现能源的节约。 Bumblebee：Bumblebee 致力于使 NVIDIA Optimus 在 GNU/Linux 系统上可用，实现两块不同的供电配置的显卡同时插入使用，共享同一个 framebuffer。（引自 Bumblebee FAQ） 查看显卡在 Linux 中查看显卡设备很简单，运行下面这条命令即可： lspci -v | grep -E “VGA|3D” 对于我的电脑是这样显示的 00:02.0 VGA compatible controller: Intel Corporation 3rd Gen Core processor Graphics Controller (rev 09) (prog-if 00 [VGA controller])01:00.0 VGA compatible controller: NVIDIA Corporation GF119M [GeForce 610M] (rev a1) (prog-if 00 [VGA controller]) 下面这个命令可以查看详细信息，例如正在使用什么驱动(Kernel driver) lspci -vnn | grep -E “VGA|3D” -A 10 如果你的终端显示类似于下面这样，那么恭喜您，您的电脑百分之八九十是支持NVIDIA Optimus Technology的 00:02.0 VGA compatible controller [0300]: Intel Corporation 3rd Gen Core processor Graphics Controller [8086:0166] (rev 09) (prog-if 00 [VGA controller])01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GF119M [GeForce 610M] [10de:1058] (rev a1) (prog-if 00 [VGA controller]) 显卡不支持NVIDIA Optimus Technology的解决方案更具Debian wiki进行安装NvidiaGraphicsDrivers wiki地址 显卡支持NVIDIA Optimus Technology的解决方案Bumblebee简述Bumblebee旨在为NVIDIA Optimus笔记本电脑提供GNU / Linux发行版的支持。使用Bumblebee，您可以使用NVIDIA卡渲染,使用Intel卡显示图形。 Bumblebee，开机加载的是intel的驱动，程序默认也都是用intel的集显，如果需要用独显要用optirun运行程序，这样能做到最大程度的提高电池续航能力。 安装bumblebee其实很简单，see it添加32位支持（如果是64位系统的话） sudo dpkg –add-architecture i386 个人怀疑一部分安装完后黑屏的情况可能和没有执行这一步有关。 更新源,安装bumblebee sudo apt-get updatesudo apt-get install bumblebee-nvidia primus primus-libs:i386 使用bumblebee要在终端中运行离散NVIDIA卡运行应用程序： $ optirun [options] [application-parameters] 例： $ optirun glxgears -info 有关optirun的选项列表，请使用man optirun打开联机帮助页或运行： $ optirun –help 在Steam中使用bumblebee 从Steam客户端的“库”页面中选择要使用Nvidia显卡运行的游戏，右键单击并选择“属性”。 单击设置启动选项按钮，并为命令行指定primusrun ％command％。 保存您的更改。此方法允许您选择在每个游戏基础上使用离散NVidia GPU。 FAQ 我是否需要为我的笔记本/台式机安装Nvidia驱动？ 如果是双显卡，不是用Debian作图形，游戏等工作，实际上是不需要安装Nvidia的驱动的。 关于对NvidiaGraphicsDrivers Wiki的误解。 这个wiki是讲解怎么安装Nvidia的驱动的（单显卡中的一种），并不是双显卡。 是不是Debian已经自动安装好了Nvidia开源驱动（nouveau）呢? 执行lspci -v 就能看到了。例如看到这样的字样就说明Debian已经为你安装了开源的nouveau驱动。Kernel driver in use: nouveauKernel modules: nouveau]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Nvidia驱动安装(双显卡切换)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android Studio更新时不小心点了ignore（忽略）解决方案]]></title>
+    <url>%2F2016%2F08%2F24%2FAndroid-Studio%E6%9B%B4%E6%96%B0%E6%97%B6%E4%B8%8D%E5%B0%8F%E5%BF%83%E7%82%B9%E4%BA%86ignore%EF%BC%88%E5%BF%BD%E7%95%A5%EF%BC%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[前几天android studio2.1.3正式版更新了，当时正在做项目，不想立即更新，就想等下再更新，准备点“稍后更新”，可是鬼使神差地点了ignore（忽略）. 手残恢复方案今天想更新，可是点check for update时，却提示我我目前使用的就是最新的呢!我当时就是这样一个表情。我使用的是Debian所以在我的家目录下有一个文件夹叫做.Androidstudio2.1,在里面找一个叫”options/updates.xml“的文件.删除updates.xml文件中的“ignoredBuildNumbers”部分并保存.(这时候需要关闭android studio.)其实就是把update.xml文件中的忽略消息给删了,然后重新打开studio，check for update嘿嘿.现在又可以更新了 看来手残的病得治疗啊!]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android Studio中好用的插件收集(陆续更新)]]></title>
+    <url>%2F2016%2F08%2F24%2FAndroid-Studio%E4%B8%AD%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E6%94%B6%E9%9B%86-%E9%99%86%E7%BB%AD%E6%9B%B4%E6%96%B0%2F</url>
+    <content type="text"><![CDATA[推荐几款实用的Android Studio 插件 优秀的插件 Gsonformat:可根据json数据快速生成java实体类 Lifecycle Sorter:可以根据Activity或者fragment的生命周期对其生命周期方法位置进行先后排序，快捷键Ctrl + alt + K Android Code Generator Plugin:自动生成findViewById Genymotion:这个就不用说了吧 CodeGlance:一款生成代码缩略图，快速定位的插件，强烈推荐！]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Android studio</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian下可用的翻墙工具教程]]></title>
+    <url>%2F2016%2F08%2F22%2FDebian%E4%B8%8B%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BF%BB%E5%A2%99%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[大神带你翻墻带你飞，配置简单，可电脑手机平板同时翻墙，上Google、看YouTube，比你用过的任何一种翻墙工具更简单，还高效。 博主推荐XX-NetXX-Net是一个免费的桌面应用程序，提供快速，可靠和安全地访问开放的互联网对送检地区的用户。它使用谷歌应用程序引擎（GAE）通过防火墙代理服务器。 https://github.com/XX-net/XX-Net Shadowsocks快速隧道代理，可以帮助你绕过防火墙 https://github.com/ziggear/shadowsocks (非官方,备份自https://github.com/shadowsocks/shadowsocks) Lantern人人可享的开放网络Lantern是一个免费的应用程序。它能帮助你随时随地快速、可靠、安全地访问互联网。 https://github.com/getlantern/lantern ##使用方式 在各自项目的github的Wiki里都写的很清楚了,要是实在不会的可以在问章下方留言,我会在博客中帮你写解决方案. 例如:OS:DebianSoftware:xx-netissue:Chrome无法导入证书 | 缺少lib-xx……. 像上面的写法我看到都会帮你的.]]></content>
+      <categories>
+        <category>科学上网</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>翻墙</tag>
+        <tag>免费vpn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Chrome中好用的插件收集(陆续更新)]]></title>
+    <url>%2F2016%2F08%2F22%2FChrome%E4%B8%AD%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E6%94%B6%E9%9B%86-%E9%99%86%E7%BB%AD%E6%9B%B4%E6%96%B0%2F</url>
+    <content type="text"><![CDATA[谷歌浏览器 Google Chrome 最大的特色之一就是拥有非常丰富的插件扩展，基本你能想得的功能都有实现，Chorme WebStore (网上应用商店) 简直就像是一个宝库，然而很多优秀的扩展却被埋没。 Chrome 插件总结 请使用 「番·羽·士·啬·工·具」下载使用下述插件 Proxy SwitchyOmega：浏览器代理设置神器，前身为 Proxy SwitchySharp，可以轻松快捷地管理多个代理，并能快速地在代理之间切换。可以设置规则或使用 PAC 自动智能对指定的网站使用代理，一句话 番·羽·土·啬 必备. Google翻译:可以比较轻松的翻译网页中的内容. JSON-handle:自动格式化网页上的json,开发者应该会喜欢 JSON-Viewer:自动格式化网页上的json,开发者应该会喜欢 二维码(QR码)生成器(QR Code Generator):可以将喜欢但是没有看完的网页的网址生成一个二维码,手机扫描就可以在路上看了. Octotree:Code tree for GitHub and GitLab AdGuard 广告拦截器:AdGuard 广告拦截器可有效的拦截所有网页上的所有类型的广告，甚至是在 Facebook、Youtube 以及其他网站上的广告！ RSS Feed Reader:让你的工具栏上显示一个简单RSS订阅. 阅读模式:提供与Safari阅读模式功能一致的插件，浏览文章页时候可进入友好的阅读模式，并自定义阅读功能. OneTab:节省高达95％的内存，并减轻标签页混乱现象.将打开的标签页按照打开的时间产生一个tag并很方便的管理他们. 搜索拐杖:增强搜索便捷性的浏览器扩展 Tampermonkey:Tampermonkey 是一款免费的浏览器插件和最为流行的用户脚本管理器,它适用于基于Blink 和WebKit 的浏览器,像是Chrome, Microsoft Edge, Safari Opera Next, 和Firefox . Todoist：待办事项列表及任务管理器. Checker Plus for Gmail™:无需打开 Gmail 或 Inbox，即可收到桌面邮件通知，方便地查看、收听或删除邮件，并且支持多账户。 掘金:为设计师、程序员、产品经理每日发现优质内容。包含Android、前端、产品、设计、iOS、后端六大频道，每个频道内都有一到多个为你精心准备的优质内容源。 Video Speed Controller:使用快捷键加速，减慢，快进和回放任何HTML5视频。 Youtube Subscription(Collection) Manager:Youtube订阅了太多频道?这是管理频道的最好方法,分组订阅,快捷筛选. Website IP:此扩展程序将您正在查看的网站的IP添加到右下角。 Keyframes:可以直接在浏览器中创建CSS动画，而无需在浏览器和编辑器之间切换。只需单击扩展，选择要设置动画的元素，然后使用表示动画中关键帧百分比的简单UI和时间轴编辑动画。完成后，您将获得可用的代码添加到项目中。]]></content>
+      <categories>
+        <category>Chrome</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian安装VirtualBox增强工具]]></title>
+    <url>%2F2016%2F08%2F22%2FDebian%E5%AE%89%E8%A3%85VirtualBox%E5%A2%9E%E5%BC%BA%E5%B7%A5%E5%85%B7%2F</url>
+    <content type="text"><![CDATA[在Debian下安装VirtualBox增强工具可以使得一些操作变的简单例如:剪贴板,文件拖拽…等,但是需要在虚拟机内部安装一些东西,在这里做一个记录,也方便新手,防止下折腾. 安装VirtualBox增强工具首先切换到root用户执行下面的三行命令123apt-get install gcc makeapt-get install dkmsapt-get install linux-headers-`uname -r` 然后点击VirtualBox的设备菜单下的安装增强工具选项，在Debian虚拟机下的终端中执行命令将cdrom的内容挂在到/mnt下1mount /dev/cdrom /mnt 然后cd到/mnt下，执行命令1./VBoxLinuxAdditions.run]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>安装VirtualBox增强工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[新版apt简单使用指南]]></title>
+    <url>%2F2016%2F06%2F30%2F%E6%96%B0%E7%89%88apt%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%2F</url>
+    <content type="text"><![CDATA[过去十多年以来，几乎所有 Debian 用户都在使用 apt-get 进行安装、删除软件包等管理操作。现在大家也应该试着切换到新的 APT 命令来了。 新版apt使用（列表）下面我们列出 Debian 中使用 APT 命令与老版本 Debian 中软件包管理的用法对比： 新的apt管理工具 老版本apt管理工具 apt install 包名 替代 apt-get install 包名 apt remove 包名 替代 apt-get remove 包名 apt search 包名 替代 apt-cache search 包名 apt show 包名 替代 apt-cache show 包名 apt update 替代 apt-get update apt upgrade 替代 apt-get upgrade apt list –installed 替代 dpkg -l apt edit-sources 替代 sudo nano /etc/apt/sources.list apt autoremove 替代 apt-get autoremove apt purge 包名 替代 apt-get purge 包名]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>apt</tag>
+        <tag>APT 使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 编码规范]]></title>
+    <url>%2F2016%2F06%2F29%2FAndroid-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%2F</url>
+    <content type="text"><![CDATA[团队协作项目，为了保持大家的代码一致性，进行一些代码格式的规范。 编码规范 代码缩进使用4个空格，不是Tab键。 统一使用UTF-8编码，避免乱码问题。 强烈推荐使用Android Studio或者Intellij IDEA。 类的命名规范： 如果是Android SDK提供的Android应用组成部分，那么类名应该是类的作用的英文全称或者缩写＋ Android SDK基类的名字。 例子：Activity类名字应该是 类似 MainActivity, NaviActivity （Navigation， 导航缩写Navi）, TextActivity, BookActivity Service类名字缩写应该是类似 DownloadService… 每个类完成后应该有作者姓名和联系方式的注释，对自己的代码负责。如 123456789/** * User: dxg * Date: 13-1-29 * Time: 上午10:08 * Email: 0x73757375@gmail.com */public class DataBack &#123; ...&#125; 不一定安照这个格式，但是请写上名字和联系方式。 变量与函数命名 禁止使用拼音 循环变量及简单的数学运算，可以使用约定俗成的 i, j, k , x, y, z, 其他变量名字请用英文全称或能看出意思的英文缩写。 为了让他人可以容易看懂你的代码，请在关键地方做好注释 其他 其他内容参见谷歌编码规范 中文http://blog.sina.com.cn/s/blog_48d491300100zwzg.html#use-todo-comments 英文http://source.android.com/source/code-style.html 其他未写明的欢迎补充，现有的有疑惑的欢迎提问，有缺点的欢迎质疑讨论修改。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>编码规范</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[eclipse svn插件subclipse安装报Failed to load JavaHL Library错误的解决方案]]></title>
+    <url>%2F2016%2F06%2F06%2Feclipse-svn%E6%8F%92%E4%BB%B6subclipse%E5%AE%89%E8%A3%85%E6%8A%A5Failed-to-load-JavaHL-Library%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[在Debian GNU/Linux下， eclipse svn插件subclipse安装一般会遇到这个问题”Failed to load JavaHL Library”在这里写下解决方案。 Failed to load JavaHL LibraryThese are the errors that were encountered:no libsvnjavahl-1 in java.library.pathno svnjavahl-1 in java.library.pathno svnjavahl in java.library.pathjava.library.path = /usr/lib/jni 这里有官方的解决这个问题的指导：http://subclipse.tigris.org/wiki/JavaHL 按照以前的装法 sudo apt-get install libsvn-java 该命令会下载安装libsvnjavahl-1.so文件。 (64位操作系统该文件在/usr/lib/x86_64-linux-gnu/jni/目录下，如果是32位操作体系则在/usr/lib/i386-linux-gnu/jni/目录下) eclipse.ini中增加参数（该文件在eclipse目录中） -vmargs -Dosgi.requiredJavaVersion=1.5 -Djava.library.path=/usr/lib/jni 其实eclipse默认使用的library path就是/usr/lib/jni目录，该目录下还有其他java native的实现。所以不能为了解决subclipse的问题，而修改-Djava.library.path的值，应该把需要的文件软链接到默认的library path下（即/usr/lib/jni下）。所以请按照第三步来做。 把libsvnjavahl-1.so文件软链接到/usr/lib/jni下 64位操作系统请用这个命令： sudo ln -s /usr/lib/x86_64-linux-gnu/jni/libsvnjavahl-1.so /usr/lib/jni/libsvnjavahl-1.so 32位操作系统请用这个命令： sudo ln -s /usr/lib/i386-linux-gnu/jni/libsvnjavahl-1.so /usr/lib/jni/libsvnjavahl-1.so 重启eclipse]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>eclipse</tag>
+        <tag>subclipse</tag>
+        <tag>JavaHL Library</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 基础之侧滑菜单的使用]]></title>
+    <url>%2F2016%2F06%2F02%2FAndroid-%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BE%A7%E6%BB%91%E8%8F%9C%E5%8D%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[相信很多朋友都见过可以侧滑的Android应用,比如QQ,知乎,谷歌音乐,CSDN等。这个现在几乎所有流行应用都在使用,今天看看这个是怎么实现的. DrawerLayout drawerLayout是Support Library包中实现了侧滑菜单效果的控件，可以说drawerLayout是因为第三方控件如MenuDrawer等的出现之后，google借鉴而出现的产物。drawerLayout分为侧边菜单和主内容区两部分，侧边菜单可以根据手势展开与隐藏（drawerLayout自身特性），主内容区的内容可以随着菜单的点击而变化（这需要使用者自己实现）。 DrawerLayout的使用： 直接将DrawerLayout作为根布局，然后其内部第一个View为内容区域，第二个View为左侧菜单，第三个View为右侧侧滑菜单，当前第三个是可选的。 第一个View的宽高应当设置为match_parent。 第二、三个View需要设置android:layout_gravity=”left”，和android:layout_gravity=”right”且一搬高度设置为match_parent，宽度为固定值，即侧滑菜单的宽度。 main.XML代码如下所示： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&lt;android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#004FFF" android:orientation="vertical" tools:context="$&#123;relativePackage&#125;.$&#123;activityClass&#125;" &gt;&lt;!--第一个子元素是抽屉没有打开时显示的布局 --&gt; &lt;LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal" &gt; &lt;ImageView android:id="@+id/iv_click" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_launcher" /&gt; &lt;TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_weight="1" android:gravity="center" android:text="消息" android:textSize="20sp" /&gt; &lt;ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt; &lt;/LinearLayout&gt;&lt;!--第二个子元素是抽屉中的内容，即抽屉布局 --&gt; &lt;LinearLayout android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="left" android:background="#004FFF" android:orientation="vertical" &gt; &lt;TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:gravity="center" android:padding="10dp" android:text="子菜单一" android:textSize="20sp" /&gt;&lt;/LinearLayout&gt;&lt;/android.support.v4.widget.DrawerLayout&gt; DrawerLayout常用的一些方法: 关闭抽屉: drawerlayout.closeDrawers(); 打开抽屉：drawerlayout.openDrawer(抽屉view); 设置抽屉的阴影:setDrawerShadow(@DrawableRes int resId, @EdgeGravity int gravity) 如果你的抽屉在左边的话设置成 Gravity.LEFT显示.反之. main.XML代码如下所示：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950package com.example.drawerLayout;import android.app.Activity;import android.os.Bundle;import android.support.v4.widget.DrawerLayout;import android.view.Gravity;import android.view.Menu;import android.view.MenuItem;import android.view.View;import android.view.View.OnClickListener;import android.view.ViewGroup.LayoutParams;import android.widget.ImageView;import android.widget.LinearLayout;public class MainActivity extends Activity implements OnClickListener &#123; DrawerLayout drawerLayout; ImageView iv_click; LinearLayout ll; @Override protected void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); getActionBar().hide(); drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); iv_click = (ImageView) findViewById(R.id.iv_click); ll = (LinearLayout) findViewById(R.id.ll); iv_click.setOnClickListener(this); //将侧滑菜单设置为屏幕的三分之二 LayoutParams layoutParams = ll.getLayoutParams(); layoutParams.width = getResources().getDisplayMetrics().widthPixels * 2 / 3; ll.setLayoutParams(layoutParams); &#125; @Override public void onClick(View v) &#123; // TODO Auto-generated method stub switch (v.getId()) &#123; case R.id.iv_click: //监听 打开抽屉 drawerLayout.openDrawer(Gravity.LEFT); break; default: break; &#125; &#125;&#125; SlidingMenu drawerLayout是Support Library包中实现了侧滑菜单效果的侧滑菜单栏，github上有个应用非常广泛的开源库SlidingMenu。很多著名的应用都用了这个开源库。 开源库地址: SlidingMenu 注：SlidingMenu是一个开源库，而不是一个完整的项目，要把它作为libary引入到你自己的工程里，简单配置一下就可以实现SlidingMenu的效果。 SlidingMenu的使用：一、新建一个Android项目，将SlidingMenuLibrary导入新建的Android项目中，步骤如下：1、 右键点击新建的Android项目，然后点击最下方的“Properties”选项；2、 点击弹出对话框之后，在最左侧选择“Android”选项，然后再点击右下方的“Add”按钮；3、 点击后弹出对话框，选中之前导入的SlidingMenuLibrary项目；4、 导入成功之后会在Android的引用包中出现一个slidingmenulibrary.jar包； 注意：有个地方需要特别注意：在新建完Android项目之后，较新的Eclipse版本都会在Android目录下 生成一个libs的文件夹，里面会有一个android-support-v4.jar的jar包，这个jar一定要删掉，否则运行程序的时候会出现异常，提示是找不到类的异常。最后发现出现异常的原因是因为在导入slidingmenulibrary类库的时候，这个类库里面本身就包含了android-support-v4.jar的jar包，所以运行的时候就会出现异常，系统不知道去调用哪个路径的下的包，所以程序崩溃，提示找不到类。二、使用SlidingMenu开源库开发：123456789101112131415161718192021222324package com.example.sildingmenu;import android.app.Activity;import android.os.Bundle;import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;public class MainActivity extends Activity &#123; private SlidingMenu slidMenu; @Override protected void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); slidMenu = new SlidingMenu(this); slidMenu.setMode(SlidingMenu.LEFT); slidMenu.setMenu(R.layout.asdf); slidMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN); slidMenu.setTouchModeBehind(SlidingMenu.TOUCHMODE_MARGIN); slidMenu.setBehindWidth(300); slidMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT); &#125;&#125; SlidingMenu常用的一些方法: 方法名称 介绍 slidMenu.setShadowWidth(10); 设置阴影图片的宽度 slidMenu.setShadowWidth(10); 设置阴影图片 menu.toggle(); 动态判断自动关闭或开启SlidingMenu menu.showMenu(); 显示SlidingMenu menu.showContent(); 显示内容 menu.setOnOpenListener(onOpenListener); 监听slidingmenu打开 menu.OnCloseListener(OnCloseListener); 监听slidingmenu关闭时事件 menu.OnClosedListener(OnClosedListener); 监听slidingmenu关闭后事件 NavigationView Android Design Support Library 给开发者带来了一些重要的 Material Design 组件，并且向下兼容到 Android 2.1， NavigationView 就是其中之一，可用于方便地创建导航抽屉。 NavigationView 在很多App上都已经可以看到其效果图，国内的比如知乎（侧拉菜单滑出来的那一部分属于NavigationView），还有Google自己的那些app，也基本全都采用了NavigationView。 NavigationView的使用 NavigationView 要放在一个 DrawerLayout 中，并且充当第二个子元素作为抽屉中的内容，即抽屉布局。android:layout_gravity=”start”是让NavigationView收进左侧。 在NavigationView中，必须规定app:headerLayout=”@layout/nav_header”、app:menu=”@menu/navigationdrawer_main”，其中的nav_header.xml和navigationdrawer_main.xml 指头部布局和菜单项,navigationdrawer_main.xml 中group与group之间会有横线。 在activity中初始化 DrawerLayout ，NavigationView ，然后实现点击头部事件，条目点击事件，在有toolbar的情况下，设置点击toolbar的navigationIcon打开NavigationView侧边栏。 activity_main.xml 123456789101112131415161718192021222324&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawerlayout" android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".activity.MainActivity"&gt; &lt;include layout="@layout/app_bar_main" android:layout_width="match_parent" android:layout_height="match_parent" /&gt; &lt;android.support.design.widget.NavigationView android:id="@+id/navigationview" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_gravity="start" android:background="@android:color/white" app:headerLayout="@layout/nav_header" app:menu="@menu/navigationdrawer_main" /&gt;&lt;/android.support.v4.widget.DrawerLayout&gt; nav_header.xml 12345678910111213141516171819202122&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"&gt; &lt;ImageView android:id="@+id/iv" android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="centerCrop" android:src="@mipmap/material_design_feature" /&gt; &lt;TextView android:id="@+id/tv_tologin" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|left" android:layout_margin="16dp" android:text="点击进入登录界面" android:textColor="@color/white" /&gt;&lt;/FrameLayout&gt; navigationdrawer_main.xml 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;menu xmlns:android="http://schemas.android.com/apk/res/android"&gt; &lt;group android:id="@+id/g1"&gt; &lt;item android:id="@+id/show_recyclerview" android:icon="@mipmap/lists" android:title="RecyclerView" /&gt; &lt;item android:id="@+id/show_fullscreen" android:icon="@mipmap/fulling" android:title="全屏" /&gt; &lt;item android:id="@+id/show_floating" android:icon="@mipmap/floating" android:title="悬浮球(窗)" /&gt; &lt;item android:id="@+id/show_animation" android:icon="@mipmap/animation" android:title="动画" /&gt; &lt;item android:id="@+id/show_navigationview" android:icon="@mipmap/navigations" android:title="底部导航栏" /&gt; &lt;/group&gt; &lt;group android:id="@+id/g2"&gt; &lt;item android:id="@+id/show_setting" android:icon="@mipmap/setting" android:title="设置" /&gt; &lt;item android:id="@+id/show_about" android:icon="@mipmap/about" android:title="关于" /&gt; &lt;item android:id="@+id/XXX" android:icon="@mipmap/ic_launcher" android:title="XX" /&gt; &lt;/group&gt; &lt;item android:title="二级菜单测试"&gt; &lt;menu&gt; &lt;item android:id="@+id/nav_share" android:icon="@mipmap/ic_launcher" android:title="Share" /&gt; &lt;item android:id="@+id/nav_send" android:icon="@mipmap/ic_launcher" android:title="Send" /&gt; &lt;/menu&gt; &lt;/item&gt;&lt;/menu&gt; MainActivity.java 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener &#123; NavigationView navigationview; DrawerLayout mDrawerLayout; Toolbar mToolbar; @Override protected void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); //设置点击toolbar的navigationIcon打开NavigationView侧边栏 mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout); mToolbar = (Toolbar) findViewById(R.id.toolbar); mToolbar.setNavigationOnClickListener(new View.OnClickListener() &#123; @Override public void onClick(View v) &#123; mDrawerLayout.openDrawer(mNavigationView); &#125; &#125;); //5.0以上设置状态栏透明 if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123; getWindow().setStatusBarColor(Color.TRANSPARENT); &#125; navigationview = (NavigationView) findViewById(R.id.navigationview); navigationview.setItemIconTintList(null);//设置NavigationView的菜单图标背景色，否则显示灰色 //设置toolbar图标与抽屉导航之间的交互 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawerlayout, tb_toolbar_main, R.string.navigation_drawer_open, R.string.navigation_drawer_close); drawerlayout.addDrawerListener(toggle); toggle.syncState(); //抽屉菜单项点击事件 navigationview.setNavigationItemSelectedListener(this); &#125; @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) &#123; Intent intent; switch (item.getItemId()) &#123; case R.id.show_about: // Toast.makeText(MainActivity.this, "about", Toast.LENGTH_SHORT).show(); intent = new Intent(MainActivity.this, AboutActivity.class); startActivity(intent); break; &#125; //先清除所有，重新加载后，在选中要选的。配合fragment使用效果更佳 navigationview.getMenu().clear(); navigationview.inflateMenu(R.menu.navigationdrawer_main); //设置选中项目 navigationview.getMenu().findItem(item.getItemId()).setChecked(true); //点击后自动关闭抽屉 drawerlayout.closeDrawer(Gravity.START); return true; &#125;&#125; NavigationView扩展知识 NavigationView放置在Toolbar下方 ss NavigationView在Toolbar下方 12345678910111213141516171819202122232425262728293031323334353637383940414243&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/sample_main_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"&gt; &lt;android.support.v7.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:background="?attr/colorPrimary" app:theme="@style/ThemeOverlay.AppCompat.Dark" /&gt; &lt;android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout" android:layout_width="match_parent" android:layout_height="match_parent"&gt; &lt;FrameLayout android:id="@+id/container" android:layout_width="match_parent" android:layout_height="match_parent" &gt; &lt;TextView android:padding="16dp" android:text="NavigationView在Toolbar下方" android:gravity="center" android:layout_width="match_parent" android:layout_height="match_parent" /&gt; &lt;/FrameLayout&gt; &lt;android.support.design.widget.NavigationView android:id="@+id/nav_view" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_gravity="start" android:fitsSystemWindows="true" app:headerLayout="@layout/nav_header" app:menu="@menu/navigationdrawer_main"/&gt; &lt;/android.support.v4.widget.DrawerLayout&gt;&lt;/LinearLayout&gt;]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>侧滑菜单</tag>
+        <tag>DrawerLayout</tag>
+        <tag>SlidingMenu</tag>
+        <tag>MaterialDrawer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 四大组件之Activity]]></title>
+    <url>%2F2016%2F06%2F01%2FAndroid-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BActivity%2F</url>
+    <content type="text"><![CDATA[二级菜单]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>安装QQ</tag>
+        <tag>wine</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 动画合集]]></title>
+    <url>%2F2016%2F06%2F01%2FAndroid-%E5%8A%A8%E7%94%BB%E5%90%88%E9%9B%86%2F</url>
+    <content type="text"><![CDATA[二级菜单]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Animation 合集</tag>
+        <tag>View Animation</tag>
+        <tag>Drawable Animation</tag>
+        <tag>Property Animation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 四大组件之Service服务]]></title>
+    <url>%2F2016%2F06%2F01%2FAndroid-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BService%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[二级菜单]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>安装QQ</tag>
+        <tag>wine</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 四大组件之BroadcastReceiver]]></title>
+    <url>%2F2016%2F06%2F01%2FAndroid-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BBroadcastReceiver%2F</url>
+    <content type="text"><![CDATA[二级菜单]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>安装QQ</tag>
+        <tag>wine</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 基础之SQLite的使用]]></title>
+    <url>%2F2016%2F05%2F26%2FAndroid-%E5%9F%BA%E7%A1%80%E4%B9%8BSqlite%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[在Android平台上，集成了一个嵌入式关系型数据库——SQLite。 SQLite3支持 NULL、INTEGER、REAL（浮点数字）、TEXT(字符串文本)和BLOB(二进制对象)等五种数据类型； 虽然它支持的类型只有五种，但实际上sqlite3也接受varchar(n)、char(n)、decimal(p,s) 等数据类型，只不过在运算或保存时会转成对应的五种数据类型。 SQLite数据库的特点：（1）Android通过 SQLite 数据库引擎来实现结构化数据的存储。在一个数据库应用程序中，任何类都可以通过名字对已经创建的数据库进行访问，但是在应用程序之外就不可以。（2）SQLite 数据库是一种用C语言编写的嵌入式数据库，它是一个轻量级的数据库，最初为嵌入式设计的。它是在一些基础简单的语句处理上要比oracle / mysql快很多，而且其对内存的要求很低，在内存中只需要几百KB的存储空间。这是Android中采用 SQLite 数据库的主要原因。（3）SQLite 支持事务处理功能。Transaction（4）SQLite 处理速度比MySQL等著名的开源数据库系统更快。它没有服务器进程。（5）SQLite 通过文件保存数据库，该文件是跨平台的，可以自由复制。一个文件就是一个数据库。数据库名即文件名。（6）JDBC会消耗太多系统资源，所以JDBC对于手机并不合适，因此Android提供了新的API来使用 SQLite 数据库。（7）SQLite最大的特点是你可以把各种类型的数据保存到任何字段中，而不用关心字段声明的数据类型是什么。 例如：可以在Integer类型的字段中存放字符串，或者在布尔型字段中存放浮点数，或者在字符型字段中存放日期型值。 Android对SQLite的操作Android中提供了很多操作SQLite类和方法。下面将详讲解两个常用类的使用，以及如何保证数据的一致性。 SQLiteDatabase类SQLiteDatabase等同于JDBC中Connection和Statement的结合体。SQLiteDatabase既代表与数据库的连接，又只能用于执行sql语句操作。 ####操作 SQLite 数据库的步骤：（关键） 1 创建 SQLiteDatabase 对象，它代表与数据库的连接；2 创建数据库中的表（执行CREATE）；3 调用SQLiteDatabase 对象执行数据库操作（执行DML）；4 查询后的结果集Cursor进行处理。 打开数据库方法 根据路径打开数据库 1public static SQLiteDatabase openDatabase (String path, SQLiteDatabase.CursorFactory factory, int flags) 参数介绍：-- 参数① path : path 要打开 或者 需要创建的 数据库文件的路径;-- 参数② factory : 当打开的数据库执行查询语句的时候 会创建一个Cursor对象, 这时会调用Cursor工厂类 factory, 可以填写null默认值;-- 参数③ flag :OPEN_READWRITE 打开一个读写数据库, 如果磁盘满了, 之前写入的也作废;READ_OPENONLY 打开只读数据库, 这时读取数据库的可靠方法;CREATE_IF_NECESSARY 打开数据库, 如果数据库不存在, 就创建这个数据库;NO_LOCALIZED_CALLATORS 打开数据库 不根据本地语言顺序进行排序, 使用这种模式创建数据库, 排序器不会被创建, 使用这个数据库 和 创建这个数据库的时候必须都使用这个标识, 如果这个标识被使用了, 那么setLocal()方法将不会起到任何作用; 根据文件打开或则创建数据库 1public static SQLiteDatabase openOrCreateDatabase (File file, SQLiteDatabase.CursorFactory factory) 根据路径打开或创建数据库 1public static SQLiteDatabase openOrCreateDatabase (String path, SQLiteDatabase.CursorFactory factory) 操作数据库 执行SQL语句动态参数 1public void execSQL (String sql, Object[] bindArgs) 参数介绍 :-- 参数① sql: 要执行的SQL语句, 只能执行一条, 多条语句用分号隔开不管用, 参数使用 “?” 占位符代替;-- 参数② bingArgs: 替换上面SQL语句中的 “?” 占位符, 按照数组中的顺序依次替换; 执行固定SQL语句 1public void execSQL (String sql) 插入数据 1public long insert (String table, String nullColumnHack, ContentValues values) -- 参数① table : 数据库中的表名, 要插入数据的表;-- 参数② nullColumnHack : 该参数是可选的, 数据库表中不允许插入一行空的数据, 插入数据至少有一列不为null才能插入, 如果后面的values是null, 并且不知道列的名称, 那么插入操作会失败, 为了避免这种情况, 就出现了本参数, 为了防止 values为null的情况;-- 参数③ values : 相当于一个Map集合,键 是列名,值 是对应列名要插入的数据;插入原则 : 不管 第三个 ContentValues参数 是否为null, 执行insert()方法都会添加一条记录, 如果values参数为null, 会添加一个除主键之外其它字段都为null的记录;实例： 123456//创建表数据, 键 为 列名, 值 为 对应的表数据ContentValues values = new ContentValues();values.put("name", "乔帮主");values.put("age", 54);//向表中插入数据, 如果values为null, 就会添加一个long rowsNum = db.insert("apple_info", "name", values); 上面代码转成SQL语句 : 1insert into apple_info (name, age) values ('乔帮主', 54) 更新数据 1public int update (String table, ContentValues values, String whereClause, String[] whereArgs) -- 参数① table : 数据库表名称;-- 参数② values : 该值类似Map集合, 键 是 列名, 值 是 要更新的数据, 这个值可以为null, 如果为null 这些数据会被清空;-- 参数③ whereClause: where选择语句, 选择那些行进行数据的更新, 如果该参数为 null, 就会修改所有行;-- 参数④ whereArgs : where选择语句的参数, 逐个替换 whereClause 中的占位符;实例： 12345//创建表数据, 键 为 列名, 值 为 对应的表数据ContentValues values = new ContentValues();values.put("name", "乔帮主");values.put("age", 54);int result = db.update("apple_info", values, "name=?", new String[]&#123;"乔帮主"&#125;); 上面代码转成SQL语句 : 1update apple_info set name='乔帮主', age=56 where name='乔帮主' 删除数据 1public int delete (String table, String whereClause, String[] whereArgs) 参数介绍 :-- 参数① table : 要操作的数据库表名;-- 参数② whereClause : where选择语句, 选择哪些行要被删除, 如果为null, 就删除所有行;-- 参数③ whereArgs : where语句的参数, 逐个替换where语句中的 “?” 占位符;实例： 1int result = db.delete("apple_info", "name=?", new String[]&#123;"乔帮主"&#125;); 上面代码转成SQL语句 : 1delete apple_info where name='乔帮主' 查询 1public Cursor query (boolean distinct, String table, String[] columns,String selection, String[] selectionArgs,String groupBy, String having,String orderBy, String limit,CancellationSignal cancellationSignal) 参数介绍 :-- 参数① distinct : 是否去重复, true 去重复;-- 参数② table : 要查询的表名;-- 参数③ columns : 要查询的列名, 如果为null, 就会查询所有的列;-- 参数④ whereClause : 条件查询子句, 在这里可以使用占位符 “?”;-- 参数⑤ whereArgs : whereClause查询子句中的传入的参数值, 逐个替换 “?” 占位符;-- 参数⑥ groupBy : 控制分组, 如果为null 将不会分组;-- 参数⑦ having : 对分组进行过滤;-- 参数⑧ orderBy : 对记录进行排序;-- 参数⑨ limite : 用于分页, 如果为null, 就认为不进行分页查询;-- 参数⑩ cancellationSignal : 进程中取消操作的信号, 如果操作被取消, 当查询命令执行时会抛出 OperationCanceledException 异常;实例： 12Cursor cursor = db.query(true, "apple_info",new String[]&#123;"_id, name, age"&#125;,"name like ?", new String[]&#123;"乔%"&#125;,null, null,"_id desc", "5, 10");cursor.close(); 上面代码转成SQL语句需要使用rawQuery方法，要实现以上所有的功能需要自己写一个SQL语句: 1public Cursor rawQuery (String sql, String[] selectionArgs) 参数解析 :-- 参数① sql : 要执行的SQL语句, 可以使用 “?” 作为占位符;-- 参数② selectionArgs : sql语句中的参数, 按照次序依次替换占位符 “?”; Cursor对象的操作当执行的是select语句，返回一个Cursor对象。Cursor类似于JDBC中的ResultSet结果集，内置移动游标等方法： 方法名 简述 move(int offset) 按偏移量来移动 moveToFirst() 将记录指针移动到第一行 moveToLast () 将记录指针移动到最后一行 moveToNext () 将记录指针移动到下一行 moveToPosition(int position) 将记录指针移动到指定的一行 moveToPrevious() 将记录指针移动到上一行 getCount() 返回Cursor的行数 getColumnName(int index) 根据列的索引返回其相应的列名称 getColumnIndex(String name) 根据列的名字返回其相应的索引 getColumnNames() 返回一个保存有所有列名称的字符串数组 getColumnCount() 返回列的总数 close() 关闭游标结果集，释放资源 getType() 获取字段的数据类型。分别有0、1、2、3、4这几个结果。 数据库事务Database Transaction在数据库开发中，事务处理是非常重要的。首先Android数据库操作（特别是写操作）是非常慢的，将所有操作打包成一个事务能大大提高处理速度。其次是保证数据的一致性，一个事务中的所有操作可以看作一个原子操作，成功或者失败。如果全部成功，则事务提交完成；而事务内部如果有失败操作，整个事务操作会回滚，从而保证数据的一致性。Android中事务的调用： 1234567891011try &#123; db.beginTransaction(); //在这里执行多个数据库操作 //执行过程中可能会抛出异常 db.setTransactionSuccessful(); //在setTransactionSuccessful和endTransaction之间不进行任何数据库操作 &#125; catch (Exception e)&#123; &#125; finally &#123; //当所有操作执行完成后结束一个事务 db.endTransaction(); &#125; 注意： 一定要调用db.setTransactionSuccessful();事务才会成功提交完成事务是可以嵌套的 SQLiteOpenHelper类SQLiteOpenHelper是系统提供的一个管理数据库表创建和版本管理（尤其是版本更新）的抽象类，我们必须通过继承SQLiteOpenHelper来实现自己的工具类。 封装DBHelper类]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>SQLite</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android 四大组件之ContentProvider(1)]]></title>
+    <url>%2F2016%2F05%2F25%2FAndroid-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E4%B9%8BContentProvider-1%2F</url>
+    <content type="text"><![CDATA[二级菜单]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Debian 开发</tag>
+        <tag>Android 四大组件</tag>
+        <tag>ContentProvider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian 8+ 安装 SunJdk]]></title>
+    <url>%2F2016%2F05%2F24%2FDebian-8-%E5%AE%89%E8%A3%85-SunJdk%2F</url>
+    <content type="text"><![CDATA[由于要用Debian做Java的开发 ，最初Debian默认的OpenJdk还是可以的，但是由于Android开发需要SunJdk，所以需要手动安装。 Debian6以后安装SunJdk不只是简单的使用apt-get install 了，因为一些原因，Debian不维护SunJdk的deb了 所以只能从jdk官方下载压缩包安装。某次在Debian wiki上浏览的时候发现了一个包，是java-package，所以我去查了查。大家可以看看下面的链接。 java-package 安装步骤。1 Download java jdk from oracle website2 Install java-package from debian repos using command “apt-get install java-package”3 Run this command to create .deb file “make-jpkg jdk-8u45-linux-x64.tar.gz”4 Install .deb file using “dpkg -i oracle-java8-jdk_8u45_amd64.deb”5 Run this command to check java version “java -version” 这样就能apt管理这个jdk了。 多Jdk的管理某些Debian用户由于需求需要安装多个Jdk（openJdk和SunJdk），但是这几个之间怎么协同管理呢？如何做到android-studio在打开的时候自动匹配使用sunjdk呢？看下面这个命令 sudo update-alternatives --config java 通过这个命令系统会让您选择默认Jdk是那一个我们选择Sun的Jdk然后就会默认使用sunjdk了。这个命令是可以设定优先级的 自己看看帮助喽！不会的可以留言我。。。]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+        <tag>安装Jdk</tag>
+        <tag>SunJdk</tag>
+        <tag>jdk</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Debian安装QQ]]></title>
+    <url>%2F2016%2F05%2F24%2FDebian%E5%AE%89%E8%A3%85QQ%2F</url>
+    <content type="text"><![CDATA[Debian GNU/Linux是一个优秀的操作系统，但是TX没有开发Linux下的QQ（之前TX发布的QQ.deb已经不能使用，webqq又半死不活），在这种情况下就需要教大家怎么在Debian上使用QQ了。 ##第一步、开启Debian 对i386的支持 因为这个包是专门为32位制作的包，所以需要使用一些i386的包。64位操作系统就需要开启i386的支持。 $sudo dpkg –add-architecture i386 ##第二步、更新系统本地源内容 在开启i386的支持后需要将本地的源列表进行更新。（温馨提示：不更新会找不到包哦！） $sudo apt-get update ##第三步、安装wine 这时候安装wine的时候就会自动将32位的链接库文件进行安装了，有些不自动安装的就需要用户手动 apt-get install xxx 了 $sudo apt-get install wine ##第四步、安装下方百度云链接下载的 QQ *** .deb包(***表示软件包名称) $dpkg -i ***.deb QQ安装包 密码: 89n9]]></content>
+      <categories>
+        <category>Debian GNU/Linux</category>
+      </categories>
+      <tags>
+        <tag>Debian</tag>
+        <tag>Testing/Stable</tag>
+        <tag>安装QQ</tag>
+        <tag>wine</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+</search>
