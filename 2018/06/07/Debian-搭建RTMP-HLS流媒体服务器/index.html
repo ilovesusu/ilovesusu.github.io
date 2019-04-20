@@ -102,11 +102,11 @@
 <meta name="keywords" content="Debian,Ubuntu,Linux,RTMP&#x2F;HLS,直播,流媒体服务器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Debian 搭建RTMP&#x2F;HLS流媒体服务器">
-<meta property="og:url" content="http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/index.html">
+<meta property="og:url" content="http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/index.html">
 <meta property="og:site_name" content="Susu的博客">
 <meta property="og:description" content="最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。现在将最新的解决方案记录下来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-15T07:09:12.720Z">
+<meta property="og:updated_time" content="2019-03-28T02:29:35.064Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Debian 搭建RTMP&#x2F;HLS流媒体服务器">
 <meta name="twitter:description" content="最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。现在将最新的解决方案记录下来。">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
+  <link rel="canonical" href="http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
 
 
 
@@ -415,7 +415,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
+    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -475,7 +475,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-15 15:09:12" itemprop="dateModified" datetime="2018-12-15T15:09:12+08:00">2018-12-15</time>
+                <time title="修改时间：2019-03-28 10:29:35" itemprop="dateModified" datetime="2019-03-28T10:29:35+08:00">2019-03-28</time>
               
             
           </span>
@@ -543,10 +543,10 @@
 </blockquote>
 <h2 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h2><p>既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿</p>
 <p>如果使用apt 就很简单了，一句命令搞定，但是<del>缺点</del>就是可能不是最新的发布版</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install nginx-full nginx-rtmp-module</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install nginx-full libnginx-mod-rtmp</span><br></pre></td></tr></table></figure>
 <ol>
 <li><p>修改/etc/nginx/nginx.conf</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 1935;</span><br><span class="line">        chunk_size 4000;</span><br><span class="line">        #HLS</span><br><span class="line">        application hls &#123;</span><br><span class="line">            live on;</span><br><span class="line">            hls on;</span><br><span class="line">            hls_path /var/www/html/hls;</span><br><span class="line">            hls_fragment 5s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 1935;</span><br><span class="line">        chunk_size 4000;</span><br><span class="line">        #创建RTMP应用程序。与http位置不同，应用程序名称不能是一种模式。</span><br><span class="line">        application hls &#123;</span><br><span class="line">            live on;</span><br><span class="line">            #在应用程序上切换HLS</span><br><span class="line">            hls on;</span><br><span class="line">            hls_path /var/www/html/hls;</span><br><span class="line">            hls_fragment 5s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改虚拟主机配置文件(xxx是文件名称):</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-enabled/xxx</span><br></pre></td></tr></table></figure>
@@ -624,7 +624,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/" title="Debian 搭建RTMP/HLS流媒体服务器">http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</a>
+    <a href="http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/" title="Debian 搭建RTMP/HLS流媒体服务器">http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -748,7 +748,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -781,7 +781,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -942,7 +944,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

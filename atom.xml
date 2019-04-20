@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://sumi.ml/"/>
-  <updated>2019-01-31T09:53:48.452Z</updated>
-  <id>http://sumi.ml/</id>
+  <link href="http://www.ilovesusu.com/"/>
+  <updated>2019-04-13T07:13:40.702Z</updated>
+  <id>http://www.ilovesusu.com/</id>
   
   <author>
     <name>Susu</name>
@@ -17,13 +17,61 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>数据库完全备份还原及还原某一张表</title>
-    <link href="http://sumi.ml/2019/01/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8/"/>
-    <id>http://sumi.ml/2019/01/16/数据库完全备份还原及还原某一张表/</id>
-    <published>2019-01-16T07:49:04.000Z</published>
-    <updated>2019-01-31T09:53:48.452Z</updated>
+    <title>du与df查看已使用空间不一致的原因及解决办法</title>
+    <link href="http://www.ilovesusu.com/2019/04/13/du%E4%B8%8Edf%E6%9F%A5%E7%9C%8B%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>http://www.ilovesusu.com/2019/04/13/du与df查看已使用空间不一致的原因及解决办法/</id>
+    <published>2019-04-13T06:58:42.000Z</published>
+    <updated>2019-04-13T07:13:40.702Z</updated>
     
-    <content type="html"><![CDATA[<p>数据库备份和还原是非常重要的，这里将备份还原的常用命令进行总结。</p><a id="more"></a><h2 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h2><p>1.备份某个数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p[密码] [选项] [数据库名] [表名] &gt; /备份路径/备份文件名</span><br><span class="line"><span class="comment"># 备份库到目录下，-p之后可跟密码，也可不写。不写就在回车之后输入密码验证。 备份文件后缀都为.sql</span></span><br></pre></td></tr></table></figure><p>2.创建一个数据库school，对school库的info1、info2表备份</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p123123 school info1 info2 &gt; /root/info.sql</span><br></pre></td></tr></table></figure><p>3.备份多个数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --databases mysql study &gt; /root/mysql_study.sql</span><br><span class="line"><span class="comment"># --databases 数据库名 数据库名...</span></span><br></pre></td></tr></table></figure><p>4.备份所有数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --opt --all-databases &gt; /root/all.sql</span><br><span class="line"><span class="comment"># --opt 表示激活了Mysqldump命令的quick，add-drop-table，add-locks，extended-insert，lock-tables参数，也就是通过--opt参数在使用Mysqldump导出Mysql数据库信息时不需要再附加上述这些参数。</span></span><br><span class="line"><span class="comment"># --all-databases 表示所有数据库；</span></span><br></pre></td></tr></table></figure><p>5.备份数据库中的表</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p study info &gt; /root/study_info.sql</span><br><span class="line"><span class="comment"># 备份info表</span></span><br></pre></td></tr></table></figure><p>6.备份数据库的表结构</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p -d study info &gt; /root/study_info_table_structure.sql</span><br><span class="line"><span class="comment"># -d  库名+表名  表示表结构</span></span><br></pre></td></tr></table></figure><h2 id="数据库还原"><a href="#数据库还原" class="headerlink" title="数据库还原"></a>数据库还原</h2><p>登录后使用source还原</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /root/school.sql</span><br></pre></td></tr></table></figure><p>直接使用mysql命令还原</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p123123 school &lt; /root/school.sql</span><br></pre></td></tr></table></figure><h2 id="还原某张表"><a href="#还原某张表" class="headerlink" title="还原某张表"></a>还原某张表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用sed命令将user表的表结构抽取出导出到新的sql文件中</span></span><br><span class="line">sed -e<span class="string">'/./&#123;H;$!d;&#125;'</span> -e <span class="string">'x;/CREATE TABLE `users`/!d;q'</span> xxxbackup.sql &gt; 1.sql</span><br><span class="line"><span class="comment"># 使用grep 将所有包含 INSERT INTO `users` 的行追加到新sql文件中</span></span><br><span class="line">grep <span class="string">'INSERT INTO `users`'</span> xxxbackup.sql &gt;&gt; 1.sq</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>linux df -h 显示使用空间已满，用du -sh查看哪个文件夹占用空间比较大时显示只使用了26G,两者相差20GB+<br><a id="more"></a></p><h2 id="问题展示"><a href="#问题展示" class="headerlink" title="问题展示"></a>问题展示</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ls-dj-test-4 /]<span class="comment"># df -h</span></span><br><span class="line"></span><br><span class="line">Filesystem Size Used Avail Use% Mounted on</span><br><span class="line"></span><br><span class="line">/dev/sda1 100G 100G 20K 100% /</span><br><span class="line"></span><br><span class="line">[root@ls-dj-test-4 /]<span class="comment"># du -sh /</span></span><br><span class="line"></span><br><span class="line">26G /</span><br></pre></td></tr></table></figure><p>从这里面可以看出通过du看到使用了26G，但是通过df 看，/data目录已使用100G</p><h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>这种问题主要是因为已经被<strong>删掉</strong>的文件还有程序（进程）在占用，所以文件没被真正释放</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>1、lsof |grep deleted &gt; deleted_file查看有哪些未被释放的文件<br>2、排序看最大的未被释放的文件大小，命令：sort -nr -k 7 deleted_file&gt;sort_deleted_file<br>3、more sort_deleted_file 查看前面那些文件，将占用空间大的程序kill掉<br>kill 进程号</p><h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>有时候进程号太多，都是占用一个文件，那就需要新的解决方案了。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">sh     7654  7723 sh             root   46w      REG               0,22     65536     276676 /var/<span class="built_in">log</span>/54sdfa48df1sdag654dfg15.log (deleted)</span><br><span class="line">...</span><br></pre></td></tr></table></figure><p>这个时候找到对应进程号后，直接cd /proc/pid/fd（fd中记录的是这个进程打开的所有文件的信息），pid是进程号(自己前面的修改命令)。<br>这时候需要通过方法一lsof查找到被删除文件的信息，命令回显其中有一项是FD，这个值有最后一位去除（最后一位可能是w/r/u等表示文件状态），例如上述FD值为46w，则在fd路径下对应的文件是46，直接执行echo “” &gt; 46,看下面命令，自己领悟。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/proc/7654/fd</span><br><span class="line">$ ls</span><br><span class="line">0    104  110  117  123  13   141  19  25  31  38  44  50  57  63  70  78  84  90  97</span><br><span class="line">1    105  111  118  124  130  147  2   26  32  39  45  51  58  64  71  79  85  91  98</span><br><span class="line">10   106  112  119  125  131  15   20  27  33  4   46  52  59  65  72  8   86  92  99</span><br><span class="line">100  107  113  12   126  132  16   21  28  34  40  47  53  6   66  74  80  87  93</span><br><span class="line">101  108  114  120  127  135  17   22  29  35  41  48  54  60  67  75  81  88  94</span><br><span class="line">102  109  115  121  128  138  171  23  3   36  42  49  55  61  68  76  82  89  95</span><br><span class="line">103  11   116  122  129  14   18   24  30  37  43  5   56  62  7   77  83  9   96</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">""</span> &gt; 46</span><br></pre></td></tr></table></figure><p>执行完毕后，再次通过df  du命令查看时，问题应该解决了。</p><h2 id="最后，其实这个问题重启就能解决。"><a href="#最后，其实这个问题重启就能解决。" class="headerlink" title="最后，其实这个问题重启就能解决。"></a>最后，其实这个问题重启就能解决。</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;linux df -h 显示使用空间已满，用du -sh查看哪个文件夹占用空间比较大时显示只使用了26G,两者相差20GB+&lt;br&gt;
+    
+    </summary>
+    
+      <category term="xx" scheme="http://www.ilovesusu.com/categories/xx/"/>
+    
+    
+      <category term="xx" scheme="http://www.ilovesusu.com/tags/xx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux内核优化？！看我就完了</title>
+    <link href="http://www.ilovesusu.com/2019/02/18/Linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96%EF%BC%9F%EF%BC%81%E5%B9%B2%E5%B0%B1%E5%AE%8C%E4%BA%86/"/>
+    <id>http://www.ilovesusu.com/2019/02/18/Linux内核优化？！干就完了/</id>
+    <published>2019-02-18T03:31:52.000Z</published>
+    <updated>2019-03-08T08:01:09.566Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="Linux-内核开启-BBR"><a href="#Linux-内核开启-BBR" class="headerlink" title="Linux 内核开启 BBR"></a>Linux 内核开启 BBR</h2><p>由于 Debian 9默认的就是4.9的内核而且编译了 TCP BBR，所以可以直接通过参数开启，实现高效单边加速。</p><h3 id="1、修改系统变量"><a href="#1、修改系统变量" class="headerlink" title="1、修改系统变量"></a>1、修改系统变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br></pre></td></tr></table></figure><h3 id="2、保存生效"><a href="#2、保存生效" class="headerlink" title="2、保存生效"></a>2、保存生效</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure><h3 id="3、查看内核是否已开启BBR"><a href="#3、查看内核是否已开启BBR" class="headerlink" title="3、查看内核是否已开启BBR"></a>3、查看内核是否已开启BBR</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure><p>显示以下即已开启：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure><h3 id="4、查看BBR是否启动"><a href="#4、查看BBR是否启动" class="headerlink" title="4、查看BBR是否启动"></a>4、查看BBR是否启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;Linux-内核开启-BBR&quot;&gt;&lt;a href=&quot;#Linux-内核开启-BBR&quot; class=&quot;headerlink&quot; title=&quot;Linux 内核开启 BBR&quot;&gt;&lt;/a&gt;Linux 内核开启 BBR&lt;/h2&gt;&lt;p&gt;由于 D
+      
+    
+    </summary>
+    
+      <category term="xx" scheme="http://www.ilovesusu.com/categories/xx/"/>
+    
+    
+      <category term="xx" scheme="http://www.ilovesusu.com/tags/xx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库完全备份还原及还原某一张表</title>
+    <link href="http://www.ilovesusu.com/2019/01/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8/"/>
+    <id>http://www.ilovesusu.com/2019/01/16/数据库完全备份还原及还原某一张表/</id>
+    <published>2019-01-16T07:49:04.000Z</published>
+    <updated>2019-02-25T02:53:02.339Z</updated>
+    
+    <content type="html"><![CDATA[<p>数据库备份和还原是非常重要的，这里将备份还原的常用命令进行总结。</p><a id="more"></a><h2 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h2><p>1.备份某个数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p[密码] [选项] [数据库名] [表名] &gt; /备份路径/备份文件名</span><br><span class="line"><span class="comment"># 备份库到目录下，-p之后可跟密码，也可不写。不写就在回车之后输入密码验证。 备份文件后缀都为.sql</span></span><br></pre></td></tr></table></figure><p>2.创建一个数据库school，对school库的info1、info2表备份</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p123123 school info1 info2 &gt; /root/info.sql</span><br></pre></td></tr></table></figure><p>3.备份多个数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --databases mysql study &gt; /root/mysql_study.sql</span><br><span class="line"><span class="comment"># --databases 数据库名 数据库名...</span></span><br></pre></td></tr></table></figure><p>4.备份所有数据库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --opt --all-databases &gt; /root/all.sql</span><br><span class="line"><span class="comment"># --opt 表示激活了Mysqldump命令的quick，add-drop-table，add-locks，extended-insert，lock-tables参数，也就是通过--opt参数在使用Mysqldump导出Mysql数据库信息时不需要再附加上述这些参数。</span></span><br><span class="line"><span class="comment"># --all-databases 表示所有数据库；</span></span><br></pre></td></tr></table></figure><p>5.备份数据库中的表</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p study info &gt; /root/study_info.sql</span><br><span class="line"><span class="comment"># 备份info表</span></span><br></pre></td></tr></table></figure><p>6.备份数据库的表结构</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p -d study info &gt; /root/study_info_table_structure.sql</span><br><span class="line"><span class="comment"># -d  库名+表名  表示表结构</span></span><br></pre></td></tr></table></figure><h2 id="数据库还原"><a href="#数据库还原" class="headerlink" title="数据库还原"></a>数据库还原</h2><p>登录后使用source还原</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /root/school.sql</span><br></pre></td></tr></table></figure><p>直接使用mysql命令还原</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p123123 school &lt; /root/school.sql</span><br></pre></td></tr></table></figure><h2 id="还原某张表"><a href="#还原某张表" class="headerlink" title="还原某张表"></a>还原某张表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用sed命令将user表的表结构抽取出导出到新的sql文件中</span></span><br><span class="line">sed -e<span class="string">'/./&#123;H;$!d;&#125;'</span> -e <span class="string">'x;/CREATE TABLE `users`/!d;q'</span> xxxbackup.sql &gt; 1.sql</span><br><span class="line"><span class="comment"># 使用grep 将所有包含 INSERT INTO `users` 的行追加到新sql文件中</span></span><br><span class="line">grep <span class="string">'INSERT INTO `users`'</span> xxxbackup.sql &gt;&gt; 1.sql</span><br></pre></td></tr></table></figure><h2 id="通过binlog文件导出指定时间段sql操作"><a href="#通过binlog文件导出指定时间段sql操作" class="headerlink" title="通过binlog文件导出指定时间段sql操作"></a>通过binlog文件导出指定时间段sql操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 首先将binlog文件导出指定时间段的内容：</span><br><span class="line"></span><br><span class="line">  ```bash</span><br><span class="line">  mysqlbinlog --start-datetime=<span class="string">'2017-09-10 00:00:00'</span> --stop-datetime=<span class="string">'2017-09-10 01:01:01'</span> -d 库名 二进制文件</span><br></pre></td></tr></table></figure><p>2 将指定的表操作内容过滤到指定文件</p>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -B3 -w tb_name data.sql |grep -v  <span class="string">'^--$'</span> &gt; tb_name.sql</span><br></pre></td></tr></table></figure><p>3 导出update操作的sql</p>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat tb_name.sql| grep <span class="string">"UPDATE"</span> &gt; update_XX.sql</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -31,17 +79,17 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://sumi.ml/categories/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
     
     
-      <category term="数据库" scheme="http://sumi.ml/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
   <entry>
     <title>联想Y7000等硬件开关导致wifi不可用的解决方案</title>
-    <link href="http://sumi.ml/2018/12/12/%E8%81%94%E6%83%B3Y7000%E7%AD%89%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%85%B3%E5%AF%BC%E8%87%B4wifi%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://sumi.ml/2018/12/12/联想Y7000等硬件开关导致wifi不可用的解决方案/</id>
+    <link href="http://www.ilovesusu.com/2018/12/12/%E8%81%94%E6%83%B3Y7000%E7%AD%89%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%85%B3%E5%AF%BC%E8%87%B4wifi%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://www.ilovesusu.com/2018/12/12/联想Y7000等硬件开关导致wifi不可用的解决方案/</id>
     <published>2018-12-12T09:31:54.000Z</published>
     <updated>2018-12-15T07:09:23.885Z</updated>
     
@@ -53,19 +101,19 @@
     
     </summary>
     
-      <category term="Android" scheme="http://sumi.ml/categories/Android/"/>
+      <category term="Android" scheme="http://www.ilovesusu.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://sumi.ml/tags/Android/"/>
+      <category term="Android" scheme="http://www.ilovesusu.com/tags/Android/"/>
     
-      <category term="SQLite" scheme="http://sumi.ml/tags/SQLite/"/>
+      <category term="SQLite" scheme="http://www.ilovesusu.com/tags/SQLite/"/>
     
   </entry>
   
   <entry>
     <title>从零开始,学习web前端之前端发展史</title>
-    <link href="http://sumi.ml/2018/12/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8B%E5%89%8D%E7%AB%AF%E5%8F%91%E5%B1%95%E5%8F%B2/"/>
-    <id>http://sumi.ml/2018/12/10/从零开始-学习web前端之前端发展史/</id>
+    <link href="http://www.ilovesusu.com/2018/12/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8B%E5%89%8D%E7%AB%AF%E5%8F%91%E5%B1%95%E5%8F%B2/"/>
+    <id>http://www.ilovesusu.com/2018/12/10/从零开始-学习web前端之前端发展史/</id>
     <published>2018-12-10T12:19:30.000Z</published>
     <updated>2018-12-10T12:19:30.730Z</updated>
     
@@ -78,8 +126,8 @@
   
   <entry>
     <title>详细解释 Payload Shellcode Exploit Poc</title>
-    <link href="http://sumi.ml/2018/12/10/%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-Payload-Shellcode-Exploit-Poc/"/>
-    <id>http://sumi.ml/2018/12/10/详细解释-Payload-Shellcode-Exploit-Poc/</id>
+    <link href="http://www.ilovesusu.com/2018/12/10/%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-Payload-Shellcode-Exploit-Poc/"/>
+    <id>http://www.ilovesusu.com/2018/12/10/详细解释-Payload-Shellcode-Exploit-Poc/</id>
     <published>2018-12-10T12:17:05.000Z</published>
     <updated>2018-12-23T09:50:12.285Z</updated>
     
@@ -94,21 +142,21 @@
     
     </summary>
     
-      <category term="网络安全" scheme="http://sumi.ml/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+      <category term="网络安全" scheme="http://www.ilovesusu.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
     
-      <category term="Payload" scheme="http://sumi.ml/tags/Payload/"/>
+      <category term="Payload" scheme="http://www.ilovesusu.com/tags/Payload/"/>
     
-      <category term="Shellcode" scheme="http://sumi.ml/tags/Shellcode/"/>
+      <category term="Shellcode" scheme="http://www.ilovesusu.com/tags/Shellcode/"/>
     
-      <category term="Exploit" scheme="http://sumi.ml/tags/Exploit/"/>
+      <category term="Exploit" scheme="http://www.ilovesusu.com/tags/Exploit/"/>
     
   </entry>
   
   <entry>
     <title>服务器扩容数据盘</title>
-    <link href="http://sumi.ml/2018/11/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
-    <id>http://sumi.ml/2018/11/24/服务器扩容数据盘/</id>
+    <link href="http://www.ilovesusu.com/2018/11/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
+    <id>http://www.ilovesusu.com/2018/11/24/服务器扩容数据盘/</id>
     <published>2018-11-24T12:17:16.000Z</published>
     <updated>2018-12-15T07:10:00.625Z</updated>
     
@@ -120,27 +168,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="服务器扩容" scheme="http://sumi.ml/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9/"/>
+      <category term="服务器扩容" scheme="http://www.ilovesusu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9/"/>
     
-      <category term="数据盘" scheme="http://sumi.ml/tags/%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
+      <category term="数据盘" scheme="http://www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
     
   </entry>
   
   <entry>
     <title>Debian 配置 Mysql 数据库主从，读写分离，负载均衡</title>
-    <link href="http://sumi.ml/2018/11/21/Debian-%E9%85%8D%E7%BD%AE-Mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%EF%BC%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    <id>http://sumi.ml/2018/11/21/Debian-配置-Mysql-数据库主从，读写分离，负载均衡/</id>
+    <link href="http://www.ilovesusu.com/2018/11/21/Debian-%E9%85%8D%E7%BD%AE-Mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%EF%BC%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>http://www.ilovesusu.com/2018/11/21/Debian-配置-Mysql-数据库主从，读写分离，负载均衡/</id>
     <published>2018-11-21T12:17:30.000Z</published>
     <updated>2018-12-15T07:09:54.017Z</updated>
     
@@ -159,29 +207,29 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Mysql主从" scheme="http://sumi.ml/tags/Mysql%E4%B8%BB%E4%BB%8E/"/>
+      <category term="Mysql主从" scheme="http://www.ilovesusu.com/tags/Mysql%E4%B8%BB%E4%BB%8E/"/>
     
-      <category term="读写分离" scheme="http://sumi.ml/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/"/>
+      <category term="读写分离" scheme="http://www.ilovesusu.com/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/"/>
     
-      <category term="负载均衡" scheme="http://sumi.ml/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+      <category term="负载均衡" scheme="http://www.ilovesusu.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
   </entry>
   
   <entry>
     <title>Debian LNMP安装及优化</title>
-    <link href="http://sumi.ml/2018/11/18/Debian-LNMP%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BC%98%E5%8C%96/"/>
-    <id>http://sumi.ml/2018/11/18/Debian-LNMP安装及优化/</id>
+    <link href="http://www.ilovesusu.com/2018/11/18/Debian-LNMP%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BC%98%E5%8C%96/"/>
+    <id>http://www.ilovesusu.com/2018/11/18/Debian-LNMP安装及优化/</id>
     <published>2018-11-18T10:56:13.000Z</published>
     <updated>2018-12-21T11:51:43.606Z</updated>
     
@@ -193,21 +241,21 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://sumi.ml/categories/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/categories/Debian/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/categories/Debian/Linux/"/>
     
     
-      <category term="LNMP安装" scheme="http://sumi.ml/tags/LNMP%E5%AE%89%E8%A3%85/"/>
+      <category term="LNMP安装" scheme="http://www.ilovesusu.com/tags/LNMP%E5%AE%89%E8%A3%85/"/>
     
-      <category term="LNMP优化" scheme="http://sumi.ml/tags/LNMP%E4%BC%98%E5%8C%96/"/>
+      <category term="LNMP优化" scheme="http://www.ilovesusu.com/tags/LNMP%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>Debian Gun/Linux 搭建pyqt5开发环境</title>
-    <link href="http://sumi.ml/2018/10/10/Debian-Gun-Linux-%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>http://sumi.ml/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/</id>
+    <link href="http://www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/</id>
     <published>2018-10-10T10:55:03.000Z</published>
     <updated>2018-12-15T14:02:12.167Z</updated>
     
@@ -219,23 +267,23 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://sumi.ml/categories/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/categories/Debian/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/categories/Debian/Linux/"/>
     
     
-      <category term="pyqt5" scheme="http://sumi.ml/tags/pyqt5/"/>
+      <category term="pyqt5" scheme="http://www.ilovesusu.com/tags/pyqt5/"/>
     
-      <category term="搭建pyqt5开发环境" scheme="http://sumi.ml/tags/%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+      <category term="搭建pyqt5开发环境" scheme="http://www.ilovesusu.com/tags/%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
-      <category term="开发环境" scheme="http://sumi.ml/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+      <category term="开发环境" scheme="http://www.ilovesusu.com/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
   </entry>
   
   <entry>
     <title>从零开始,学习web前端之HTML/CSS 速写神器：Emmet(转载)</title>
-    <link href="http://sumi.ml/2018/09/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8BHTML-CSS-%E9%80%9F%E5%86%99%E7%A5%9E%E5%99%A8%EF%BC%9AEmmet-%E8%BD%AC%E8%BD%BD/"/>
-    <id>http://sumi.ml/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/</id>
+    <link href="http://www.ilovesusu.com/2018/09/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8BHTML-CSS-%E9%80%9F%E5%86%99%E7%A5%9E%E5%99%A8%EF%BC%9AEmmet-%E8%BD%AC%E8%BD%BD/"/>
+    <id>http://www.ilovesusu.com/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/</id>
     <published>2018-09-12T03:46:41.000Z</published>
     <updated>2018-12-15T14:50:46.024Z</updated>
     
@@ -248,29 +296,29 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://sumi.ml/categories/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="编程" scheme="http://sumi.ml/categories/Debian/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="http://www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/"/>
     
-      <category term="前端" scheme="http://sumi.ml/categories/Debian/%E7%BC%96%E7%A8%8B/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="css" scheme="http://sumi.ml/tags/css/"/>
+      <category term="css" scheme="http://www.ilovesusu.com/tags/css/"/>
     
-      <category term="web" scheme="http://sumi.ml/tags/web/"/>
+      <category term="web" scheme="http://www.ilovesusu.com/tags/web/"/>
     
-      <category term="Emmet" scheme="http://sumi.ml/tags/Emmet/"/>
+      <category term="Emmet" scheme="http://www.ilovesusu.com/tags/Emmet/"/>
     
   </entry>
   
   <entry>
     <title>Debian 搭建RTMP/HLS流媒体服务器</title>
-    <link href="http://sumi.ml/2018/06/07/Debian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://sumi.ml/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</id>
+    <link href="http://www.ilovesusu.com/2018/06/07/Debian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</id>
     <published>2018-06-07T02:13:35.000Z</published>
-    <updated>2018-12-15T07:09:12.720Z</updated>
+    <updated>2019-03-28T02:29:35.064Z</updated>
     
-    <content type="html"><![CDATA[<p>最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。<br>最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。<br>现在将最新的解决方案记录下来。<br><a id="more"></a></p><h2 id="旧方法"><a href="#旧方法" class="headerlink" title="旧方法"></a>旧方法</h2><p>之前大家都是通过添加模块nginx-rtmp-module编译打包来搭建的。<br>主要借鉴了</p><blockquote><p><a href="https://cxuef.github.io/linux/%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91%E6%90%AD%E5%BB%BAnginx-rtmp%E7%9B%B4%E6%92%AD%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8Cffmpeg%E6%A8%A1%E6%8B%9F%E6%8E%A8%E6%B5%81/" target="_blank" rel="noopener">【置顶】搭建nginx rtmp直播服务器，ffmpeg模拟推流</a><br><a href="https://www.lylinux.org/ubuntu%E4%B8%8B%E7%BC%96%E8%AF%91nginx%E7%9A%84rtmp%E7%9B%B4%E6%92%AD%E6%A8%A1%E5%9D%97.html" target="_blank" rel="noopener">Ubuntu下编译Nginx的RTMP直播模块</a></p></blockquote><h2 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h2><p>既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿</p><p>如果使用apt 就很简单了，一句命令搞定，但是<del>缺点</del>就是可能不是最新的发布版</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install nginx-full nginx-rtmp-module</span><br></pre></td></tr></table></figure><ol><li><p>修改/etc/nginx/nginx.conf</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 1935;</span><br><span class="line">        chunk_size 4000;</span><br><span class="line">        #HLS</span><br><span class="line">        application hls &#123;</span><br><span class="line">            live on;</span><br><span class="line">            hls on;</span><br><span class="line">            hls_path /var/www/html/hls;</span><br><span class="line">            hls_fragment 5s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>修改虚拟主机配置文件(xxx是文件名称):</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-enabled/xxx</span><br></pre></td></tr></table></figure> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /hls &#123;</span><br><span class="line">    #是W3C标准里用来检查该跨域请求是否可以被通过</span><br><span class="line">    add_header Access-Control-Allow-Origin *;</span><br><span class="line">        types &#123;</span><br><span class="line">        application/vnd.apple.mpegurl m3u8;</span><br><span class="line">        video/mp2t ts;</span><br><span class="line">        &#125;</span><br><span class="line">    root /var/www/html/;</span><br><span class="line">    add_header Cache-Control no-cache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>创建目录:</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /usr/share/nginx/html/hls</span><br></pre></td></tr></table></figure></li><li><p>重启nginx:</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx.service</span><br></pre></td></tr></table></figure></li></ol><p>重启完成后，nginx算是成功了，下面就可以测试了，可以使用ffmpeg或obs来推流。</p><p>obs:<br>&gt;</p><p>ffmpeg:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i test.flv -f flv rtmp://192.168.242.172/myapp/test1</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。<br>最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。<br>现在将最新的解决方案记录下来。<br><a id="more"></a></p><h2 id="旧方法"><a href="#旧方法" class="headerlink" title="旧方法"></a>旧方法</h2><p>之前大家都是通过添加模块nginx-rtmp-module编译打包来搭建的。<br>主要借鉴了</p><blockquote><p><a href="https://cxuef.github.io/linux/%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91%E6%90%AD%E5%BB%BAnginx-rtmp%E7%9B%B4%E6%92%AD%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8Cffmpeg%E6%A8%A1%E6%8B%9F%E6%8E%A8%E6%B5%81/" target="_blank" rel="noopener">【置顶】搭建nginx rtmp直播服务器，ffmpeg模拟推流</a><br><a href="https://www.lylinux.org/ubuntu%E4%B8%8B%E7%BC%96%E8%AF%91nginx%E7%9A%84rtmp%E7%9B%B4%E6%92%AD%E6%A8%A1%E5%9D%97.html" target="_blank" rel="noopener">Ubuntu下编译Nginx的RTMP直播模块</a></p></blockquote><h2 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h2><p>既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿</p><p>如果使用apt 就很简单了，一句命令搞定，但是<del>缺点</del>就是可能不是最新的发布版</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install nginx-full libnginx-mod-rtmp</span><br></pre></td></tr></table></figure><ol><li><p>修改/etc/nginx/nginx.conf</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 1935;</span><br><span class="line">        chunk_size 4000;</span><br><span class="line">        #创建RTMP应用程序。与http位置不同，应用程序名称不能是一种模式。</span><br><span class="line">        application hls &#123;</span><br><span class="line">            live on;</span><br><span class="line">            #在应用程序上切换HLS</span><br><span class="line">            hls on;</span><br><span class="line">            hls_path /var/www/html/hls;</span><br><span class="line">            hls_fragment 5s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>修改虚拟主机配置文件(xxx是文件名称):</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-enabled/xxx</span><br></pre></td></tr></table></figure> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /hls &#123;</span><br><span class="line">    #是W3C标准里用来检查该跨域请求是否可以被通过</span><br><span class="line">    add_header Access-Control-Allow-Origin *;</span><br><span class="line">        types &#123;</span><br><span class="line">        application/vnd.apple.mpegurl m3u8;</span><br><span class="line">        video/mp2t ts;</span><br><span class="line">        &#125;</span><br><span class="line">    root /var/www/html/;</span><br><span class="line">    add_header Cache-Control no-cache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>创建目录:</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /usr/share/nginx/html/hls</span><br></pre></td></tr></table></figure></li><li><p>重启nginx:</p> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx.service</span><br></pre></td></tr></table></figure></li></ol><p>重启完成后，nginx算是成功了，下面就可以测试了，可以使用ffmpeg或obs来推流。</p><p>obs:<br>&gt;</p><p>ffmpeg:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i test.flv -f flv rtmp://192.168.242.172/myapp/test1</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -278,27 +326,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="RTMP/HLS" scheme="http://sumi.ml/tags/RTMP-HLS/"/>
+      <category term="RTMP/HLS" scheme="http://www.ilovesusu.com/tags/RTMP-HLS/"/>
     
-      <category term="直播" scheme="http://sumi.ml/tags/%E7%9B%B4%E6%92%AD/"/>
+      <category term="直播" scheme="http://www.ilovesusu.com/tags/%E7%9B%B4%E6%92%AD/"/>
     
-      <category term="流媒体服务器" scheme="http://sumi.ml/tags/%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+      <category term="流媒体服务器" scheme="http://www.ilovesusu.com/tags/%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>debian9 安装 openvas9</title>
-    <link href="http://sumi.ml/2018/02/02/debian9-%E5%AE%89%E8%A3%85-openvas9/"/>
-    <id>http://sumi.ml/2018/02/02/debian9-安装-openvas9/</id>
+    <link href="http://www.ilovesusu.com/2018/02/02/debian9-%E5%AE%89%E8%A3%85-openvas9/"/>
+    <id>http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/</id>
     <published>2018-02-02T09:32:53.000Z</published>
     <updated>2018-12-23T09:49:36.417Z</updated>
     
@@ -310,19 +358,19 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://sumi.ml/categories/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
     
     
-      <category term="Openvas" scheme="http://sumi.ml/tags/Openvas/"/>
+      <category term="Openvas" scheme="http://www.ilovesusu.com/tags/Openvas/"/>
     
-      <category term="扫描器" scheme="http://sumi.ml/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/"/>
+      <category term="扫描器" scheme="http://www.ilovesusu.com/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>Nvidia optirun|primusrun 缺少 libGL.so.1 解决方案</title>
-    <link href="http://sumi.ml/2017/11/03/Nvidia-optirun-primusrun-%E7%BC%BA%E5%B0%91-libGL-so-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://sumi.ml/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/</id>
+    <link href="http://www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-%E7%BC%BA%E5%B0%91-libGL-so-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/</id>
     <published>2017-11-03T14:22:06.000Z</published>
     <updated>2018-12-15T07:09:12.720Z</updated>
     
@@ -334,29 +382,29 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Nvidiao" scheme="http://sumi.ml/tags/Nvidiao/"/>
+      <category term="Nvidiao" scheme="http://www.ilovesusu.com/tags/Nvidiao/"/>
     
-      <category term="ptirun|primusrun" scheme="http://sumi.ml/tags/ptirun-primusrun/"/>
+      <category term="ptirun|primusrun" scheme="http://www.ilovesusu.com/tags/ptirun-primusrun/"/>
     
   </entry>
   
   <entry>
     <title>mysql|mariaDB 安装详细教程</title>
-    <link href="http://sumi.ml/2017/10/30/mysql-mariaDB-%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
-    <id>http://sumi.ml/2017/10/30/mysql-mariaDB-安装详细教程/</id>
+    <link href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
+    <id>http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-安装详细教程/</id>
     <published>2017-10-30T14:10:00.000Z</published>
-    <updated>2018-12-15T07:09:12.720Z</updated>
+    <updated>2019-03-15T11:08:22.382Z</updated>
     
     <content type="html"><![CDATA[<p>MariaDB 是深受欢迎的数据库管理服务器软件 MySQL 的一个自由开源的分支。它由 MySQL 的原开发者在 GPLv2（通用公共许可证 2 版）下开发，并保持开源。<br>既然这么清真，我们来学习一下如何在 Debian 及其子类发行版中安装 MariaDB 10.X 稳定版。<br><a id="more"></a><br><img src="https://mariadb.org/files/mariadb-corp.png" alt="aa"></p><h2 id="获取-MariaDB-仓库及其密钥"><a href="#获取-MariaDB-仓库及其密钥" class="headerlink" title="获取 MariaDB 仓库及其密钥"></a>获取 MariaDB 仓库及其密钥</h2><p>打开<a href="https://downloads.mariadb.org/mariadb/repositories/" target="_blank" rel="noopener">这个</a></p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>更新系统安装包列表，并像下面这样安装 MariaDB 服务器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install mariadb-server</span><br></pre></td></tr></table></figure><p>安装过程中，会提示您为您的 MariaDB 服务器设置一个安全的 root 用户密码，并且会重复确认。</p><h2 id="保护数据库"><a href="#保护数据库" class="headerlink" title="保护数据库"></a>保护数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mysql_secure_installation</span><br></pre></td></tr></table></figure><p>运行 mysql_secure_installation 脚本来保护数据库，你可以设置：</p><ul><li>设置 root 密码（如果在上面的配置环节你没有进行设置的话）。</li><li>禁止远程 root 登录</li><li>移除测试数据库</li><li>移除匿名用户</li><li>重载权限配置</li></ul><h2 id="忘记密码"><a href="#忘记密码" class="headerlink" title="忘记密码"></a>忘记密码</h2><p>我们忘记了密码，或者数据库被入侵者修改了密码，该如何处理呢，下述了解决步骤。</p><ol><li><p>停止mysql或者mariadb服务(systenV|systemd)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld|mariadb stop</span><br><span class="line">systemctl stop mariadb.service</span><br></pre></td></tr></table></figure></li><li><p>跳过授权表启动</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld_safe --skip-grant-table &amp;</span><br></pre></td></tr></table></figure></li><li><p>修改mysql.user表的密码,不用密码登陆</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot</span><br><span class="line"><span class="keyword">use</span> mysql;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> <span class="keyword">password</span>=<span class="keyword">password</span>(<span class="string">'newpass'</span>) <span class="keyword">where</span> <span class="keyword">user</span>=<span class="string">'root'</span>;</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure></li><li><p>杀掉mysqld进程</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill mysqld</span><br></pre></td></tr></table></figure></li><li><p>重启服务(systenV|systemd)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld|mariadb start</span><br><span class="line">systemctl restart mariadb.service</span><br></pre></td></tr></table></figure></li></ol>]]></content>
     
@@ -366,23 +414,23 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>mysql|mariaDB 问题解决方案</title>
-    <link href="http://sumi.ml/2017/10/30/mysql-mariaDB-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://sumi.ml/2017/10/30/mysql-mariaDB-问题解决方案/</id>
+    <link href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-问题解决方案/</id>
     <published>2017-10-30T13:53:44.000Z</published>
     <updated>2018-12-16T06:16:01.673Z</updated>
     
@@ -394,23 +442,23 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>nvidia Bumblebee don&#39;t work</title>
-    <link href="http://sumi.ml/2017/09/16/nvidia-Bumblebee-don-t-work/"/>
-    <id>http://sumi.ml/2017/09/16/nvidia-Bumblebee-don-t-work/</id>
+    <link href="http://www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/"/>
+    <id>http://www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/</id>
     <published>2017-09-16T03:25:30.000Z</published>
     <updated>2018-12-15T07:09:12.720Z</updated>
     
@@ -424,25 +472,25 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Bumblebee" scheme="http://sumi.ml/tags/Bumblebee/"/>
+      <category term="Bumblebee" scheme="http://www.ilovesusu.com/tags/Bumblebee/"/>
     
   </entry>
   
   <entry>
     <title>mysql学习总结</title>
-    <link href="http://sumi.ml/2017/09/11/mysql%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://sumi.ml/2017/09/11/mysql学习总结/</id>
+    <link href="http://www.ilovesusu.com/2017/09/11/mysql%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    <id>http://www.ilovesusu.com/2017/09/11/mysql学习总结/</id>
     <published>2017-09-11T02:03:36.000Z</published>
     <updated>2018-12-15T07:09:12.716Z</updated>
     
@@ -454,27 +502,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="mysql" scheme="http://sumi.ml/tags/mysql/"/>
+      <category term="mysql" scheme="http://www.ilovesusu.com/tags/mysql/"/>
     
-      <category term="mariadb" scheme="http://sumi.ml/tags/mariadb/"/>
+      <category term="mariadb" scheme="http://www.ilovesusu.com/tags/mariadb/"/>
     
   </entry>
   
   <entry>
     <title>Debian下 Genymotion黑屏解决方案总汇</title>
-    <link href="http://sumi.ml/2017/08/13/Debian%E4%B8%8B-Genymotion%E9%BB%91%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%80%BB%E6%B1%87/"/>
-    <id>http://sumi.ml/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/</id>
+    <link href="http://www.ilovesusu.com/2017/08/13/Debian%E4%B8%8B-Genymotion%E9%BB%91%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%80%BB%E6%B1%87/"/>
+    <id>http://www.ilovesusu.com/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/</id>
     <published>2017-08-13T09:29:00.000Z</published>
     <updated>2018-12-15T07:09:12.724Z</updated>
     
@@ -486,23 +534,23 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Debian 8 安装Shadowsocks-libev</title>
-    <link href="http://sumi.ml/2016/11/28/Debian-8-%E5%AE%89%E8%A3%85Shadowsocks-libev/"/>
-    <id>http://sumi.ml/2016/11/28/Debian-8-安装Shadowsocks-libev/</id>
+    <link href="http://www.ilovesusu.com/2016/11/28/Debian-8-%E5%AE%89%E8%A3%85Shadowsocks-libev/"/>
+    <id>http://www.ilovesusu.com/2016/11/28/Debian-8-安装Shadowsocks-libev/</id>
     <published>2016-11-28T14:24:06.000Z</published>
     <updated>2018-12-15T07:09:12.720Z</updated>
     
@@ -514,74 +562,22 @@
     
     </summary>
     
-      <category term="科学上网" scheme="http://sumi.ml/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+      <category term="科学上网" scheme="http://www.ilovesusu.com/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     
     
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
+      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="科学上网" scheme="http://sumi.ml/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+      <category term="科学上网" scheme="http://www.ilovesusu.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     
-      <category term="shadowsocks-libev" scheme="http://sumi.ml/tags/shadowsocks-libev/"/>
+      <category term="shadowsocks-libev" scheme="http://www.ilovesusu.com/tags/shadowsocks-libev/"/>
     
-      <category term="shadowsocks" scheme="http://sumi.ml/tags/shadowsocks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开发者Debian里的十八般兵器</title>
-    <link href="http://sumi.ml/2016/11/26/%E5%BC%80%E5%8F%91%E8%80%85Debian%E9%87%8C%E7%9A%84%E5%8D%81%E5%85%AB%E8%88%AC%E5%85%B5%E5%99%A8/"/>
-    <id>http://sumi.ml/2016/11/26/开发者Debian里的十八般兵器/</id>
-    <published>2016-11-26T13:23:11.000Z</published>
-    <updated>2018-12-15T07:09:12.720Z</updated>
-    
-    <content type="html"><![CDATA[<p>俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。<br><a id="more"></a></p><h2 id="集成开发环境IDE"><a href="#集成开发环境IDE" class="headerlink" title="集成开发环境IDE"></a>集成开发环境IDE</h2><p>集成开发环境一般是集编辑，编译，链接，调试，版本管理和打包发布于一体的大型开发软件。它的特点是功能丰富，上手快，易操作。缺点也显而易见，笨重，运行速度慢，需要更多的CPU，内存资源。</p><ul><li>IntelliJ IDEA</li><li><p><img src="./IDEA.png" alt="IDEA"><br>IntelliJ IDEA被认为是当前Java开发效率最快的IDE工具。它集成了开发过程中实用的众多功能，几乎可以不用鼠标可以方便的完成你要做的任何事情，最大程度的加快开发的速度。简单而又功能强大。与其他的一些繁冗而复杂的IDE工具有鲜明的对比。<br><a href="https://www.jetbrains.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Eclipse</p></li><li><p><img src="./Eclipse.png" alt="Zeal"><br>是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development Kit，JDK）。但是近几年使用人数在下滑，逐渐转向Android Studio和IntelliJ IDEA了。<br><a href="http://www.eclipse.org" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Android Studio</p></li><li><img src="./Androidstudio.png" alt="Zeal"><br>是一个Android集成开发工具，基于IntelliJ IDEA. 类似 Eclipse ADT，Android Studio 提供了集成的 Android 开发工具用于开发和调试。<br><a href="https://developer.android.com/studio/index.html" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="文档查看"><a href="#文档查看" class="headerlink" title="文档查看"></a>文档查看</h2><ul><li>Zeal<br><img src="./Zeal.png" alt="Zeal"><br>热情是一个软件开发离线文档浏览器。Zeal目前有195个很棒的文档！<br><a href="https://zealdocs.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h2><ul><li><p>Atom<br><img src="./Atom.png" alt="Atom"><br>Atom是由GitHub开发的自由及开放源代码的文字与代码编辑器，支持OS X、Windows和Linux操作系统，支持Node.js所写的插件，并内置由Github提供的Git版本控制系统。多数的延伸包皆为开放源代码授权，并由社区建置与维护。Atom基于Electron（最初以Atom Shell知名）和许可使用Chromium和Node.js的跨平台应用框架，并使用CoffeeScript和Less撰写。Atom也可当作IDE使用。被它的开发者称为“给21世纪的黑客风格编辑器（hackable text editor for the 21st Century）”。自2014年5月6日起，Atom的核心程序、包管理器以及Atom基于Chromium的桌面程序框架皆使用MIT授权条款发布。<br><a href="https://atom.io/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Visual Studio Code<br><img src="./vscode.png" alt="vscode"><br>VS Code是一种新型工具，它结合了代码编辑器的简单性和开发人员在核心编辑构建 - 调试周期中需要的工具。代码提供全面的编辑和调试支持，可扩展性模型，以及与现有工具的轻量级集成。<br><a href="http://code.visualstudio.com" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Sublime Text<br><img src="./sublime.png" alt="Sublime"><br>Sublime Text具有漂亮的用户界面和强大的功能，例如代码缩略图，Python的插件，代码段等。还可自定义键绑定，菜单和工具栏。Sublime Text 的主要功能包括：拼写检查，书签，完整的 Python API ， Goto 功能，即时项目切换，多选择，多窗口等等。Sublime Text 是一个跨平台的编辑器，同时支持Windows、Linux、Mac OS X等操作系统。<br><a href="http://www.sublimetext.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>haroopad<br><img src="./haroopad.png" alt="haroopad"><br>它是开源、免费、跨平台的，支持windows，linux和mac系统。Haroopad已经内置了各种markdown扩展，支持100多种编程语言代码的直接显示，例如C/C++， JAVA， C#， Ruby， Python， Erlang， Makefile等等，甚至代码显示的背景框都有很多主题可以选择。另外它支持撰写数学公式，支持一套文本绘图DSL，支持自动生成文档目录等等。Haroopad支持直接将文档发布成PDF格式。最后Haroopad支持用户自定义显示样式。<br><a href="http://pad.haroopress.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="分析调试类"><a href="#分析调试类" class="headerlink" title="分析调试类"></a>分析调试类</h2><ul><li><p>Wireshark<br><img src="./Wireshark.jpg" alt="Wireshark"><br>老牌网络抓包利器，各种平台都可以玩耍。<br><a href="https://www.wireshark.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>tcpdump<br><img src="./tcpdump.png" alt="haroopad"><br>这是一个命令行工具，可以看作是Wireshark的命令行版。<br>安装请 apt install</p></li><li><p>Charles<br><img src="./Charles.png" alt="Charles"><br>网络抓包利器加上代理功能，并支持自签名证书，所以可以用来在手机上抓取https的包。使用非常方便。付费软件，值得购买。<br><a href="https://www.charlesproxy.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="图片编辑器"><a href="#图片编辑器" class="headerlink" title="图片编辑器"></a>图片编辑器</h2><p>对图片的简单处理也是很有必要的所以。。</p><ul><li>GIMP<br><img src="./GIMP.png" alt="GIMP"><br>GIMP 是跨平台的图像处理程序。GIMP 是 GNU 图像处理程序(GNU Image Manipulation Program)的缩写。GIMP 能够实现多种图像处理方面的要求，包括照 片润饰、图像合成和创建图像。<br>GIMP 有许多功能，它即可以作为简单的画图程序，也能作为专家级的照片处理程序,或在线批处理系统、或大批量图像渲染器，以及图像格式转换器等<br>安装请 apt install<br><a href="http://www.gimp.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p>只能说版本管理是必须的。</p><ul><li>Git<br><img src="./Git.png" alt="Git"><br>Git 是个版本控制工具，运行速度快，最为出色的是合并追踪（merge tracing）能力。作为开源自由原教旨主义项目，Git 没有对版本库的浏览和修改做任何的权限限制，但可以通过其他工具达到有限的权限控制。<br>安装请 apt install</li></ul><h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>从文件服务器(FTP, Samba etc.)下载资料或者上传文件到服务器上。</p><ul><li><p>FileZilla<br><img src="./FileZilla.png" alt="FileZilla"><br>FileZilla是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。可控性、有条理的界面和管理多站点的简化方式使得Filezilla客户端版成为一个方便高效的FTP客户端工具，而FileZilla Server则是一个小巧并且可靠的支持FTP&amp;SFTP的FTP服务器软件。<br>安装请 apt install<br><a href="https://sourceforge.net/projects/filezilla/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>vsftp<br>vsftpd 是一个 UNIX 类操作系统上运行的服务器的名字，它可以运行在诸如 Linux, BSD, Solaris, HP-UX 以及 IRIX 上面。它支持很多其他的 FTP 服务器不支持的特征。<br>安装请 apt install</p></li></ul><h2 id="虚拟机-amp-模拟器"><a href="#虚拟机-amp-模拟器" class="headerlink" title="虚拟机&amp;模拟器"></a>虚拟机&amp;模拟器</h2><p>兄弟们安装一个虚拟机运行QQ吧！</p><ul><li><p>VirtualBox<br><img src="./VirtualBox.jpg" alt="VirtualBox"><br>老牌虚拟机软件，支持市面上几乎所有流行的操作系统。<br><a href="http://www.virtualbox.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Genymotion<br><img src="./Genymotion.jpg" alt="Genymotion"><br>安卓模拟器，运行安卓APP如同在手机上一样的速度。<br>[软件主页以及下载地址](<a href="http://www.genymotion.org）" target="_blank" rel="noopener">http://www.genymotion.org）</a></p></li><li><p>kvm<br><img src="./kvm.jpg" alt="kvm"><br>KVM（用于基于内核的虚拟机）是用于包含虚拟化扩展（Intel VT或AMD-V）的x86硬件上的Linux的完全虚拟化解决方案。它包含一个可加载的内核模块kvm.ko，它提供了核心虚拟化基础架构和一个特定于处理器的模块kvm-intel.ko或kvm-amd.ko。<br>[软件主页以及下载地址](<a href="https://www.linux-kvm.org/page/Main_Page）" target="_blank" rel="noopener">https://www.linux-kvm.org/page/Main_Page）</a></p></li></ul><h2 id="翻墙利器"><a href="#翻墙利器" class="headerlink" title="翻墙利器"></a>翻墙利器</h2><p>我要上谷歌搜索最新的Android开发文档和API，可是目前在国内用不了谷歌，怎么办？翻墙吧！</p><ul><li><p>Shadowsocks<br>利器不多说，Debian源里下载安装然后运行，配置，打开Chrome浏览器安装proxy-switchyomega，访问谷歌走你。。</p></li><li><p>XX-net<br>XX-Net是一个免费的桌面应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用google app引擎（GAE）作为代理服务器通过防火墙。<br><a href="https://github.com/XX-net/XX-Net" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Lantern<br>如果上面两个不行，那么试试这个吧，Lantern是一个免费的应用程序，为被审查地区的用户提供快速，可靠和安全的访问开放互联网。它使用各种技术保持解锁，包括域前端，p2p和可插拔传输。<br><a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>流程图是一种很有用的示意图，说明为获得一个问题的解决方案需执行的行为和操作顺序。流程图能促进程序员和业务人员之间的沟通。在问题的编程中流程图起到非常关键的作用，并在理解复杂和冗长问题的逻辑时非常有用。</p><ul><li><p>Dia<br><img src="./Dia.png" alt="Dia"><br>Dia图编辑器是免费的开源绘图软件Windows，Mac OS X和Linux。 Dia支持30多种不同图表类型，如流程图，网络图，数据库模型。超过一千个现成的对象有助于绘制专业图表。 Dia可以读取和写入许多不同的栅格和矢量图像格式。软件开发人员和数据库专家可以使用Dia作为CASE工具从其图纸生成代码框架。 Dia可以使用Python进行脚本化和扩展。<br><a href="https://sourceforge.net/projects/dia-installer/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Freeplane<br><img src="./Freeplane.png" alt="Freeplane"><br>Freeplane是由经典思维导图软件FreeMind的主创人员设计的另外一款同类型工具，Freeplane已由官方汉化，功能比较齐全，相较于FreeMind也毫不逊色。<br><a href="http://www.freeplane.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="远程链接"><a href="#远程链接" class="headerlink" title="远程链接"></a>远程链接</h2><p>有什么比远程别人帮你解决问题更爽的，有什么比远程办公更装B的！</p><ul><li>AnyDesk<br><img src="./AnyDesk.png" alt="AnyDesk"><br>AnyDesk是一款号称速度最快的免费远程连接/远程桌面控制软件，据说是前 TeamViewer 开发小组人员自立门户的产品，它拥有先进的视频压缩技术 DeskRT， 可轻松穿透防火墙/路由器，实测在电信、移动的跨网宽带环境下，速度确实要比 TeamViewer 和 QQ 流畅。<br><a href="http://anydesk.com/remote-desktop" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="网盘-or-Bt-Sync-or-Download"><a href="#网盘-or-Bt-Sync-or-Download" class="headerlink" title="网盘 or Bt Sync or Download"></a>网盘 or Bt Sync or Download</h2><ul><li><p>BT Sync<br><img src="./BT-Sync.png" alt="BT-Sync"><br>BT 下载，大家应该都很熟悉。开发 BT 的技术公司又发明了一个新的玩意，叫做 BT Sync，都是采用 P2P 协议来进行文件传输。简言之，BT Sync是一个文件同步工具，让你的文件不仅能够在自己的各个设备间传输，同时也能让你的文件夹通过加密手段传输给第三方。<br><a href="https://www.resilio.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Syncthing<br><img src="./Syncthing.png" alt="Syncthing"><br>Syncthing是一个免费开源的工具，它能在你的各个网络计算机间同步文件/文件夹。它不像其它的同步工具，如BitTorrent Sync和Dropbox那样，它的同步数据是直接从一个系统中直接传输到另一个系统的，并且它是完全开源的，安全且私密的。<br><a href="https://syncthing.net/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>Dropbox<br><img src="./Dropbox.png" alt="Dropbox"><br>Dropbox是一款非常好用的免费网络文件同步工具，是Dropbox公司运行的在线存储服务，通过云计算实现因特网上的文件同步，用户可以存储并共享文件和文件夹。Dropbox提供免费和收费服务，Dropbox的收费服务包括Dropbox Pro 和 Dropbox for Business。在不同操作系统下有客户端软件，并且有网页客户端。<br><a href="https://www.dropbox.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>you-get<br>You-Get 乃一小小哒命令行程序，提供便利的方式，下载网络上的富媒体信息。<br><a href="https://you-get.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="即时聊天"><a href="#即时聊天" class="headerlink" title="即时聊天"></a>即时聊天</h2><ul><li><p>Telegram<br><img src="./Telegram.png" alt="Telegram"><br>Telegram Messenger 是一个跨平台的即时通信软件，它的客户端是自由及开放源代码软件，但是它的服务器是专有软件。用户可以相互交换加密与自析构的消息，以及照片、视频、文件，支持所有的文件类型。官方提供移动端(Android、iOS、Windows Phone)、桌面端(Windows、macOS、Linux)和网页端(官方在线版)应用；同时官方开放应用程序接口，因此会有一些第三方的客户端。<br><a href="https://telegram.org/" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li><li><p>electronic-wechat-linux<br><img src="./wechat.png" alt="Telegram"><br>一个Mac OS X 和 Linux 下更好用的微信客户端. 更多功能, 更少bug. 使用Electron构建.<br><a href="https://github.com/geeeeeeeeek/electronic-wechat" target="_blank" rel="noopener">软件主页以及下载地址</a></p></li></ul><h2 id="创建图书"><a href="#创建图书" class="headerlink" title="创建图书"></a>创建图书</h2><ul><li>GitBook<br><img src="./GitBook.png" alt="GitBook"><br>GitBook可用于创建图书，公共文档，企业手册，论文，研究论文等。是使用GitHub or Git和Markdown（或AsciiDoc）构建漂亮书籍的命令行工具（和Node.js库）。<br><a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="博客框架"><a href="#博客框架" class="headerlink" title="博客框架"></a>博客框架</h2><ul><li>Hexo<br><img src="./Hexo.jpg" alt="Hexo"><br>Hexo 是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul><h2 id="录像和直播"><a href="#录像和直播" class="headerlink" title="录像和直播"></a>录像和直播</h2><ul><li>OBS Studio<br><img src="./OBS-Studio.png" alt="OBS Studio"><br>免费和开源软件，用于录像和直播。在Windows，Mac或Linux上快速，轻松地下载并开始流式传输。<br><a href="https://obsproject.com/" target="_blank" rel="noopener">软件主页以及下载地址</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;俗话说，工欲善其事，必先利其器，在开发者的世界里，熟练掌握各种辅助工具，可以达到事半功倍，快速提高工作效率的效果。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Debian GNU/Linux" scheme="http://sumi.ml/categories/Debian-GNU-Linux/"/>
-    
-    
-      <category term="Debian" scheme="http://sumi.ml/tags/Debian/"/>
-    
-      <category term="Testing/Stable" scheme="http://sumi.ml/tags/Testing-Stable/"/>
-    
-      <category term="Ubuntu" scheme="http://sumi.ml/tags/Ubuntu/"/>
-    
-      <category term="Linux" scheme="http://sumi.ml/tags/Linux/"/>
-    
-      <category term="开发工具" scheme="http://sumi.ml/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>许嵩-苏格拉没有底[简述]</title>
-    <link href="http://sumi.ml/2016/11/12/%E8%AE%B8%E5%B5%A9-%E8%8B%8F%E6%A0%BC%E6%8B%89%E6%B2%A1%E6%9C%89%E5%BA%95-%E7%AE%80%E4%BB%8B/"/>
-    <id>http://sumi.ml/2016/11/12/许嵩-苏格拉没有底-简介/</id>
-    <published>2016-11-12T13:50:12.000Z</published>
-    <updated>2019-01-14T10:46:05.872Z</updated>
-    
-    <content type="html"><![CDATA[<p>许嵩最大的悲哀就是在歌迷还是初中高中生年纪的时候出了一张成熟的大学生才能听懂的专辑，然后那些因为听不懂而脱粉的粉丝很多年以后却想不起这张专辑，只记住了许嵩是自己非主流时候喜欢过的歌手。<br><a id="more"></a><br><img src="./许嵩.jpg" alt="苏格拉没有底"><br>这几天的查阅，我才算是真正的见识了许嵩的文采。</p><h2 id="专辑–苏格拉没有底"><a href="#专辑–苏格拉没有底" class="headerlink" title="专辑–苏格拉没有底"></a>专辑–苏格拉没有底</h2><p><strong>转载自网易云音乐：<a href="http://music.163.com/#/album?id=16937" target="_blank" rel="noopener">http://music.163.com/#/album?id=16937</a></strong><br><strong>在文中加入自己的看法，仅代表个人看法，如有不妥，敬请指出。</strong></p><p>从昔日那个写着哼着《城府》夺得各大音乐试听榜冠军的音乐顽童成长到今时，许嵩在音乐层面一直保持独立做派，此番再度包揽十首词曲的全部创作。毫无粉饰的生存哲学，超越现实的想象思辨，细而不腻的私人回忆，在十首作品里尽数展现。自成一派的制作风格与词曲质感，随性慵懒的演绎方式，标志性的假音与转音，舒服惬意的中慢板R&amp;B节奏……令人一听便可品出强烈的个人风味。浪漫与幽默并存、务实与务虚交织，《苏格拉没有底》仿若暗器般无色无味却能迅速在人心中稳固沉积，在悠然自得的节奏摆荡中持续扩散。</p><div style="color:red"><strong>《苏格拉没有底》</strong>真的是许嵩最屌最有深意最深不见底的一张专辑！拆迁、青少年性启蒙、酒桌文化、微博新社交、备胎等等各方面的社会现象，都能隐晦地写进歌里，真的是“嬉笑怒骂皆文章”。</div><h3 id="《想象之中》"><a href="#《想象之中》" class="headerlink" title="《想象之中》"></a>《想象之中》</h3><p>这首慢板R&amp;B作品，内敛中带些慵懒的唱腔——无论是走在街头，坐在车里，临睡前，对着电脑时……听起来都很惬意。作为这张专辑的总制作人，许嵩就是有这样一种能力，让人轻易就跟着他的安排陷入思考或回忆。当然，这与他虽年纪轻轻就已全权制作过两张专辑及十余首热门单曲的经验有莫大关系。《想象之中》由一个诡异中带点滑稽感的电子音色开场，这种阴郁懒散的情感基调，已成为他的个人特质。大气却不乏细腻之处的旋律，值得玩味的歌词，保障了该作品的一线水准。单论演唱而言，许嵩亦有一种独特的声线气质：慵懒中仍保持着清新的气息。大量滑音、装饰音穿插在整首作品中，但却也不会给人以油滑之感。至于情绪的分寸拿捏也相当到位：3分37秒，沙哑的一瞬，情绪的涌动把伤感推到新的高度。</p><div style="color:red">真心付出感情的会持续很久很久。但最终还是没有避开分开的宿命。曾经热烈的感情冰冻消逝，只留下片段回忆。后来发现这一切都和原本想象中的不同。爱并不是“追逐占有”，爱也可以转化为遥远的祝福。你过的开心，那我也会为你开心。</div><h3 id="《河山大好》"><a href="#《河山大好》" class="headerlink" title="《河山大好》"></a>《河山大好》</h3><p>像是一种童趣的重返，他从来都不是一个只会苦着脸唱悲歌的忧郁人，他的喜与悲都在歌里了。他的作品情绪向来是立体、多面的。纵观整张专辑，十首风格迥异的词曲均出自一人之手，这份真实与挥洒，让作者的形象变得愈发清晰可爱。《河山大好》似乎有劝年轻人莫要宅的含义，但却没有半点说教之感，而是如同一个老友，邀你一起出门走走。“保持浪漫心态，活着就不算坏”与其说是一种情绪，不如说是一种情怀；“地球离了谁它都照样公转自转”，谁都别把自己太当回事，这种论调就更洒脱。不落俗套的旋律，清新的念唱，R&amp;B的节奏骨架，构建起了整首歌的律动，让人情不自禁跟着节奏摆荡，有“出去走走”的冲动。</p><div style="color:red">生活中不是上课上班就是上网。放假就是睡觉看电视打牌。和父母家人相处交流的时间也非常少。生活变得无聊无趣。但是生活的乐趣远远很多，只是现代人渐渐都忘记了。工作学习的时候要投入，但是放松的时候也要投入。祖国大好河山，如果此生没有踏遍祖国的几个地方也会很遗憾吧。<strong>宅男</strong>：只不过是河山大好</div><h3 id="《拆东墙》"><a href="#《拆东墙》" class="headerlink" title="《拆东墙》"></a>《拆东墙》</h3><p>词面上，许嵩借叙述一个唐代小酒馆老板的悲情人生，影射当下种种社会现实，颇有后现代意味。没有愤怒、没有发泄，而是以淡淡的悲悯之情，让诸多尖锐话题拥有了新的探讨方式与出口，称得上是惊艳之作。从大局而言，起承转合收放自如；细节上，黑色幽默与巧思不断，许嵩的笔风独树一帜。如果说这种“借古喻今”还称不上是创举，那么全曲的最后一句则把这首作品引入哲学思考的范畴。至于音乐部分，念唱流畅如水；R&amp;B吉他丝丝入扣；副歌的旋律与歌词咬合度超高。词、曲、唱、制作出自一人，且如这般天然合一，当下恐怕没有几人做得到了。</p><div style="color:red">此段来自于百度：</div><br><div style="color:red"><br>《拆东墙》描绘了唐代一个“小人物”的悲惨命运。“小人物”科举未中，子承父业，相貌平平，辛勤隐忍。 但“小人物”也有理想，“小人物”也有爱，“小人物”也有信念，“小人物”却命运艰难，最终黯然离开。马蹄阵阵连绵，朝代更迭不休，无论何时，这种“小人物”都存在在每个角落，他们那么不起眼，他们在实现哪怕一点点小理想的路上都走的那么艰辛，因为他们是小人物，小人物的“命运”就是这么多舛。可拆了东墙的，西墙也未必补的上。<br>词面上，许嵩借叙述一个唐代小酒馆老板的悲情人生，影射当下种种社会现实，颇有后现代意味。没有愤怒、没有发泄，而是以淡淡的悲悯之情，让诸多尖锐话题拥有了新的探讨方式与出口，称得上是惊艳之作。从大局而言，起承转合收放自如；细节上，黑色幽默与巧思不断，许嵩的笔风独树一帜。如果说这种“借古喻今”还称不上是创举，那么全曲的最后一句则把这首作品引入哲学思考的范畴。至于音乐部分，念唱流畅如水；R&amp;B吉他丝丝入扣；副歌的旋律与歌词咬合度超高。词、曲、唱、制作出自一人，且如这般天然合一，当下恐怕没有几人做得到了。<br>这首歌绝不会这样浅显。我猜是关于强拆的吧。现在强拆问题挺严重的。不同意拆就断水断电。所以现在有了一个新名词——钉子户。大概是从古代开始的吧。<br>第二点我想说的是现在女孩子找男朋友都先看条件怎么样。结婚后也只是贪贪小财。可男方确实很痴情。连菜都自己去买。这是一个傻乎乎却额憨厚的而后来又写出了无奈的感觉。真的是，很多事是不由人的。从东墙一直拆到最后拆干净了。而最后碍于面子，西墙也要拆……。我自认为咱家嵩的最后一句写得最好。</div><h3 id="《医生》"><a href="#《医生》" class="headerlink" title="《医生》"></a>《医生》</h3><p>“我也没那种，庸俗的情结”。不知许嵩暗指的是哪种情结，但也正基于这种朦胧，这首作品的疗伤范围似乎变得更大了。成熟厚重的音乐，初时让人不解：为什么许嵩在这首歌的表达上要如此传统保守？读着歌词渐渐明白了：爱情世界里的一个老实人，他的保守的内在，他为对方疗伤的决心，他此地无银三百两的说自己没那种庸俗的情结……让人的心有被揪了一下的痛感。以如此的曲风呈现如此的歌词内容，也是一种恰如其分吧。</p><div style="color:red">《医生》的主人公也许就是所谓“备胎”，在对方不能和最爱在一次时的第二选择。可谁愿意当最爱的那个人的男二号呢？对于爱情的定义真的好难揣摩，求求苏医好我。</div><h3 id="《微博控》"><a href="#《微博控》" class="headerlink" title="《微博控》"></a>《微博控》</h3><p>科技的浪潮也注定了越来越多的人会成为那种“不玩微博就觉得少了点什么”的微博控。而许嵩对生活的观察依然敏锐，对热门事物的理解依然独到。《微博控》透过描写一对相互都玩微博的恋人，传达了感情在网络交织的叶片上有趣的脉络。而副歌更是隐含了对“做的多不如说得多”的社会现状的思考。把创作深度藏匿于简单的歌词背后，是许嵩从作品《素颜》里就呈现了的另一路特质。至于韩范儿的R&amp;B曲风，弹性十足的俏皮演绎，都是这首歌的加分项。</p><div style="color:red">wo是可以什么都不做,但不可以什么都不说,wo又登陆了wo微博,分享直播wo的生活,我是可以什么都不说,但不可以什么都不做,放下客户端立地成佛.手机控，低头族应该注意了</div><h3 id="《毁人不倦》"><a href="#《毁人不倦》" class="headerlink" title="《毁人不倦》"></a>《毁人不倦》</h3><p>“几片来自松岛的枫叶”……作为整张专辑中最冷艳的一首作品，作词、作曲、编曲、混音连同录音均由许嵩一人包办。阴郁空灵的编曲，让人印象颇深。在隐晦的歌词中，自嘲、批判、痛苦重叠交织，他骨子里的反叛由此窥见。</p><div style="color:red">这首歌最重要的混音。<br>- 1:10 为革命为革命为革命保护视力<br>- 1:30 Baby 三陪 可怜她没有人陪 嘿嘿<br>- 2:23 忘不了的痛，心的更痛，陌生人，你的做错，让她很痛，初夏的雨夜 习惯不辞而别</div><h3 id="《双人旁》"><a href="#《双人旁》" class="headerlink" title="《双人旁》"></a>《双人旁》</h3><p>简简单单的抒情作品，回归原始的感动。人生在世，每个人的身旁都有或有过那么一个爱的人，那种温暖，是每个人都乐于回味享受的。90’s R&amp;B风格，简约而怀旧；作者使出了很萌的唱法，让这首歌的气质跳脱于整张专辑的冷色调。难得的温馨流露。</p><div style="color:red">请配合《梧桐灯》服用～</div><h3 id="《降温》"><a href="#《降温》" class="headerlink" title="《降温》"></a>《降温》</h3><p>这首作品没有“歌词”，而是一则唱出来的“日记”。真实感极强的词句，记录2010年11月20日的生活细节；从多处貌似无心插柳的“设局”，不难揣测此篇日记的良苦用心。念唱式的旋律层层递进，带点儿混搭感的三弦与京味儿独白——作为一首实验之作，它不是徒有其表。而结尾一句突然跳转画面，实谓神来之笔。</p><div style="color:red">好像是娓娓道来的一篇日记。忙碌的生活，平静中带有一些烦躁的心情，冷冷的天气，冷漠的人际关系，无聊八卦的节目，烟花般的爱情，没有安全感。是不是很多都市中的人都这样呢？嵩哥有些慵懒带点无奈的声线和京剧的曲调结合，很有新意，真假声完美融合，就像有些人的感情真假也难辨，该过来的过来，该离开的离开，冷暖自知。</div><br><div style="color:red">节目和嘉宾都在瞎侃指的就是非诚勿扰。十一月二十号那天正是非诚勿扰播出的时候，刚好那期是一段男嘉宾和女嘉宾在纠结不相信爱情的话题，所以许嵩在歌词里写了，我不相信爱情，目前非常缺乏安全感，然而最后一句更是点睛之作，他们说的爱，如果有我就为它平反，江上两条红船，寒风斜雨中你摇摆，鄙人指出的只是这首神作的一点点。</div><h3 id="《敬酒不吃》"><a href="#《敬酒不吃》" class="headerlink" title="《敬酒不吃》"></a>《敬酒不吃》</h3><p>当作为生存本能的吃与喝被利益目的附身——不是所有人都愿意接受这套规则。许嵩把社会生活中的极微小画面做艺术放大，相当犀利。带点爵士味的R&amp;B，清冷凛冽；独特的真假声转换，宣称着“我就这副死样”……通过这首作品，看不到许嵩的努力，只看到许嵩的天资。因为，这样的作品绝不是靠“用心写”就能写出的——如果骨子里没有那种把音乐当成玩儿的洒脱劲的话。</p><div style="color:red">很多人对于不顺应自己意思的人总会狠狠地甩下这句话。可是就是有那么多“敬酒不吃吃罚酒”的人存在着。因为不是所有“酒”都那么有诚意，不是所有的“酒”都值得一饮而尽。浮躁的社会有太多无聊的饭局酒场，是要吃敬酒还是吃罚酒每个人都有不同的选择了。可是与其忍受着内心的不情愿，而选择顺从阿谀最后甚至同流合污，不如干脆点做自己，反而坦荡荡。独特的视角唱出了人追求纯洁高尚的一种态度。有点轻视和不屑是否能刺痛了某些人呢？很深刻的反映了酒桌上的文化。</div><h3 id="《千百度》"><a href="#《千百度》" class="headerlink" title="《千百度》"></a>《千百度》</h3><p>当中国风的歌被写滥，人们都在奇怪为什么除了台湾的周杰伦，能把中国风写红唱红的就只剩许嵩了？中国风可不是用几个民乐器夹杂几个半文不白的句子就能红。周杰伦有方文山，而许嵩只有许嵩，如《清明雨上》、《半城烟沙》、《庐州月》等等口碑之作，全部出自许嵩笔下。典故的化用，创造新词汇的想象力，借古喻今的手法，传统戏曲技巧的融入——他自有他自己的一套。在《千百度》里，温婉内敛与开阔大格局兼容并蓄，这是许嵩独有的音乐气质，换个人唱就没有这个味了。其实纵观专辑里的每一首作品，都具备这种“非他莫属”的专属质感。</p><div style="color:red"></div>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;许嵩最大的悲哀就是在歌迷还是初中高中生年纪的时候出了一张成熟的大学生才能听懂的专辑，然后那些因为听不懂而脱粉的粉丝很多年以后却想不起这张专辑，只记住了许嵩是自己非主流时候喜欢过的歌手。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="心情随笔" scheme="http://sumi.ml/categories/%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="Music" scheme="http://sumi.ml/tags/Music/"/>
+      <category term="shadowsocks" scheme="http://www.ilovesusu.com/tags/shadowsocks/"/>
     
   </entry>
   

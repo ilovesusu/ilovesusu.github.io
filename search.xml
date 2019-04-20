@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[du与df查看已使用空间不一致的原因及解决办法]]></title>
+    <url>%2F2019%2F04%2F13%2Fdu%E4%B8%8Edf%E6%9F%A5%E7%9C%8B%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[linux df -h 显示使用空间已满，用du -sh查看哪个文件夹占用空间比较大时显示只使用了26G,两者相差20GB+ 问题展示123456789[root@ls-dj-test-4 /]# df -hFilesystem Size Used Avail Use% Mounted on/dev/sda1 100G 100G 20K 100% /[root@ls-dj-test-4 /]# du -sh /26G / 从这里面可以看出通过du看到使用了26G，但是通过df 看，/data目录已使用100G 问题原因这种问题主要是因为已经被删掉的文件还有程序（进程）在占用，所以文件没被真正释放 解决办法方案一1、lsof |grep deleted &gt; deleted_file查看有哪些未被释放的文件2、排序看最大的未被释放的文件大小，命令：sort -nr -k 7 deleted_file&gt;sort_deleted_file3、more sort_deleted_file 查看前面那些文件，将占用空间大的程序kill掉kill 进程号 方案二有时候进程号太多，都是占用一个文件，那就需要新的解决方案了。 123...sh 7654 7723 sh root 46w REG 0,22 65536 276676 /var/log/54sdfa48df1sdag654dfg15.log (deleted)... 这个时候找到对应进程号后，直接cd /proc/pid/fd（fd中记录的是这个进程打开的所有文件的信息），pid是进程号(自己前面的修改命令)。这时候需要通过方法一lsof查找到被删除文件的信息，命令回显其中有一项是FD，这个值有最后一位去除（最后一位可能是w/r/u等表示文件状态），例如上述FD值为46w，则在fd路径下对应的文件是46，直接执行echo “” &gt; 46,看下面命令，自己领悟。 1234567891011$ pwd/proc/7654/fd$ ls0 104 110 117 123 13 141 19 25 31 38 44 50 57 63 70 78 84 90 971 105 111 118 124 130 147 2 26 32 39 45 51 58 64 71 79 85 91 9810 106 112 119 125 131 15 20 27 33 4 46 52 59 65 72 8 86 92 99100 107 113 12 126 132 16 21 28 34 40 47 53 6 66 74 80 87 93101 108 114 120 127 135 17 22 29 35 41 48 54 60 67 75 81 88 94102 109 115 121 128 138 171 23 3 36 42 49 55 61 68 76 82 89 95103 11 116 122 129 14 18 24 30 37 43 5 56 62 7 77 83 9 96$ echo "" &gt; 46 执行完毕后，再次通过df du命令查看时，问题应该解决了。 最后，其实这个问题重启就能解决。]]></content>
+      <categories>
+        <category>xx</category>
+      </categories>
+      <tags>
+        <tag>xx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux内核优化？！看我就完了]]></title>
+    <url>%2F2019%2F02%2F18%2FLinux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96%EF%BC%9F%EF%BC%81%E5%B9%B2%E5%B0%B1%E5%AE%8C%E4%BA%86%2F</url>
+    <content type="text"><![CDATA[Linux 内核开启 BBR由于 Debian 9默认的就是4.9的内核而且编译了 TCP BBR，所以可以直接通过参数开启，实现高效单边加速。 1、修改系统变量12echo "net.core.default_qdisc=fq" &gt;&gt; /etc/sysctl.confecho "net.ipv4.tcp_congestion_control=bbr" &gt;&gt; /etc/sysctl.conf 2、保存生效1sysctl -p 3、查看内核是否已开启BBR1sysctl net.ipv4.tcp_available_congestion_control 显示以下即已开启： 1net.ipv4.tcp_available_congestion_control = bbr cubic reno 4、查看BBR是否启动1lsmod | grep bbr]]></content>
+      <categories>
+        <category>xx</category>
+      </categories>
+      <tags>
+        <tag>xx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据库完全备份还原及还原某一张表]]></title>
     <url>%2F2019%2F01%2F16%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8%2F</url>
-    <content type="text"><![CDATA[数据库备份和还原是非常重要的，这里将备份还原的常用命令进行总结。 数据库备份1.备份某个数据库 12mysqldump -u root -p[密码] [选项] [数据库名] [表名] &gt; /备份路径/备份文件名# 备份库到目录下，-p之后可跟密码，也可不写。不写就在回车之后输入密码验证。 备份文件后缀都为.sql 2.创建一个数据库school，对school库的info1、info2表备份 1mysqldump -u root -p123123 school info1 info2 &gt; /root/info.sql 3.备份多个数据库 12mysqldump -u root -p --databases mysql study &gt; /root/mysql_study.sql# --databases 数据库名 数据库名... 4.备份所有数据库 123mysqldump -u root -p --opt --all-databases &gt; /root/all.sql# --opt 表示激活了Mysqldump命令的quick，add-drop-table，add-locks，extended-insert，lock-tables参数，也就是通过--opt参数在使用Mysqldump导出Mysql数据库信息时不需要再附加上述这些参数。# --all-databases 表示所有数据库； 5.备份数据库中的表 12mysqldump -u root -p study info &gt; /root/study_info.sql# 备份info表 6.备份数据库的表结构 12mysqldump -u root -p -d study info &gt; /root/study_info_table_structure.sql# -d 库名+表名 表示表结构 数据库还原登录后使用source还原 1source /root/school.sql 直接使用mysql命令还原 1mysql -u root -p123123 school &lt; /root/school.sql 还原某张表1234# 使用sed命令将user表的表结构抽取出导出到新的sql文件中sed -e'/./&#123;H;$!d;&#125;' -e 'x;/CREATE TABLE `users`/!d;q' xxxbackup.sql &gt; 1.sql# 使用grep 将所有包含 INSERT INTO `users` 的行追加到新sql文件中grep 'INSERT INTO `users`' xxxbackup.sql &gt;&gt; 1.sq]]></content>
+    <content type="text"><![CDATA[数据库备份和还原是非常重要的，这里将备份还原的常用命令进行总结。 数据库备份1.备份某个数据库 12mysqldump -u root -p[密码] [选项] [数据库名] [表名] &gt; /备份路径/备份文件名# 备份库到目录下，-p之后可跟密码，也可不写。不写就在回车之后输入密码验证。 备份文件后缀都为.sql 2.创建一个数据库school，对school库的info1、info2表备份 1mysqldump -u root -p123123 school info1 info2 &gt; /root/info.sql 3.备份多个数据库 12mysqldump -u root -p --databases mysql study &gt; /root/mysql_study.sql# --databases 数据库名 数据库名... 4.备份所有数据库 123mysqldump -u root -p --opt --all-databases &gt; /root/all.sql# --opt 表示激活了Mysqldump命令的quick，add-drop-table，add-locks，extended-insert，lock-tables参数，也就是通过--opt参数在使用Mysqldump导出Mysql数据库信息时不需要再附加上述这些参数。# --all-databases 表示所有数据库； 5.备份数据库中的表 12mysqldump -u root -p study info &gt; /root/study_info.sql# 备份info表 6.备份数据库的表结构 12mysqldump -u root -p -d study info &gt; /root/study_info_table_structure.sql# -d 库名+表名 表示表结构 数据库还原登录后使用source还原 1source /root/school.sql 直接使用mysql命令还原 1mysql -u root -p123123 school &lt; /root/school.sql 还原某张表1234# 使用sed命令将user表的表结构抽取出导出到新的sql文件中sed -e'/./&#123;H;$!d;&#125;' -e 'x;/CREATE TABLE `users`/!d;q' xxxbackup.sql &gt; 1.sql# 使用grep 将所有包含 INSERT INTO `users` 的行追加到新sql文件中grep 'INSERT INTO `users`' xxxbackup.sql &gt;&gt; 1.sql 通过binlog文件导出指定时间段sql操作12341 首先将binlog文件导出指定时间段的内容： ```bash mysqlbinlog --start-datetime='2017-09-10 00:00:00' --stop-datetime='2017-09-10 01:01:01' -d 库名 二进制文件 2 将指定的表操作内容过滤到指定文件 1grep -B3 -w tb_name data.sql |grep -v '^--$' &gt; tb_name.sql 3 导出update操作的sql 1cat tb_name.sql| grep "UPDATE" &gt; update_XX.sql]]></content>
       <categories>
         <category>Debian</category>
       </categories>
@@ -119,7 +141,7 @@
   <entry>
     <title><![CDATA[Debian 搭建RTMP/HLS流媒体服务器]]></title>
     <url>%2F2018%2F06%2F07%2FDebian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。现在将最新的解决方案记录下来。 旧方法之前大家都是通过添加模块nginx-rtmp-module编译打包来搭建的。主要借鉴了 【置顶】搭建nginx rtmp直播服务器，ffmpeg模拟推流Ubuntu下编译Nginx的RTMP直播模块 新方法既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿 如果使用apt 就很简单了，一句命令搞定，但是缺点就是可能不是最新的发布版 1apt install nginx-full nginx-rtmp-module 修改/etc/nginx/nginx.conf 12345678910111213rtmp &#123; server &#123; listen 1935; chunk_size 4000; #HLS application hls &#123; live on; hls on; hls_path /var/www/html/hls; hls_fragment 5s; &#125; &#125;&#125; 修改虚拟主机配置文件(xxx是文件名称): 1sudo nano /etc/nginx/sites-enabled/xxx 12345678910location /hls &#123; #是W3C标准里用来检查该跨域请求是否可以被通过 add_header Access-Control-Allow-Origin *; types &#123; application/vnd.apple.mpegurl m3u8; video/mp2t ts; &#125; root /var/www/html/; add_header Cache-Control no-cache;&#125; 创建目录: 1sudo mkdir /usr/share/nginx/html/hls 重启nginx: 1sudo systemctl restart nginx.service 重启完成后，nginx算是成功了，下面就可以测试了，可以使用ffmpeg或obs来推流。 obs:&gt; ffmpeg: 1ffmpeg -re -i test.flv -f flv rtmp://192.168.242.172/myapp/test1]]></content>
+    <content type="text"><![CDATA[最近工作中需要一个直播功能，虽然有很多成熟的解决方案，但是由于好奇斗鱼这样的平台到底是怎么样的，故搜索了很多文章，终于有了了解。最简单的都是通过nginx和一个nginx的模块nginx-rtmp-module，组合在一起搭建一个功能相对比较完善并可支持RTMP和HLS的流媒体服务器。现在将最新的解决方案记录下来。 旧方法之前大家都是通过添加模块nginx-rtmp-module编译打包来搭建的。主要借鉴了 【置顶】搭建nginx rtmp直播服务器，ffmpeg模拟推流Ubuntu下编译Nginx的RTMP直播模块 新方法既然标题是使用Debian来搭建，怎么少的了apt的，嘿嘿 如果使用apt 就很简单了，一句命令搞定，但是缺点就是可能不是最新的发布版 1apt install nginx-full libnginx-mod-rtmp 修改/etc/nginx/nginx.conf 1234567891011121314rtmp &#123; server &#123; listen 1935; chunk_size 4000; #创建RTMP应用程序。与http位置不同，应用程序名称不能是一种模式。 application hls &#123; live on; #在应用程序上切换HLS hls on; hls_path /var/www/html/hls; hls_fragment 5s; &#125; &#125;&#125; 修改虚拟主机配置文件(xxx是文件名称): 1sudo nano /etc/nginx/sites-enabled/xxx 12345678910location /hls &#123; #是W3C标准里用来检查该跨域请求是否可以被通过 add_header Access-Control-Allow-Origin *; types &#123; application/vnd.apple.mpegurl m3u8; video/mp2t ts; &#125; root /var/www/html/; add_header Cache-Control no-cache;&#125; 创建目录: 1sudo mkdir /usr/share/nginx/html/hls 重启nginx: 1sudo systemctl restart nginx.service 重启完成后，nginx算是成功了，下面就可以测试了，可以使用ffmpeg或obs来推流。 obs:&gt; ffmpeg: 1ffmpeg -re -i test.flv -f flv rtmp://192.168.242.172/myapp/test1]]></content>
       <categories>
         <category>Debian GNU/Linux</category>
       </categories>
