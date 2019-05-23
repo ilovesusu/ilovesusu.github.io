@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[为你的ss提速之阿里云中转]]></title>
+    <url>%2F2019%2F04%2F25%2F%E4%B8%BA%E4%BD%A0%E7%9A%84ss%E6%8F%90%E9%80%9F%E4%B9%8B%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%AD%E8%BD%AC%2F</url>
+    <content type="text"><![CDATA[开启IP_FORWARD123vi /etc/sysctl.conf#在文件末添加以下一行（如已有则不必添加）net.ipv4.ip_forward=1 使用IPTABLES，转发TCP、UDP流量12345iptables -t nat -A PREROUTING -p tcp --dport 2095 -j DNAT --to-destination 35.xx.xx.xx:2095iptables -t nat -A POSTROUTING -p tcp -d 35.xx.xx.xx --dport 2095 -j SNAT --to-source 172.xx.xx.xxiptables -t nat -A PREROUTING -p udp --dport 2095 -j DNAT --to-destination 35.xx.xx.xx:2095iptables -t nat -A POSTROUTING -p udp -d 35.xx.xx.xx --dport 2095 -j SNAT --to-source 172.xx.xx.xx 其中 35.xx.xx.xx:2095 是ss服务器的IP与端口，172.xx.xx.xx是阿里云ECS的内网IP。]]></content>
+      <categories>
+        <category>xx</category>
+      </categories>
+      <tags>
+        <tag>xx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[du与df查看已使用空间不一致的原因及解决办法]]></title>
     <url>%2F2019%2F04%2F13%2Fdu%E4%B8%8Edf%E6%9F%A5%E7%9C%8B%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
     <content type="text"><![CDATA[linux df -h 显示使用空间已满，用du -sh查看哪个文件夹占用空间比较大时显示只使用了26G,两者相差20GB+ 问题展示123456789[root@ls-dj-test-4 /]# df -hFilesystem Size Used Avail Use% Mounted on/dev/sda1 100G 100G 20K 100% /[root@ls-dj-test-4 /]# du -sh /26G / 从这里面可以看出通过du看到使用了26G，但是通过df 看，/data目录已使用100G 问题原因这种问题主要是因为已经被删掉的文件还有程序（进程）在占用，所以文件没被真正释放 解决办法方案一1、lsof |grep deleted &gt; deleted_file查看有哪些未被释放的文件2、排序看最大的未被释放的文件大小，命令：sort -nr -k 7 deleted_file&gt;sort_deleted_file3、more sort_deleted_file 查看前面那些文件，将占用空间大的程序kill掉kill 进程号 方案二有时候进程号太多，都是占用一个文件，那就需要新的解决方案了。 123...sh 7654 7723 sh root 46w REG 0,22 65536 276676 /var/log/54sdfa48df1sdag654dfg15.log (deleted)... 这个时候找到对应进程号后，直接cd /proc/pid/fd（fd中记录的是这个进程打开的所有文件的信息），pid是进程号(自己前面的修改命令)。这时候需要通过方法一lsof查找到被删除文件的信息，命令回显其中有一项是FD，这个值有最后一位去除（最后一位可能是w/r/u等表示文件状态），例如上述FD值为46w，则在fd路径下对应的文件是46，直接执行echo “” &gt; 46,看下面命令，自己领悟。 1234567891011$ pwd/proc/7654/fd$ ls0 104 110 117 123 13 141 19 25 31 38 44 50 57 63 70 78 84 90 971 105 111 118 124 130 147 2 26 32 39 45 51 58 64 71 79 85 91 9810 106 112 119 125 131 15 20 27 33 4 46 52 59 65 72 8 86 92 99100 107 113 12 126 132 16 21 28 34 40 47 53 6 66 74 80 87 93101 108 114 120 127 135 17 22 29 35 41 48 54 60 67 75 81 88 94102 109 115 121 128 138 171 23 3 36 42 49 55 61 68 76 82 89 95103 11 116 122 129 14 18 24 30 37 43 5 56 62 7 77 83 9 96$ echo "" &gt; 46 执行完毕后，再次通过df du命令查看时，问题应该解决了。 最后，其实这个问题重启就能解决。]]></content>

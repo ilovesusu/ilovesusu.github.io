@@ -46,23 +46,21 @@
 
 
 
-
-
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+  <link rel="mask-icon" href="/favicon.ico?v=7.1.0" color="#222">
 
 
 
@@ -75,8 +73,10 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -102,7 +102,7 @@
 <meta name="keywords" content="Openvas,扫描器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="debian9 安装 openvas9">
-<meta property="og:url" content="http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/index.html">
+<meta property="og:url" content="www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/index.html">
 <meta property="og:site_name" content="Susu的博客">
 <meta property="og:description" content="debian 中虽然有openvas的软件包，但是在安装完成以后，实际上不能完成openvas-setup安装。经过几天的搜索、琢磨，终于功夫不负有心人，现将openvas安装中需要修改的配置进行总结。">
 <meta property="og:locale" content="zh-CN">
@@ -117,8 +117,9 @@
 
 
 
-
-  <link rel="canonical" href="http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
+  
+  
+  <link rel="canonical" href="www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
 
 
 
@@ -133,14 +134,6 @@
 
 
 
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-130654260-1');
-  </script>
 
 
 
@@ -415,7 +408,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -502,13 +495,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2018/02/02/debian9-安装-openvas9/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/02/02/debian9-安装-openvas9/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/02/debian9-安装-openvas9/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -586,39 +583,11 @@
       
     
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/./wechatpay.png" alt="Susu 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/./alipay.png" alt="Susu 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
 
     
       <div>
         
+
 
 
 
@@ -632,7 +601,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/" title="debian9 安装 openvas9">http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/</a>
+    <a href="/www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/" title="debian9 安装 openvas9">www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -715,7 +684,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -738,7 +706,7 @@
               <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
             
               <p class="site-author-name" itemprop="name">Susu</p>
-              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+              <div class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</div>
           </div>
 
           
@@ -748,7 +716,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -758,7 +726,11 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
                     
                     
                       
@@ -793,7 +765,11 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
                     
                     
                       
@@ -964,6 +940,8 @@
           
 
           
+
+          
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
@@ -1015,6 +993,7 @@
 
           
              <div class="cc-license motion-element" itemprop="license">
+              
               
                 
               
@@ -1072,6 +1051,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -1172,32 +1152,9 @@
   
 
 
-  <script src="/js/src/utils.js?v=6.7.0"></script>
+  <script src="/js/utils.js?v=7.1.0"></script>
 
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+  <script src="/js/motion.js?v=7.1.0"></script>
 
 
 
@@ -1205,8 +1162,31 @@
   
 
 
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
 
 
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
   
 
 <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
@@ -1218,7 +1198,7 @@
 <script>
   var GUEST = ['nick', 'mail', 'link'];
   var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function (item) {
+  guest = guest.split(',').filter(function(item) {
     return GUEST.indexOf(item) > -1;
   });
   new Valine({
@@ -1231,14 +1211,18 @@
     avatar: 'wavatar',
     meta: guest,
     pageSize: '10' || 10,
-    visitor: false
+    visitor: false,
+    lang: '' || 'zh-cn'
   });
 </script>
 
 
 
+
   
 
+
+  
   <script>
     // Popup Window;
     var isfetched = false;
@@ -1562,6 +1546,8 @@
 
 
 
+
+  
 
   
 

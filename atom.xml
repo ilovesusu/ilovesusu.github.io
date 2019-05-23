@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://www.ilovesusu.com/"/>
-  <updated>2019-04-13T07:13:40.702Z</updated>
-  <id>http://www.ilovesusu.com/</id>
+  <link href="www.ilovesusu.com/"/>
+  <updated>2019-04-25T11:57:07.928Z</updated>
+  <id>www.ilovesusu.com/</id>
   
   <author>
     <name>Susu</name>
@@ -17,9 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>为你的ss提速之阿里云中转</title>
+    <link href="www.ilovesusu.com/2019/04/25/%E4%B8%BA%E4%BD%A0%E7%9A%84ss%E6%8F%90%E9%80%9F%E4%B9%8B%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%AD%E8%BD%AC/"/>
+    <id>www.ilovesusu.com/2019/04/25/为你的ss提速之阿里云中转/</id>
+    <published>2019-04-25T08:47:19.000Z</published>
+    <updated>2019-04-25T11:57:07.928Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="开启IP-FORWARD"><a href="#开启IP-FORWARD" class="headerlink" title="开启IP_FORWARD"></a>开启IP_FORWARD</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br><span class="line"><span class="comment">#在文件末添加以下一行（如已有则不必添加）</span></span><br><span class="line">net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure><h2 id="使用IPTABLES，转发TCP、UDP流量"><a href="#使用IPTABLES，转发TCP、UDP流量" class="headerlink" title="使用IPTABLES，转发TCP、UDP流量"></a>使用IPTABLES，转发TCP、UDP流量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 2095 -j DNAT --to-destination 35.xx.xx.xx:2095</span><br><span class="line">iptables -t nat -A POSTROUTING -p tcp -d 35.xx.xx.xx --dport 2095 -j SNAT --to-source 172.xx.xx.xx</span><br><span class="line"></span><br><span class="line">iptables -t nat -A PREROUTING -p udp --dport 2095 -j DNAT --to-destination 35.xx.xx.xx:2095</span><br><span class="line">iptables -t nat -A POSTROUTING -p udp -d 35.xx.xx.xx --dport 2095 -j SNAT --to-source 172.xx.xx.xx</span><br></pre></td></tr></table></figure><p>其中 35.xx.xx.xx:2095 是ss服务器的IP与端口，172.xx.xx.xx是阿里云ECS的内网IP。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;开启IP-FORWARD&quot;&gt;&lt;a href=&quot;#开启IP-FORWARD&quot; class=&quot;headerlink&quot; title=&quot;开启IP_FORWARD&quot;&gt;&lt;/a&gt;开启IP_FORWARD&lt;/h2&gt;&lt;figure class=&quot;
+      
+    
+    </summary>
+    
+      <category term="xx" scheme="www.ilovesusu.com/categories/xx/"/>
+    
+    
+      <category term="xx" scheme="www.ilovesusu.com/tags/xx/"/>
+    
+  </entry>
+  
+  <entry>
     <title>du与df查看已使用空间不一致的原因及解决办法</title>
-    <link href="http://www.ilovesusu.com/2019/04/13/du%E4%B8%8Edf%E6%9F%A5%E7%9C%8B%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-    <id>http://www.ilovesusu.com/2019/04/13/du与df查看已使用空间不一致的原因及解决办法/</id>
+    <link href="www.ilovesusu.com/2019/04/13/du%E4%B8%8Edf%E6%9F%A5%E7%9C%8B%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>www.ilovesusu.com/2019/04/13/du与df查看已使用空间不一致的原因及解决办法/</id>
     <published>2019-04-13T06:58:42.000Z</published>
     <updated>2019-04-13T07:13:40.702Z</updated>
     
@@ -31,17 +57,17 @@
     
     </summary>
     
-      <category term="xx" scheme="http://www.ilovesusu.com/categories/xx/"/>
+      <category term="xx" scheme="www.ilovesusu.com/categories/xx/"/>
     
     
-      <category term="xx" scheme="http://www.ilovesusu.com/tags/xx/"/>
+      <category term="xx" scheme="www.ilovesusu.com/tags/xx/"/>
     
   </entry>
   
   <entry>
     <title>Linux内核优化？！看我就完了</title>
-    <link href="http://www.ilovesusu.com/2019/02/18/Linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96%EF%BC%9F%EF%BC%81%E5%B9%B2%E5%B0%B1%E5%AE%8C%E4%BA%86/"/>
-    <id>http://www.ilovesusu.com/2019/02/18/Linux内核优化？！干就完了/</id>
+    <link href="www.ilovesusu.com/2019/02/18/Linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96%EF%BC%9F%EF%BC%81%E5%B9%B2%E5%B0%B1%E5%AE%8C%E4%BA%86/"/>
+    <id>www.ilovesusu.com/2019/02/18/Linux内核优化？！干就完了/</id>
     <published>2019-02-18T03:31:52.000Z</published>
     <updated>2019-03-08T08:01:09.566Z</updated>
     
@@ -57,17 +83,17 @@
     
     </summary>
     
-      <category term="xx" scheme="http://www.ilovesusu.com/categories/xx/"/>
+      <category term="xx" scheme="www.ilovesusu.com/categories/xx/"/>
     
     
-      <category term="xx" scheme="http://www.ilovesusu.com/tags/xx/"/>
+      <category term="xx" scheme="www.ilovesusu.com/tags/xx/"/>
     
   </entry>
   
   <entry>
     <title>数据库完全备份还原及还原某一张表</title>
-    <link href="http://www.ilovesusu.com/2019/01/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8/"/>
-    <id>http://www.ilovesusu.com/2019/01/16/数据库完全备份还原及还原某一张表/</id>
+    <link href="www.ilovesusu.com/2019/01/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E5%85%A8%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E5%8F%8A%E8%BF%98%E5%8E%9F%E6%9F%90%E4%B8%80%E5%BC%A0%E8%A1%A8/"/>
+    <id>www.ilovesusu.com/2019/01/16/数据库完全备份还原及还原某一张表/</id>
     <published>2019-01-16T07:49:04.000Z</published>
     <updated>2019-02-25T02:53:02.339Z</updated>
     
@@ -79,17 +105,17 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/categories/Debian/"/>
     
     
-      <category term="数据库" scheme="http://www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
   <entry>
     <title>联想Y7000等硬件开关导致wifi不可用的解决方案</title>
-    <link href="http://www.ilovesusu.com/2018/12/12/%E8%81%94%E6%83%B3Y7000%E7%AD%89%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%85%B3%E5%AF%BC%E8%87%B4wifi%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://www.ilovesusu.com/2018/12/12/联想Y7000等硬件开关导致wifi不可用的解决方案/</id>
+    <link href="www.ilovesusu.com/2018/12/12/%E8%81%94%E6%83%B3Y7000%E7%AD%89%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%85%B3%E5%AF%BC%E8%87%B4wifi%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>www.ilovesusu.com/2018/12/12/联想Y7000等硬件开关导致wifi不可用的解决方案/</id>
     <published>2018-12-12T09:31:54.000Z</published>
     <updated>2018-12-15T07:09:23.885Z</updated>
     
@@ -101,19 +127,19 @@
     
     </summary>
     
-      <category term="Android" scheme="http://www.ilovesusu.com/categories/Android/"/>
+      <category term="Android" scheme="www.ilovesusu.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://www.ilovesusu.com/tags/Android/"/>
+      <category term="Android" scheme="www.ilovesusu.com/tags/Android/"/>
     
-      <category term="SQLite" scheme="http://www.ilovesusu.com/tags/SQLite/"/>
+      <category term="SQLite" scheme="www.ilovesusu.com/tags/SQLite/"/>
     
   </entry>
   
   <entry>
     <title>从零开始,学习web前端之前端发展史</title>
-    <link href="http://www.ilovesusu.com/2018/12/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8B%E5%89%8D%E7%AB%AF%E5%8F%91%E5%B1%95%E5%8F%B2/"/>
-    <id>http://www.ilovesusu.com/2018/12/10/从零开始-学习web前端之前端发展史/</id>
+    <link href="www.ilovesusu.com/2018/12/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8B%E5%89%8D%E7%AB%AF%E5%8F%91%E5%B1%95%E5%8F%B2/"/>
+    <id>www.ilovesusu.com/2018/12/10/从零开始-学习web前端之前端发展史/</id>
     <published>2018-12-10T12:19:30.000Z</published>
     <updated>2018-12-10T12:19:30.730Z</updated>
     
@@ -126,8 +152,8 @@
   
   <entry>
     <title>详细解释 Payload Shellcode Exploit Poc</title>
-    <link href="http://www.ilovesusu.com/2018/12/10/%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-Payload-Shellcode-Exploit-Poc/"/>
-    <id>http://www.ilovesusu.com/2018/12/10/详细解释-Payload-Shellcode-Exploit-Poc/</id>
+    <link href="www.ilovesusu.com/2018/12/10/%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-Payload-Shellcode-Exploit-Poc/"/>
+    <id>www.ilovesusu.com/2018/12/10/详细解释-Payload-Shellcode-Exploit-Poc/</id>
     <published>2018-12-10T12:17:05.000Z</published>
     <updated>2018-12-23T09:50:12.285Z</updated>
     
@@ -142,21 +168,21 @@
     
     </summary>
     
-      <category term="网络安全" scheme="http://www.ilovesusu.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+      <category term="网络安全" scheme="www.ilovesusu.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
     
-      <category term="Payload" scheme="http://www.ilovesusu.com/tags/Payload/"/>
+      <category term="Payload" scheme="www.ilovesusu.com/tags/Payload/"/>
     
-      <category term="Shellcode" scheme="http://www.ilovesusu.com/tags/Shellcode/"/>
+      <category term="Shellcode" scheme="www.ilovesusu.com/tags/Shellcode/"/>
     
-      <category term="Exploit" scheme="http://www.ilovesusu.com/tags/Exploit/"/>
+      <category term="Exploit" scheme="www.ilovesusu.com/tags/Exploit/"/>
     
   </entry>
   
   <entry>
     <title>服务器扩容数据盘</title>
-    <link href="http://www.ilovesusu.com/2018/11/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
-    <id>http://www.ilovesusu.com/2018/11/24/服务器扩容数据盘/</id>
+    <link href="www.ilovesusu.com/2018/11/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
+    <id>www.ilovesusu.com/2018/11/24/服务器扩容数据盘/</id>
     <published>2018-11-24T12:17:16.000Z</published>
     <updated>2018-12-15T07:10:00.625Z</updated>
     
@@ -168,27 +194,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="服务器扩容" scheme="http://www.ilovesusu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9/"/>
+      <category term="服务器扩容" scheme="www.ilovesusu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%AE%B9/"/>
     
-      <category term="数据盘" scheme="http://www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
+      <category term="数据盘" scheme="www.ilovesusu.com/tags/%E6%95%B0%E6%8D%AE%E7%9B%98/"/>
     
   </entry>
   
   <entry>
     <title>Debian 配置 Mysql 数据库主从，读写分离，负载均衡</title>
-    <link href="http://www.ilovesusu.com/2018/11/21/Debian-%E9%85%8D%E7%BD%AE-Mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%EF%BC%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    <id>http://www.ilovesusu.com/2018/11/21/Debian-配置-Mysql-数据库主从，读写分离，负载均衡/</id>
+    <link href="www.ilovesusu.com/2018/11/21/Debian-%E9%85%8D%E7%BD%AE-Mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%EF%BC%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>www.ilovesusu.com/2018/11/21/Debian-配置-Mysql-数据库主从，读写分离，负载均衡/</id>
     <published>2018-11-21T12:17:30.000Z</published>
     <updated>2018-12-15T07:09:54.017Z</updated>
     
@@ -207,29 +233,29 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Mysql主从" scheme="http://www.ilovesusu.com/tags/Mysql%E4%B8%BB%E4%BB%8E/"/>
+      <category term="Mysql主从" scheme="www.ilovesusu.com/tags/Mysql%E4%B8%BB%E4%BB%8E/"/>
     
-      <category term="读写分离" scheme="http://www.ilovesusu.com/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/"/>
+      <category term="读写分离" scheme="www.ilovesusu.com/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/"/>
     
-      <category term="负载均衡" scheme="http://www.ilovesusu.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+      <category term="负载均衡" scheme="www.ilovesusu.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
   </entry>
   
   <entry>
     <title>Debian LNMP安装及优化</title>
-    <link href="http://www.ilovesusu.com/2018/11/18/Debian-LNMP%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BC%98%E5%8C%96/"/>
-    <id>http://www.ilovesusu.com/2018/11/18/Debian-LNMP安装及优化/</id>
+    <link href="www.ilovesusu.com/2018/11/18/Debian-LNMP%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BC%98%E5%8C%96/"/>
+    <id>www.ilovesusu.com/2018/11/18/Debian-LNMP安装及优化/</id>
     <published>2018-11-18T10:56:13.000Z</published>
     <updated>2018-12-21T11:51:43.606Z</updated>
     
@@ -241,21 +267,21 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/categories/Debian/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/categories/Debian/Linux/"/>
     
     
-      <category term="LNMP安装" scheme="http://www.ilovesusu.com/tags/LNMP%E5%AE%89%E8%A3%85/"/>
+      <category term="LNMP安装" scheme="www.ilovesusu.com/tags/LNMP%E5%AE%89%E8%A3%85/"/>
     
-      <category term="LNMP优化" scheme="http://www.ilovesusu.com/tags/LNMP%E4%BC%98%E5%8C%96/"/>
+      <category term="LNMP优化" scheme="www.ilovesusu.com/tags/LNMP%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>Debian Gun/Linux 搭建pyqt5开发环境</title>
-    <link href="http://www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>http://www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/</id>
+    <link href="www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/</id>
     <published>2018-10-10T10:55:03.000Z</published>
     <updated>2018-12-15T14:02:12.167Z</updated>
     
@@ -267,23 +293,23 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/categories/Debian/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/categories/Debian/Linux/"/>
     
     
-      <category term="pyqt5" scheme="http://www.ilovesusu.com/tags/pyqt5/"/>
+      <category term="pyqt5" scheme="www.ilovesusu.com/tags/pyqt5/"/>
     
-      <category term="搭建pyqt5开发环境" scheme="http://www.ilovesusu.com/tags/%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+      <category term="搭建pyqt5开发环境" scheme="www.ilovesusu.com/tags/%E6%90%AD%E5%BB%BApyqt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
-      <category term="开发环境" scheme="http://www.ilovesusu.com/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+      <category term="开发环境" scheme="www.ilovesusu.com/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
   </entry>
   
   <entry>
     <title>从零开始,学习web前端之HTML/CSS 速写神器：Emmet(转载)</title>
-    <link href="http://www.ilovesusu.com/2018/09/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8BHTML-CSS-%E9%80%9F%E5%86%99%E7%A5%9E%E5%99%A8%EF%BC%9AEmmet-%E8%BD%AC%E8%BD%BD/"/>
-    <id>http://www.ilovesusu.com/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/</id>
+    <link href="www.ilovesusu.com/2018/09/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B-%E5%AD%A6%E4%B9%A0web%E5%89%8D%E7%AB%AF%E4%B9%8BHTML-CSS-%E9%80%9F%E5%86%99%E7%A5%9E%E5%99%A8%EF%BC%9AEmmet-%E8%BD%AC%E8%BD%BD/"/>
+    <id>www.ilovesusu.com/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/</id>
     <published>2018-09-12T03:46:41.000Z</published>
     <updated>2018-12-15T14:50:46.024Z</updated>
     
@@ -296,25 +322,25 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/categories/Debian/"/>
     
-      <category term="编程" scheme="http://www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/"/>
     
-      <category term="前端" scheme="http://www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="www.ilovesusu.com/categories/Debian/%E7%BC%96%E7%A8%8B/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="css" scheme="http://www.ilovesusu.com/tags/css/"/>
+      <category term="css" scheme="www.ilovesusu.com/tags/css/"/>
     
-      <category term="web" scheme="http://www.ilovesusu.com/tags/web/"/>
+      <category term="web" scheme="www.ilovesusu.com/tags/web/"/>
     
-      <category term="Emmet" scheme="http://www.ilovesusu.com/tags/Emmet/"/>
+      <category term="Emmet" scheme="www.ilovesusu.com/tags/Emmet/"/>
     
   </entry>
   
   <entry>
     <title>Debian 搭建RTMP/HLS流媒体服务器</title>
-    <link href="http://www.ilovesusu.com/2018/06/07/Debian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</id>
+    <link href="www.ilovesusu.com/2018/06/07/Debian-%E6%90%AD%E5%BB%BARTMP-HLS%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/</id>
     <published>2018-06-07T02:13:35.000Z</published>
     <updated>2019-03-28T02:29:35.064Z</updated>
     
@@ -326,27 +352,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="RTMP/HLS" scheme="http://www.ilovesusu.com/tags/RTMP-HLS/"/>
+      <category term="RTMP/HLS" scheme="www.ilovesusu.com/tags/RTMP-HLS/"/>
     
-      <category term="直播" scheme="http://www.ilovesusu.com/tags/%E7%9B%B4%E6%92%AD/"/>
+      <category term="直播" scheme="www.ilovesusu.com/tags/%E7%9B%B4%E6%92%AD/"/>
     
-      <category term="流媒体服务器" scheme="http://www.ilovesusu.com/tags/%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+      <category term="流媒体服务器" scheme="www.ilovesusu.com/tags/%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>debian9 安装 openvas9</title>
-    <link href="http://www.ilovesusu.com/2018/02/02/debian9-%E5%AE%89%E8%A3%85-openvas9/"/>
-    <id>http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/</id>
+    <link href="www.ilovesusu.com/2018/02/02/debian9-%E5%AE%89%E8%A3%85-openvas9/"/>
+    <id>www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/</id>
     <published>2018-02-02T09:32:53.000Z</published>
     <updated>2018-12-23T09:49:36.417Z</updated>
     
@@ -358,19 +384,19 @@
     
     </summary>
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/categories/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/categories/Debian/"/>
     
     
-      <category term="Openvas" scheme="http://www.ilovesusu.com/tags/Openvas/"/>
+      <category term="Openvas" scheme="www.ilovesusu.com/tags/Openvas/"/>
     
-      <category term="扫描器" scheme="http://www.ilovesusu.com/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/"/>
+      <category term="扫描器" scheme="www.ilovesusu.com/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>Nvidia optirun|primusrun 缺少 libGL.so.1 解决方案</title>
-    <link href="http://www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-%E7%BC%BA%E5%B0%91-libGL-so-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/</id>
+    <link href="www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-%E7%BC%BA%E5%B0%91-libGL-so-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/</id>
     <published>2017-11-03T14:22:06.000Z</published>
     <updated>2018-12-15T07:09:12.720Z</updated>
     
@@ -382,27 +408,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Nvidiao" scheme="http://www.ilovesusu.com/tags/Nvidiao/"/>
+      <category term="Nvidiao" scheme="www.ilovesusu.com/tags/Nvidiao/"/>
     
-      <category term="ptirun|primusrun" scheme="http://www.ilovesusu.com/tags/ptirun-primusrun/"/>
+      <category term="ptirun|primusrun" scheme="www.ilovesusu.com/tags/ptirun-primusrun/"/>
     
   </entry>
   
   <entry>
     <title>mysql|mariaDB 安装详细教程</title>
-    <link href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
-    <id>http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-安装详细教程/</id>
+    <link href="www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
+    <id>www.ilovesusu.com/2017/10/30/mysql-mariaDB-安装详细教程/</id>
     <published>2017-10-30T14:10:00.000Z</published>
     <updated>2019-03-15T11:08:22.382Z</updated>
     
@@ -414,23 +440,23 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>mysql|mariaDB 问题解决方案</title>
-    <link href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-问题解决方案/</id>
+    <link href="www.ilovesusu.com/2017/10/30/mysql-mariaDB-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>www.ilovesusu.com/2017/10/30/mysql-mariaDB-问题解决方案/</id>
     <published>2017-10-30T13:53:44.000Z</published>
     <updated>2018-12-16T06:16:01.673Z</updated>
     
@@ -442,23 +468,23 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>nvidia Bumblebee don&#39;t work</title>
-    <link href="http://www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/"/>
-    <id>http://www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/</id>
+    <link href="www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/"/>
+    <id>www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/</id>
     <published>2017-09-16T03:25:30.000Z</published>
     <updated>2018-12-15T07:09:12.720Z</updated>
     
@@ -472,25 +498,25 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="Bumblebee" scheme="http://www.ilovesusu.com/tags/Bumblebee/"/>
+      <category term="Bumblebee" scheme="www.ilovesusu.com/tags/Bumblebee/"/>
     
   </entry>
   
   <entry>
     <title>mysql学习总结</title>
-    <link href="http://www.ilovesusu.com/2017/09/11/mysql%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://www.ilovesusu.com/2017/09/11/mysql学习总结/</id>
+    <link href="www.ilovesusu.com/2017/09/11/mysql%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    <id>www.ilovesusu.com/2017/09/11/mysql学习总结/</id>
     <published>2017-09-11T02:03:36.000Z</published>
     <updated>2018-12-15T07:09:12.716Z</updated>
     
@@ -502,27 +528,27 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
-      <category term="mysql" scheme="http://www.ilovesusu.com/tags/mysql/"/>
+      <category term="mysql" scheme="www.ilovesusu.com/tags/mysql/"/>
     
-      <category term="mariadb" scheme="http://www.ilovesusu.com/tags/mariadb/"/>
+      <category term="mariadb" scheme="www.ilovesusu.com/tags/mariadb/"/>
     
   </entry>
   
   <entry>
     <title>Debian下 Genymotion黑屏解决方案总汇</title>
-    <link href="http://www.ilovesusu.com/2017/08/13/Debian%E4%B8%8B-Genymotion%E9%BB%91%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%80%BB%E6%B1%87/"/>
-    <id>http://www.ilovesusu.com/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/</id>
+    <link href="www.ilovesusu.com/2017/08/13/Debian%E4%B8%8B-Genymotion%E9%BB%91%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%80%BB%E6%B1%87/"/>
+    <id>www.ilovesusu.com/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/</id>
     <published>2017-08-13T09:29:00.000Z</published>
     <updated>2018-12-15T07:09:12.724Z</updated>
     
@@ -534,50 +560,16 @@
     
     </summary>
     
-      <category term="Debian GNU/Linux" scheme="http://www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
+      <category term="Debian GNU/Linux" scheme="www.ilovesusu.com/categories/Debian-GNU-Linux/"/>
     
     
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
+      <category term="Debian" scheme="www.ilovesusu.com/tags/Debian/"/>
     
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
+      <category term="Testing/Stable" scheme="www.ilovesusu.com/tags/Testing-Stable/"/>
     
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="www.ilovesusu.com/tags/Ubuntu/"/>
     
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Debian 8 安装Shadowsocks-libev</title>
-    <link href="http://www.ilovesusu.com/2016/11/28/Debian-8-%E5%AE%89%E8%A3%85Shadowsocks-libev/"/>
-    <id>http://www.ilovesusu.com/2016/11/28/Debian-8-安装Shadowsocks-libev/</id>
-    <published>2016-11-28T14:24:06.000Z</published>
-    <updated>2018-12-15T07:09:12.720Z</updated>
-    
-    <content type="html"><![CDATA[<p>现在我将向您展示如何在Debian 8安装shadowsocks-libev。由于它是用C编写的，所以它消耗非常少的内存，非常适合嵌入式设备和低端盒。<br><a id="more"></a><br>因为Debian8 默认是没有shadowsocks-libev包的。<br>查看所有架构下的<a href="https://packages.debian.org/search?suite=all&amp;arch=any&amp;searchon=names&amp;keywords=shadowsocks-libev" target="_blank" rel="noopener">shadowsocks-libev</a></p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>听老大说shadowsocks.org 提供的 deb 源严重过时了，最好不要用。建议修改。</strong>。</p><p><del>首先，获取GPG公钥，然后用apt-键导入到系统中。</del></p><blockquote><p>wget <a href="http://shadowsocks.org/debian/1D27208A.gpg" target="_blank" rel="noopener">http://shadowsocks.org/debian/1D27208A.gpg</a><br>sudo apt-key add 1D27208A.gpg</p></blockquote><p><del>现在打开/etc/apt/sources.list文件。</del></p><blockquote><p>sudo vi /etc/apt/sources.list</p></blockquote><p><del>将下列行放置在文件的结尾。</del></p><blockquote><p>#Debian 8<br>deb <a href="http://shadowsocks.org/debian" target="_blank" rel="noopener">http://shadowsocks.org/debian</a> wheezy main</p></blockquote><p><del>保存并关闭文件。现在更新本地包索引并安装shadowsocks-libev。</del></p><blockquote><p>sudo apt-get update;sudo apt-get install shadowsocks-libev~~</p></blockquote><p style="color:red;font-size:36px">看这里</p><p>所以，现在更新新的办法，就是使用Debian Backports。<br>切换为root并且使用你最顺手的编辑器打开文件 /etc/apt/sources.list :</p><blockquote><p>susu@debian:~$ su<br>Password:<br>debian:/home/human# nano /etc/apt/sources.list</p></blockquote><p>增加以下几行:</p><blockquote><p># Backports repository<br>deb <a href="http://backports.debian.org/debian-backports" target="_blank" rel="noopener">http://backports.debian.org/debian-backports</a> squeeze-backports main contrib non-free</p></blockquote><p>如果你是开源软件的狂热爱好者,你可能会想要移除 contrib 和 non-free 两个部分</p><p>既然你已经增加了软件库, 更新APT的缓存来包含在backports目录列表中的可用软件:</p><blockquote><p>debian:/home/susu# apt-get update</p></blockquote><p>然后就直接安装：</p><blockquote><p>apt-get install shadowsocks-libev</p></blockquote><h2 id="配置shadowsocks-libev"><a href="#配置shadowsocks-libev" class="headerlink" title="配置shadowsocks-libev"></a>配置shadowsocks-libev</h2><p>配置文件为：/etc/shadowsocks-libev/config.json，格式说明：</p><blockquote><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"server"</span>:<span class="string">"example.com or X.X.X.X"</span>,</span><br><span class="line"><span class="attr">"server_port"</span>:<span class="number">443</span>,</span><br><span class="line"><span class="attr">"password"</span>:<span class="string">"password"</span>,</span><br><span class="line"><span class="attr">"method"</span>:<span class="string">"rc4-md5"</span>,</span><br><span class="line"><span class="attr">"timeout"</span>:<span class="number">60</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote><p>其中：</p><blockquote><p>server：主机IP<br>server_port：服务器监听端口<br>password：密码<br>method：加密方式 默认为table,其他有rc4,rc4-md5,aes-128-cfb, aes-192-cfb, aes-256-cfb,bf-cfb, camellia-128-cfb, camellia-192-cfb,camellia-256-cfb, cast5-cfb, des-cfb</p></blockquote><p>多用户：</p><blockquote><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> <span class="attr">"server"</span>:<span class="string">"my_server_ip"</span>，</span><br><span class="line"> <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line"> <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">     <span class="attr">"8381"</span>: <span class="string">"foobar1"</span>,</span><br><span class="line">     <span class="attr">"8382"</span>: <span class="string">"foobar2"</span>,</span><br><span class="line">     <span class="attr">"8383"</span>: <span class="string">"foobar3"</span>,</span><br><span class="line">     <span class="attr">"8384"</span>: <span class="string">"foobar4"</span></span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line"> <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line"> <span class="attr">"fast_open"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote><p>配置完成以后需要重启服务：</p><blockquote><p>sudo service shadowsocks-libev restart</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;现在我将向您展示如何在Debian 8安装shadowsocks-libev。由于它是用C编写的，所以它消耗非常少的内存，非常适合嵌入式设备和低端盒。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="科学上网" scheme="http://www.ilovesusu.com/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    
-    
-      <category term="Debian" scheme="http://www.ilovesusu.com/tags/Debian/"/>
-    
-      <category term="Testing/Stable" scheme="http://www.ilovesusu.com/tags/Testing-Stable/"/>
-    
-      <category term="Ubuntu" scheme="http://www.ilovesusu.com/tags/Ubuntu/"/>
-    
-      <category term="Linux" scheme="http://www.ilovesusu.com/tags/Linux/"/>
-    
-      <category term="科学上网" scheme="http://www.ilovesusu.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    
-      <category term="shadowsocks-libev" scheme="http://www.ilovesusu.com/tags/shadowsocks-libev/"/>
-    
-      <category term="shadowsocks" scheme="http://www.ilovesusu.com/tags/shadowsocks/"/>
+      <category term="Linux" scheme="www.ilovesusu.com/tags/Linux/"/>
     
   </entry>
   

@@ -46,23 +46,21 @@
 
 
 
-
-
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+  <link rel="mask-icon" href="/favicon.ico?v=7.1.0" color="#222">
 
 
 
@@ -75,8 +73,10 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -101,7 +101,7 @@
   <meta name="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Susu的博客">
-<meta property="og:url" content="http://www.ilovesusu.com/page/4/index.html">
+<meta property="og:url" content="www.ilovesusu.com/page/4/index.html">
 <meta property="og:site_name" content="Susu的博客">
 <meta property="og:description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
 <meta property="og:locale" content="zh-CN">
@@ -115,8 +115,9 @@
 
 
 
-
-  <link rel="canonical" href="http://www.ilovesusu.com/page/4/">
+  
+  
+  <link rel="canonical" href="www.ilovesusu.com/page/4/">
 
 
 
@@ -131,14 +132,6 @@
 
 
 
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-130654260-1');
-  </script>
 
 
 
@@ -414,7 +407,201 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Susu">
+      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
+      <meta itemprop="image" content="/./avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susu的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/" class="post-title-link" itemprop="url">Debian 真丶NvidiaGraphicsDrivers安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-25 15:58:48" itemprop="dateCreated datePublished" datetime="2016-08-25T15:58:48+08:00">2016-08-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 15:09:23" itemprop="dateModified" datetime="2018-12-15T15:09:23+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian-GNU-Linux/" itemprop="url" rel="index"><span itemprop="name">Debian GNU/Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div style="color:#F00">二次完善与2017年 02月 14日 星期二 21:34:57 CST</div>
+
+<p>经过又一段时间的查阅文章,真是断断续续搞了n久,不过终于将驱动这块搞定了,妈妈再也不用担心我的Debian黑屏了.<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/08/25/Debian-真丶NvidiaGraphicsDrivers安装/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -503,13 +690,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/24/Android-Studio更新时不小心点了ignore（忽略）解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -602,7 +793,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/08/24/Android-Studio中好用的插件收集-陆续更新/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/24/Android-Studio中好用的插件收集-陆续更新/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -691,13 +882,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/08/24/Android-Studio中好用的插件收集-陆续更新/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/24/Android-Studio中好用的插件收集-陆续更新/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/24/Android-Studio中好用的插件收集-陆续更新/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -790,7 +985,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/08/22/Debian下可用的翻墙工具教程/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/22/Debian下可用的翻墙工具教程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -879,13 +1074,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/08/22/Debian下可用的翻墙工具教程/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Debian下可用的翻墙工具教程/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Debian下可用的翻墙工具教程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -978,7 +1177,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/08/22/Chrome中好用的插件收集-陆续更新/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/22/Chrome中好用的插件收集-陆续更新/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1067,13 +1266,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/08/22/Chrome中好用的插件收集-陆续更新/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Chrome中好用的插件收集-陆续更新/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Chrome中好用的插件收集-陆续更新/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1166,7 +1369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/08/22/Debian安装VirtualBox增强工具/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/08/22/Debian安装VirtualBox增强工具/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1255,13 +1458,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/08/22/Debian安装VirtualBox增强工具/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Debian安装VirtualBox增强工具/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/08/22/Debian安装VirtualBox增强工具/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1354,7 +1561,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/06/30/新版apt简单使用指南/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/06/30/新版apt简单使用指南/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1443,13 +1650,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/06/30/新版apt简单使用指南/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/06/30/新版apt简单使用指南/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/30/新版apt简单使用指南/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1542,7 +1753,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/06/29/Android-编码规范/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/06/29/Android-编码规范/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1631,13 +1842,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/06/29/Android-编码规范/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/06/29/Android-编码规范/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/29/Android-编码规范/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1730,7 +1945,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/06/06/eclipse-svn插件subclipse安装报Failed-to-load-JavaHL-Library错误的解决方案/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/06/06/eclipse-svn插件subclipse安装报Failed-to-load-JavaHL-Library错误的解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1819,13 +2034,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/06/06/eclipse-svn插件subclipse安装报Failed-to-load-JavaHL-Library错误的解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/06/06/eclipse-svn插件subclipse安装报Failed-to-load-JavaHL-Library错误的解决方案/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/06/eclipse-svn插件subclipse安装报Failed-to-load-JavaHL-Library错误的解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1918,7 +2137,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/06/02/Android-基础之侧滑菜单的使用/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2016/06/02/Android-基础之侧滑菜单的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -2007,13 +2226,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2016/06/02/Android-基础之侧滑菜单的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/06/02/Android-基础之侧滑菜单的使用/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/02/Android-基础之侧滑菜单的使用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2091,188 +2314,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/06/01/Android-四大组件之Activity/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Susu">
-      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
-      <meta itemprop="image" content="/./avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Susu的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/06/01/Android-四大组件之Activity/" class="post-title-link" itemprop="url">Android 四大组件之Activity</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-06-01 21:25:05" itemprop="dateCreated datePublished" datetime="2016-06-01T21:25:05+08:00">2016-06-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 15:09:23" itemprop="dateModified" datetime="2018-12-15T15:09:23+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian-GNU-Linux/" itemprop="url" rel="index"><span itemprop="name">Debian GNU/Linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/06/01/Android-四大组件之Activity/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/06/01/Android-四大组件之Activity/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h2 id="二级菜单"><a href="#二级菜单" class="headerlink" title="二级菜单"></a>二级菜单</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2298,7 +2339,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -2312,7 +2352,7 @@
               <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
             
               <p class="site-author-name" itemprop="name">Susu</p>
-              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+              <div class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</div>
           </div>
 
           
@@ -2322,7 +2362,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2332,7 +2372,11 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
                     
                     
                       
@@ -2367,7 +2411,11 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
                     
                     
                       
@@ -2538,6 +2586,8 @@
           
 
           
+
+          
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
@@ -2590,6 +2640,7 @@
           
              <div class="cc-license motion-element" itemprop="license">
               
+              
                 
               
               
@@ -2629,6 +2680,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -2729,35 +2781,37 @@
   
 
 
-  <script src="/js/src/utils.js?v=6.7.0"></script>
+  <script src="/js/utils.js?v=7.1.0"></script>
 
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+  <script src="/js/motion.js?v=7.1.0"></script>
 
 
 
   
-
   
 
 
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
 
 
 
   
 
+  
 
 
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
   
 
 <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
@@ -2769,7 +2823,7 @@
 <script>
   var GUEST = ['nick', 'mail', 'link'];
   var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function (item) {
+  guest = guest.split(',').filter(function(item) {
     return GUEST.indexOf(item) > -1;
   });
   new Valine({
@@ -2782,14 +2836,16 @@
     avatar: 'wavatar',
     meta: guest,
     pageSize: '10' || 10,
-    visitor: false
+    visitor: false,
+    lang: '' || 'zh-cn'
   });
 </script>
 
 
 
-  
 
+
+  
   <script>
     // Popup Window;
     var isfetched = false;
@@ -3113,6 +3169,8 @@
 
 
 
+
+  
 
   
 

@@ -46,23 +46,21 @@
 
 
 
-
-
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=6.7.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.7.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=7.1.0">
 
 
-  <link rel="mask-icon" href="/favicon.ico?v=6.7.0" color="#222">
+  <link rel="mask-icon" href="/favicon.ico?v=7.1.0" color="#222">
 
 
 
@@ -75,8 +73,10 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -101,7 +101,7 @@
   <meta name="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Susu的博客">
-<meta property="og:url" content="http://www.ilovesusu.com/page/2/index.html">
+<meta property="og:url" content="www.ilovesusu.com/page/2/index.html">
 <meta property="og:site_name" content="Susu的博客">
 <meta property="og:description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
 <meta property="og:locale" content="zh-CN">
@@ -115,8 +115,9 @@
 
 
 
-
-  <link rel="canonical" href="http://www.ilovesusu.com/page/2/">
+  
+  
+  <link rel="canonical" href="www.ilovesusu.com/page/2/">
 
 
 
@@ -131,14 +132,6 @@
 
 
 
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130654260-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-130654260-1');
-  </script>
 
 
 
@@ -414,7 +407,206 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Susu">
+      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
+      <meta itemprop="image" content="/./avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susu的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/" class="post-title-link" itemprop="url">Debian Gun/Linux 搭建pyqt5开发环境</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-10 18:55:03" itemprop="dateCreated datePublished" datetime="2018-10-10T18:55:03+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 22:02:12" itemprop="dateModified" datetime="2018-12-15T22:02:12+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian/" itemprop="url" rel="index"><span itemprop="name">Debian</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Debian/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>PyQt是Python GUI编程可选方案之一。可以用来代替Python内置的Tkinter。Python可以的其他GUI库有PyGTK、wxPython等。<br>PyQt是Qt库的python绑定,QT还有可用于 C、Java、Perl 和 Ruby 的绑定。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/10/10/Debian-Gun-Linux-搭建pyqt5开发环境/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -517,13 +709,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/12/从零开始-学习web前端之HTML-CSS-速写神器：Emmet-转载/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -617,7 +813,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -706,13 +902,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/07/Debian-搭建RTMP-HLS流媒体服务器/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -805,7 +1005,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2018/02/02/debian9-安装-openvas9/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -894,13 +1094,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2018/02/02/debian9-安装-openvas9/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/02/02/debian9-安装-openvas9/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/02/debian9-安装-openvas9/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -993,7 +1197,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1082,13 +1286,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/11/03/Nvidia-optirun-primusrun-缺少-libGL-so-1-解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1181,7 +1389,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-安装详细教程/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/10/30/mysql-mariaDB-安装详细教程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1270,13 +1478,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/10/30/mysql-mariaDB-安装详细教程/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/10/30/mysql-mariaDB-安装详细教程/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/30/mysql-mariaDB-安装详细教程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1369,7 +1581,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/10/30/mysql-mariaDB-问题解决方案/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/10/30/mysql-mariaDB-问题解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1458,13 +1670,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/10/30/mysql-mariaDB-问题解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/10/30/mysql-mariaDB-问题解决方案/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/30/mysql-mariaDB-问题解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1557,7 +1773,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/09/16/nvidia-Bumblebee-don-t-work/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1646,13 +1862,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/09/16/nvidia-Bumblebee-don-t-work/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/09/16/nvidia-Bumblebee-don-t-work/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/09/16/nvidia-Bumblebee-don-t-work/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1747,7 +1967,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/09/11/mysql学习总结/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/09/11/mysql学习总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -1836,13 +2056,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/09/11/mysql学习总结/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/09/11/mysql学习总结/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/09/11/mysql学习总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1935,7 +2159,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/">
+    <link itemprop="mainEntityOfPage" href="www.ilovesusu.com/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Susu">
@@ -2024,13 +2248,17 @@
 
           
             
+            
+              
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
                 <a href="/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/08/13/Debian下-Genymotion黑屏解决方案总汇/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2108,194 +2336,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ilovesusu.com/2016/11/28/Debian-8-安装Shadowsocks-libev/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Susu">
-      <meta itemprop="description" content="兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。">
-      <meta itemprop="image" content="/./avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Susu的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/11/28/Debian-8-安装Shadowsocks-libev/" class="post-title-link" itemprop="url">Debian 8 安装Shadowsocks-libev</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-11-28 22:24:06" itemprop="dateCreated datePublished" datetime="2016-11-28T22:24:06+08:00">2016-11-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 15:09:12" itemprop="dateModified" datetime="2018-12-15T15:09:12+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/科学上网/" itemprop="url" rel="index"><span itemprop="name">科学上网</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/11/28/Debian-8-安装Shadowsocks-libev/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2016/11/28/Debian-8-安装Shadowsocks-libev/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>现在我将向您展示如何在Debian 8安装shadowsocks-libev。由于它是用C编写的，所以它消耗非常少的内存，非常适合嵌入式设备和低端盒。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/11/28/Debian-8-安装Shadowsocks-libev/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2321,7 +2361,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -2335,7 +2374,7 @@
               <img class="site-author-image" itemprop="image" src="/./avatar.png" alt="Susu">
             
               <p class="site-author-name" itemprop="name">Susu</p>
-              <p class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</p>
+              <div class="site-description motion-element" itemprop="description">兴趣爱好，Web前端开发，Web安全，Android开发，Debian Linux等。。。</div>
           </div>
 
           
@@ -2345,7 +2384,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2355,7 +2394,11 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
                     
                     
                       
@@ -2390,7 +2433,11 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
                     
                     
                       
@@ -2561,6 +2608,8 @@
           
 
           
+
+          
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
@@ -2613,6 +2662,7 @@
           
              <div class="cc-license motion-element" itemprop="license">
               
+              
                 
               
               
@@ -2652,6 +2702,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -2752,35 +2803,37 @@
   
 
 
-  <script src="/js/src/utils.js?v=6.7.0"></script>
+  <script src="/js/utils.js?v=7.1.0"></script>
 
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+  <script src="/js/motion.js?v=7.1.0"></script>
 
 
 
   
-
   
 
 
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
 
 
 
   
 
+  
 
 
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
   
 
 <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
@@ -2792,7 +2845,7 @@
 <script>
   var GUEST = ['nick', 'mail', 'link'];
   var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function (item) {
+  guest = guest.split(',').filter(function(item) {
     return GUEST.indexOf(item) > -1;
   });
   new Valine({
@@ -2805,14 +2858,16 @@
     avatar: 'wavatar',
     meta: guest,
     pageSize: '10' || 10,
-    visitor: false
+    visitor: false,
+    lang: '' || 'zh-cn'
   });
 </script>
 
 
 
-  
 
+
+  
   <script>
     // Popup Window;
     var isfetched = false;
@@ -3136,6 +3191,8 @@
 
 
 
+
+  
 
   
 
